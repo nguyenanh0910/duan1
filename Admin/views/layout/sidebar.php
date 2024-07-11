@@ -126,7 +126,7 @@
 						</li>
 						<li class="nav-item">
 							<a href=".?act=tai-khoan-user" class="nav-link">
-								<i class="nav-icon far fa-list-alt"></i>
+							<i class="nav-icon far fa-user"></i>
 								<p>
 									Quản lý khách hàng
 								</p>
@@ -134,7 +134,7 @@
 						</li>
 						<li class="nav-item">
 							<a href=".?act=tai-khoan-admin" class="nav-link">
-								<i class="nav-icon far fa-list-alt"></i>
+							<i class="nav-icon far fa-address-card"></i>
 								<p>
 									Quản lý nhân viên
 								</p>

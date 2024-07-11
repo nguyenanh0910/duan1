@@ -20,7 +20,10 @@ $act = $_GET['act'] ?? '/';
 // Để bảo bảo tính chất chỉ gọi 1 hàm Controller để xử lý request thì mình sử dụng match
 
 match ($act) {
+	// danh mục
     'danh-muc' => (new AdminDanhMucController()) ->danhsachDanhMuc(),
+		'them-danh-muc' => (new AdminDanhMucController())->themDanhMuc(),
+
 		'san-pham' => (new AdminSanPhamController()) ->danhsachSanPham(),
 		'tai-khoan-user' => (new TaiKhoanUser()) ->danhsachTaiKhoanUser(),
 		'tai-khoan-admin' => (new TaiKhoanAdmin()) ->danhsachTaiKhoanAdmin(),

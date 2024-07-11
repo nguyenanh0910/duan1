@@ -18,12 +18,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Quản lý danh mục</h1>
+					<h1>Thêm mới danh mục</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Quản lý danh mục</li>
+						<li class="breadcrumb-item active">Thêm danh mục</li>
 					</ol>
 				</div>
 			</div>
@@ -34,49 +34,34 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
+				<!-- left column -->
 				<div class="col-12">
-					<div class="card">
+					<!-- general form elements -->
+					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title" style="font-size: 1.5rem;">Danh sách danh mục</h3>
-							<div class="card-tools">
-                                <a href=".?act=them-danh-muc" class="btn btn-primary" >Thêm mới danh mục</a>
-                            </div>
+							<h3 class="card-title">Form thêm danh mục</h3>
 						</div>
 						<!-- /.card-header -->
-						<div class="card-body">
-							<table id="example1" class="table table-bordered table-striped">
-								<thead>
-									<tr>
-										<th>STT</th>
-										<th>Tên danh mục</th>
-										<th>Mô tả</th>
-										<th>Thao tác</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php foreach ($listDanhMuc as $key => $danhMuc): ?>
-										<tr>
-											<td><?= $key+1?></td>
-											<td><?= $danhMuc['ten_danh_muc']?></td>
-											<td><?= $danhMuc['mo_ta']?></td>
-											<td>
-												<button class="btn btn-warning">Sửa</button>
-												<button class="btn btn-danger">Xóa</button>
-											</td>
-										</tr>
-									<?php endforeach ?>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th>STT</th>
-										<th>Tên danh mục</th>
-										<th>Mô tả</th>
-										<th>Thao tác</th>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						<!-- /.card-body -->
+						<!-- form start -->
+						<form action=".?act=them-danh-muc" method="POST">
+							<div class="card-body">
+								<div class="form-group">
+									<label for="exampleInputEmail1">Tên danh mục</label>
+									<input type="text" class="form-control" name="ten_danh_muc" placeholder="Nhập tên danh mục">
+								</div>
+								<div class="form-group">
+									<label for="exampleDescription">Mô tả</label>
+									<textarea class="form-control" name="mo_ta" rows="5"
+										placeholder="Nhập mô tả ở đây"></textarea>
+								</div>
+							</div>
+							<!-- /.card-body -->
+
+							<div class="card-footer ">
+								<button type="submit" class="btn btn-primary mr-2" name="btn_add">Thêm mới</button>
+								<a href=".?act=danh-muc" class="btn btn-primary">Danh sách danh mục</a> 
+							</div>
+						</form>
 					</div>
 					<!-- /.card -->
 				</div>
@@ -99,8 +84,8 @@
 			"responsive": true, "lengthChange": false, "autoWidth": false,
 			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
 			"language": {
-            "search": "Tìm kiếm:"
-        }
+				"search": "Tìm kiếm:"
+			}
 		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 		$('#example2').DataTable({
 			"paging": true,
