@@ -51,16 +51,19 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleDescription">Mô tả</label>
-									<textarea class="form-control" name="mo_ta" rows="5"
-										placeholder="Nhập mô tả ở đây"></textarea>
+									<textarea class="form-control" name="mo_ta" rows="5" placeholder="Nhập mô tả ở đây"></textarea>
 								</div>
 							</div>
 							<!-- /.card-body -->
 
 							<div class="card-footer ">
 								<button type="submit" class="btn btn-primary mr-2" name="btn_add">Thêm mới</button>
-								<a href=".?act=danh-muc" class="btn btn-primary">Danh sách danh mục</a> 
+								<a href=".?act=danh-muc" class="btn btn-primary">Danh sách danh mục</a>
 							</div>
+							<?php
+							if (isset($thongbao) && ($thongbao != ""))
+								echo $thongbao;
+							?>
 						</form>
 					</div>
 					<!-- /.card -->

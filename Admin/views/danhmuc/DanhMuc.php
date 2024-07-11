@@ -60,8 +60,8 @@
 											<td><?= $danhMuc['ten_danh_muc']?></td>
 											<td><?= $danhMuc['mo_ta']?></td>
 											<td>
-												<button class="btn btn-warning">Sửa</button>
-												<button class="btn btn-danger">Xóa</button>
+												<a class="btn btn-warning">Sửa</a>
+												<a href="?act=xoa-danh-muc&id_danh_muc=<?= $danhMuc['id_danh_muc'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
 											</td>
 										</tr>
 									<?php endforeach ?>

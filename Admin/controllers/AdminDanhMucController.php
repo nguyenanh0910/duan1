@@ -12,6 +12,7 @@ class AdminDanhMucController
 		require_once './views/danhmuc/DanhMuc.php';
 	}
 
+	// thêm danh mục
 	public function themDanhMuc()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_add'])) {
@@ -32,33 +33,32 @@ class AdminDanhMucController
 
 				if ($result) {
 					// Hiển thị thông báo thành công bằng SweetAlert và quay lại trang thêm danh mục
-					echo "<script>
-									document.addEventListener('DOMContentLoaded', function() {
-											Swal.fire({
-													icon: 'success',
-													title: 'Thêm thành công',
-													showConfirmButton: false,
-													timer: 1500
-											}).then(() => {
-													window.location.href = '?act=them-danh-muc';
-											});
-									});
-								</script>";
+					$thongbao = "Thêm thành công";
 				} else {
-					// Hiển thị thông báo lỗi bằng SweetAlert
-					echo "<script>
-									document.addEventListener('DOMContentLoaded', function() {
-											Swal.fire({
-													icon: 'error',
-													title: 'Thêm danh mục không thành công',
-											});
-									});
-								</script>";
+					$thongbao = "Thêm không thành công";
 				}
 			}
 		}
 
 		require_once './views/danhmuc/ThemDanhMuc.php';
 	}
+
+	// xóa danh mục 
+	public function xoaDanhMuc()
+	{
+		if (isset($_GET['id_danh_muc'])) {
+			$id_danh_muc = $_GET['id_danh_muc'];
+			$result = $this->modelDanhMuc->xoaDanhMuc($id_danh_muc);
+			if ($result) {
+				header("Location: ?act=danh-muc"); // Điều hướng về trang danh sách danh mục
+				exit();
+			} else {
+				// Xử lý khi xóa không thành công (nếu cần)
+				// Ví dụ: hiển thị thông báo lỗi
+				echo "Xóa danh mục không thành công.";
+			}
+		}
+	}
+
 }
 ?>

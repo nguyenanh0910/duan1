@@ -23,7 +23,7 @@ match ($act) {
 	// danh mục
     'danh-muc' => (new AdminDanhMucController()) ->danhsachDanhMuc(),
 		'them-danh-muc' => (new AdminDanhMucController())->themDanhMuc(),
-
+		'xoa-danh-muc' => (new AdminDanhMucController())->xoaDanhMuc(),
 		// sản phẩm
 		'san-pham' => (new AdminSanPhamController()) ->danhsachSanPham(),
 

@@ -28,6 +28,16 @@ class AdminDanhMuc {
 					return false;
 			}
 	}
+	public function xoaDanhMuc($id_danh_muc){
+		try {
+			$sql = "DELETE FROM tb_danhmuc WHERE `tb_danhmuc`.`id_danh_muc` = {$id_danh_muc}";
+			$stmt = $this->conn->prepare($sql);
+			return $stmt->execute();
+	} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+	}
+	}
 }
 
 ?>
