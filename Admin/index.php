@@ -24,7 +24,12 @@ match ($act) {
     'danh-muc' => (new AdminDanhMucController()) ->danhsachDanhMuc(),
 		'them-danh-muc' => (new AdminDanhMucController())->themDanhMuc(),
 
+		// sản phẩm
 		'san-pham' => (new AdminSanPhamController()) ->danhsachSanPham(),
+
+		// tài khoản khách hàng
 		'tai-khoan-user' => (new TaiKhoanUser()) ->danhsachTaiKhoanUser(),
+
+		// tài khoản admin
 		'tai-khoan-admin' => (new TaiKhoanAdmin()) ->danhsachTaiKhoanAdmin(),
 };

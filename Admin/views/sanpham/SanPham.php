@@ -47,8 +47,6 @@
 										<th>STT</th>
 										<th>Tên sản phẩm</th>
 										<th>Giá sản phẩm</th>
-										<th>Giá khuyến mãi</th>
-										<th>Ảnh sản phẩm</th>
 										<th>Số lượng</th>
 										<th>Danh mục</th>
 										<th>Trạng thái</th>
@@ -61,8 +59,6 @@
 											<td><?= $key + 1 ?></td>
 											<td><?= $sanPham['ten_san_pham'] ?></td>
 											<td><?= $sanPham['gia_san_pham'] ?></td>
-											<td><?= $sanPham['gia_khuyen_mai'] ?></td>
-											<td><img src="<?= $sanPham['hinh_anh'] ?>" alt="Ảnh sản phẩm"></td>
 											<td><?= $sanPham['so_luong'] ?></td>
 											<td><?= $sanPham['ten_danh_muc'] ?></td>
 											<td><?= $sanPham['trang_thai'] ?></td>
@@ -79,8 +75,6 @@
 										<th>STT</th>
 										<th>Tên sản phẩm</th>
 										<th>Giá sản phẩm</th>
-										<th>Giá khuyến mãi</th>
-										<th>Ảnh sản phẩm</th>
 										<th>Số lượng</th>
 										<th>Danh mục</th>
 										<th>Trạng thái</th>

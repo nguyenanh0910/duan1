@@ -43,7 +43,7 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form action=".?act=them-danh-muc" method="POST">
+						<form action="?act=them-danh-muc" method="POST">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Tên danh mục</label>
