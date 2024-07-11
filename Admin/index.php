@@ -24,6 +24,8 @@ match ($act) {
     'danh-muc' => (new AdminDanhMucController()) ->danhsachDanhMuc(),
 		'them-danh-muc' => (new AdminDanhMucController())->themDanhMuc(),
 		'xoa-danh-muc' => (new AdminDanhMucController())->xoaDanhMuc(),
+		'sua-danh-muc' => (new AdminDanhMucController())->suaDanhMuc(),
+		'cap-nhat-danh-muc' => (new AdminDanhMucController())->capNhatDanhMuc(),
 		// sản phẩm
 		'san-pham' => (new AdminSanPhamController()) ->danhsachSanPham(),
 

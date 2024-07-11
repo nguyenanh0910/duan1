@@ -32,7 +32,6 @@ class AdminDanhMucController
 				$result = $this->modelDanhMuc->themDanhMuc($ten_danh_muc, $mo_ta);
 
 				if ($result) {
-					// Hiển thị thông báo thành công bằng SweetAlert và quay lại trang thêm danh mục
 					$thongbao = "Thêm thành công";
 				} else {
 					$thongbao = "Thêm không thành công";
@@ -60,5 +59,41 @@ class AdminDanhMucController
 		}
 	}
 
+	// Sửa danh mục
+	public function suaDanhMuc()
+	{
+		if (isset($_GET['id_danh_muc'])) {
+			$id_danh_muc = $_GET['id_danh_muc'];
+			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
+			$editDanhMuc = $this->modelDanhMuc->suaDanhMuc($id_danh_muc);
+			require_once './views/danhmuc/SuaDanhMuc.php';
+		}
+	}
+	public function capNhatDanhMuc()
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_edit'])) {
+			$id_danh_muc = $_POST['id_danh_muc'];
+			$ten_danh_muc = $_POST['ten_danh_muc'];
+			$mo_ta = $_POST['mo_ta'];
+			$errors = [];
+
+			// Kiểm tra rỗng
+			if (empty($ten_danh_muc)) {
+				$errors[] = "Tên danh mục không được để trống.";
+			}
+			if (empty($errors)) {
+				// Gọi phương thức trong model để cập nhật danh mục vào cơ sở dữ liệu
+				$result = $this->modelDanhMuc->capNhatDanhMuc($id_danh_muc, $ten_danh_muc, $mo_ta);
+				
+
+				if ($result) {
+					$thongbao = "Sửa thành công";
+				} else {
+					$thongbao = "Sửa không thành công";
+				}
+			}
+		}
+		header("Location: ?act=danh-muc"); 
+	}
 }
 ?>

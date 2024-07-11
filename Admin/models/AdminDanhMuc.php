@@ -38,6 +38,28 @@ class AdminDanhMuc {
 			return false;
 	}
 	}
+public function suaDanhMuc($id_danh_muc){
+	try {
+		$sql = "SELECT * FROM tb_danhmuc WHERE `tb_danhmuc`.`id_danh_muc` = {$id_danh_muc}";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetch(); 
+} catch (Exception $e) {
+		echo "Lỗi" . $e->getMessage();
+		return false;
+}
+}
+	public function capNhatDanhMuc($id_danh_muc, $ten_danh_muc, $mo_ta)
+	{
+			try {
+					$sql = "UPDATE `tb_danhmuc` SET `ten_danh_muc` = '{$ten_danh_muc}', `mo_ta` = '{$mo_ta}' WHERE `tb_danhmuc`.`id_danh_muc` = {$id_danh_muc}";
+					$stmt = $this->conn->prepare($sql);
+					return $stmt->execute();
+			} catch (Exception $e) {
+					echo "Lỗi" . $e->getMessage();
+					return false;
+			}
+	}
 }
 
 ?>

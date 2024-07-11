@@ -18,12 +18,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Quản lý danh mục</h1>
+					<h1>Cập nhật danh mục</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Quản lý danh mục</li>
+						<li class="breadcrumb-item active">Sửa danh mục</li>
 					</ol>
 				</div>
 			</div>
@@ -34,49 +34,38 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
+				<!-- left column -->
 				<div class="col-12">
-					<div class="card">
+					<!-- general form elements -->
+					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title" style="font-size: 1.5rem;">Danh sách danh mục</h3>
-							<div class="card-tools">
-                                <a href=".?act=them-danh-muc" class="btn btn-primary" >Thêm mới danh mục</a>
-                            </div>
+							<h3 class="card-title">Form sửa danh mục</h3>
 						</div>
 						<!-- /.card-header -->
-						<div class="card-body">
-							<table id="example1" class="table table-bordered table-striped">
-								<thead>
-									<tr>
-										<th>STT</th>
-										<th>Tên danh mục</th>
-										<th>Mô tả</th>
-										<th>Thao tác</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php foreach ($listDanhMuc as $key => $danhMuc): ?>
-										<tr>
-											<td><?= $key+1?></td>
-											<td><?= $danhMuc['ten_danh_muc']?></td>
-											<td><?= $danhMuc['mo_ta']?></td>
-											<td>
-												<a href="?act=sua-danh-muc&id_danh_muc=<?= $danhMuc['id_danh_muc'] ?>" class="btn btn-warning">Sửa</a>
-												<a href="?act=xoa-danh-muc&id_danh_muc=<?= $danhMuc['id_danh_muc'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
-											</td>
-										</tr>
-									<?php endforeach ?>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th>STT</th>
-										<th>Tên danh mục</th>
-										<th>Mô tả</th>
-										<th>Thao tác</th>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						<!-- /.card-body -->
+						<!-- form start -->
+						<form action="?act=cap-nhat-danh-muc" method="POST">
+						<input type="hidden" name="id_danh_muc" value="<?= $editDanhMuc['id_danh_muc'] ?>">
+							<div class="card-body">
+								<div class="form-group">
+									<label for="exampleInputEmail1">Tên danh mục</label>
+									<input type="text" class="form-control" name="ten_danh_muc" placeholder="Nhập tên danh mục" value="<?= $editDanhMuc['ten_danh_muc']?>">
+								</div>
+								<div class="form-group">
+									<label for="exampleDescription">Mô tả</label>
+									<textarea class="form-control" name="mo_ta" rows="5" placeholder="Nhập mô tả ở đây"><?= $editDanhMuc['mo_ta']?></textarea>
+								</div>
+							</div>
+							<!-- /.card-body -->
+
+							<div class="card-footer ">
+								<button type="submit" class="btn btn-primary mr-2" name="btn_edit">Cập nhật</button>
+								<a href=".?act=danh-muc" class="btn btn-primary">Danh sách danh mục</a>
+							</div>
+							<?php
+							if (isset($thongbao) && ($thongbao != ""))
+								echo $thongbao;
+							?>
+						</form>
 					</div>
 					<!-- /.card -->
 				</div>
@@ -99,8 +88,8 @@
 			"responsive": true, "lengthChange": false, "autoWidth": false,
 			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
 			"language": {
-            "search": "Tìm kiếm:"
-        }
+				"search": "Tìm kiếm:"
+			}
 		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 		$('#example2').DataTable({
 			"paging": true,
