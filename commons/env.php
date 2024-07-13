@@ -9,6 +9,7 @@ define('BASE_URL'       , 'http://localhost/duan1_nhom8/');
 define('ADMIN_BASE_URL'       , 'http://localhost/duan1_nhom8/admin/');
 
 
+
 define('DB_HOST'    , 'localhost');
 define('DB_PORT'    , 3306);
 define('DB_USERNAME', 'root');

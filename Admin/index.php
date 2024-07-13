@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Require file Common
 require_once '../commons/env.php'; // Khai báo biến môi trường
@@ -7,12 +7,12 @@ require_once '../commons/function.php'; // Hàm hỗ trợ
 // Require toàn bộ file Controllers
 require_once './controllers/AdminDanhMucController.php';
 require_once './controllers/AdminSanPhamController.php';
-require_once './controllers/AdminTaiKhoanControllers.php';
+require_once './controllers/AdminTaiKhoanController.php';
 
 // Require toàn bộ file Models
 require_once './models/AdminDanhMuc.php';
 require_once './models/AdminSanPham.php';
-require_once './models/TaiKhoan.php';
+require_once './models/AdminTaiKhoan.php';
 // Route
 $act = $_GET['act'] ?? '/';
 
@@ -21,17 +21,27 @@ $act = $_GET['act'] ?? '/';
 
 match ($act) {
 	// danh mục
-    'danh-muc' => (new AdminDanhMucController()) ->danhsachDanhMuc(),
-		'them-danh-muc' => (new AdminDanhMucController())->themDanhMuc(),
-		'xoa-danh-muc' => (new AdminDanhMucController())->xoaDanhMuc(),
-		'sua-danh-muc' => (new AdminDanhMucController())->suaDanhMuc(),
-		'cap-nhat-danh-muc' => (new AdminDanhMucController())->capNhatDanhMuc(),
-		// sản phẩm
-		'san-pham' => (new AdminSanPhamController()) ->danhsachSanPham(),
+	'list-danh-muc' => (new AdminDanhMucController())->listDanhMuc(),
+	'form-add-danh-muc' => (new AdminDanhMucController())->formaddDanhMuc(),
+	'add-danh-muc' => (new AdminDanhMucController())->addDanhMuc(),
+	'delete-danh-muc' => (new AdminDanhMucController())->deleteDanhMuc(),
+	'form-edit-danh-muc' => (new AdminDanhMucController())->formEditDanhMuc(),
+	'update-danh-muc' => (new AdminDanhMucController())->updateDanhMuc(),
+	// sản phẩm
+	'list-san-pham' => (new AdminSanPhamController())->listSanPham(),
+	'form-add-san-pham' => (new AdminSanPhamController())->formAddSanPham(),
+	'add-san-pham' => (new AdminSanPhamController())->addSanPham(),
+	'delete-san-pham' => (new AdminSanPhamController())->deleteSanPham(),
+	// 'form-edit-san-pham' => (new AdminSanPhamController())->formEditSanPham(),
+	// 'update-san-pham' => (new AdminSanPhamController())->updateSanPham(),
 
-		// tài khoản khách hàng
-		'tai-khoan-user' => (new TaiKhoanUser()) ->danhsachTaiKhoanUser(),
 
-		// tài khoản admin
-		'tai-khoan-admin' => (new TaiKhoanAdmin()) ->danhsachTaiKhoanAdmin(),
+	// tài khoản
+	'list-tai-khoan' => (new AdminTaiKhoanController())->listTaiKhoan(),
+	'form-add-tai-khoan' => (new AdminTaiKhoanController())->formAddTaiKhoan(),
+	'add-tai-khoan' => (new AdminTaiKhoanController())->addTaiKhoan(),
+	'delete-tai-khoan' => (new AdminTaiKhoanController())->deleteTaiKhoan(),
+	// 'form-edit-tai-khoan' => (new AdminTaiKhoanController())->formEditTaiKhoan(),
+	// 'update-tai-khoan' => (new AdminTaiKhoanController())->updateTaiKhoan(),
+
 };

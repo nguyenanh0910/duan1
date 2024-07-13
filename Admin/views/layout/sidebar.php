@@ -109,34 +109,26 @@
 						</ul>
 					</li> -->
 						<li class="nav-item menu-open">
-							<a href=".?act=danh-muc" class="nav-link active">
-								<i class="nav-icon fas fa-list"></i>
+							<a href="<?=ADMIN_BASE_URL.'?act=list-danh-muc'?>" class="nav-link active">
+								<i class="nav-icon fas fa-th"></i>
 								<p>
-									Quản lý danh mục
+									Danh mục sản phẩm
 								</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href=".?act=san-pham" class="nav-link">
+							<a href="<?=ADMIN_BASE_URL.'?act=list-san-pham'?>" class="nav-link">
 								<i class="nav-icon far fa-list-alt"></i>
 								<p>
-									Quản lý Sản Phẩm
+									Sản Phẩm
 								</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href=".?act=tai-khoan-user" class="nav-link">
+							<a href=".?act=list-tai-khoan" class="nav-link">
 							<i class="nav-icon far fa-user"></i>
 								<p>
-									Quản lý khách hàng
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href=".?act=tai-khoan-admin" class="nav-link">
-							<i class="nav-icon far fa-address-card"></i>
-								<p>
-									Quản lý nhân viên
+									Quản lý tài khoản
 								</p>
 							</a>
 						</li>
