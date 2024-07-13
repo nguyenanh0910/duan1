@@ -28,9 +28,8 @@ public function addTaiKhoan()
         $vai_tro = $_POST['vai_tro'];
 
         // hình ảnh
-        $target_dir = "../uploads/";
-        $fileName = 'anh_dai_dien';
-        $anh_dai_dien = uploadFile($fileName, $target_dir); // Đổi tên biến thành $anh_dai_dien
+				$anh_dai_dien = $_FILES['anh_dai_dien'];
+				$file_thumb = uploadFile($anh_dai_dien, './uploads/');
 
         // Validate dữ liệu
         $errors = [];
@@ -63,7 +62,7 @@ public function addTaiKhoan()
 
         if (empty($errors)) {
             // Gọi phương thức trong model để thêm tài khoản vào cơ sở dữ liệu
-            $result = $this->modelTaiKhoan->addTaiKhoan($ho_ten, $ten_dang_nhap, $mat_khau, $email, $so_dien_thoai, $dia_chi, $anh_dai_dien, $vai_tro);
+            $result = $this->modelTaiKhoan->addTaiKhoan($ho_ten, $ten_dang_nhap, $mat_khau, $email, $so_dien_thoai, $dia_chi, $file_thumb, $vai_tro);
 
 						if ($result) {
 							$thongbao = "Thêm thành công";

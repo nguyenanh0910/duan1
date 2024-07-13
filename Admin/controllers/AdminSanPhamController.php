@@ -35,9 +35,8 @@ class AdminSanPhamController
 			$id_danh_muc = $_POST['id_danh_muc'];
 
 			// hình ảnh
-			$target_dir = "../uploads/";
-			$fileName = 'hinh_anh';
-			$hinh_anh = uploadFile($fileName, $target_dir);
+			$hinh_anh = $_FILES['hinh_anh'];
+			$file_thumb = uploadFile($hinh_anh, './uploads/');
 			// Validate dữ liệu
 			$errors = [];
 
@@ -65,7 +64,7 @@ class AdminSanPhamController
 			}
 			if (empty($errors)) {
 				// Gọi phương thức trong model để thêm sản phẩm vào cơ sở dữ liệu
-				$result = $this->modelSanPham->addSanPham($ten_san_pham, $hinh_anh, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $id_danh_muc, $mo_ta);
+				$result = $this->modelSanPham->addSanPham($ten_san_pham, $file_thumb, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $id_danh_muc, $mo_ta);
 
 				if ($result) {
 					$thongbao = "Thêm thành công";

@@ -61,10 +61,10 @@
 										<tr>
 											<td><?= $key + 1 ?></td>
 											<td><?= $taiKhoan['ten_dang_nhap'] ?></td>
-											<td><img src="<?= $taiKhoan['anh_dai_dien'] ?>" alt="Ảnh đại diện" width="150px"></td>
+											<td><img src="<?=BASE_URL . $taiKhoan['anh_dai_dien'] ?>" alt="Ảnh đại diện" width="150px"></td>
 											<td><?= $taiKhoan['email'] ?></td>
 											<td><?= $taiKhoan['so_dien_thoai'] ?></td>
-											<td> <?= $taiKhoan['vai_tro'] == 1 ? 'Khách hàng' : ($taiKhoan['vai_tro'] == 2 ? 'Admin': 'Không xác định')?></td>
+											<td> <?= $taiKhoan['vai_tro'] == 2 ? 'Khách hàng' : ($taiKhoan['vai_tro'] == 1 ? 'Admin': 'Không xác định')?></td>
 											<td>
 											<button class="btn btn-info">Chi tiết</button>
 												<a href="?act=form-edit-tai-khoan&id_tai_khoan=<?= $taiKhoan['id_tai_khoan'] ?>"

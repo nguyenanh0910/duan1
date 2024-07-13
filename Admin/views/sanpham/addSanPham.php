@@ -65,10 +65,10 @@
 										<label for="form-group">Ảnh sản phẩm</label>
 										<input type="file" class="form-control" name="hinh_anh">
 									</div>
-									<!-- <div class="form-group col-md-6">
+									<div class="form-group col-md-6">
 										<label for="form-group">Album ảnh sản phẩm</label>
-										<input type="file" class="form-control" name="album_anh" multiple>
-									</div> -->
+										<input type="file" class="form-control" name="album_anh[]" multiple>
+									</div>
 								</div>
 								<div class="row">
 								<div class="form-group col-md-6">

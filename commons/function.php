@@ -23,40 +23,23 @@ function connectDB()
 	}
 }
 // thêm file
-function uploadFile($fileName, $target_dir) {
-	// Kiểm tra xem file có tồn tại trong request không
-	if (!isset($_FILES[$fileName])) {
-			return false; // Không có file trong request
+function uploadFile($file, $folderUpload){
+	$pathStorage = $folderUpload . time() . $file['name'];
+	$from = $file['tmp_name'];
+	$to = PATH_ROOT . $pathStorage;
+	if(move_uploaded_file($from, $to)){
+		return $pathStorage;
 	}
-
-	$file = $_FILES[$fileName];
-	$originalName = basename($file['name']);
-	$fileName = time() . '_' . $originalName; // Thêm timestamp vào tên file
-	$target_file = $target_dir . $fileName;
-
-	// Di chuyển file vào thư mục lưu trữ
-	if (move_uploaded_file($file['tmp_name'], $target_file)) {
-			return $target_file; // Trả về đường dẫn file đã lưu
-	} else {
-			return false; // Không thể di chuyển file
-	}
+	return null;
 }
 
 
-
-	/**
-	 * Hàm xóa file ảnh từ thư mục và trả về true nếu thành công, false nếu thất bại
-	 *
-	 * @param string $filePath Đường dẫn đến file ảnh cần xóa
-	 * @return bool Trả về true nếu xóa thành công, false nếu thất bại
-	 */
-
-	 // xóa file
-	function deleteFile($filePath)
-	{
-		if (file_exists($filePath)) {
-			return unlink($filePath); // Xóa file nếu tồn tại
-		}
-		return false; // File không tồn tại
+// xóa file
+function deleteFile($file)
+{
+	$pathDelete = PATH_ROOT . $file;
+	if(file_exists($pathDelete)){
+		unlink($pathDelete);
 	}
+}
 

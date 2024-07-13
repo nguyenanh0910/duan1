@@ -5,6 +5,7 @@ require_once '../commons/env.php'; // Khai báo biến môi trường
 require_once '../commons/function.php'; // Hàm hỗ trợ
 
 // Require toàn bộ file Controllers
+require_once './controllers/AdminTrangChuController.php';
 require_once './controllers/AdminDanhMucController.php';
 require_once './controllers/AdminSanPhamController.php';
 require_once './controllers/AdminTaiKhoanController.php';
@@ -20,6 +21,7 @@ $act = $_GET['act'] ?? '/';
 // Để bảo bảo tính chất chỉ gọi 1 hàm Controller để xử lý request thì mình sử dụng match
 
 match ($act) {
+	'/' => (new AdminTrangChuController())->home(),
 	// danh mục
 	'list-danh-muc' => (new AdminDanhMucController())->listDanhMuc(),
 	'form-add-danh-muc' => (new AdminDanhMucController())->formaddDanhMuc(),

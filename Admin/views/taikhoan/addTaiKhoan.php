@@ -84,8 +84,8 @@
 									<label >Vai trò</label>
 									<select class="form-control form-select" name="vai_tro">
 											<option disabled selected>Chọn vai trò tài khoản</option>
-												<option value="1">Khách hàng</option>
-												<option value="2">Admin</option>
+												<option value="2">Khách hàng</option>
+												<option value="1">Admin</option>
 										</select>
 									</div>
 								</div>
