@@ -18,13 +18,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Quản lý tài khoản</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Quản lý tài khoản</li>
-					</ol>
+					<h1>Quản lý danh sách đơn hàng</h1>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -37,9 +31,8 @@
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title">Danh sách tài khoản</h3>
+							<h3 class="card-title" style="font-size: 1.5rem;">Danh sách đơn hàng</h3>
 							<div class="card-tools">
-								<a href="<?= ADMIN_BASE_URL . '?act=form-add-tai-khoan' ?>" class="btn btn-success">Thêm mới tài khoản</a>
 							</div>
 						</div>
 						<!-- /.card-header -->
@@ -48,41 +41,49 @@
 								<thead>
 									<tr>
 										<th>STT</th>
-										<th>Tên đăng nhập</th>
-										<th>Ảnh đại diện</th>
-										<th>Email</th>
+										<th>Mã đơn hàng</th>
+										<th>Tên người nhận</th>
 										<th>Số điện thoại</th>
-										<th>Vai trò</th>
+										<th>Ngày đặt</th>
+										<th>Tổng tiền</th>
+										<th>Trạng thái</th>
 										<th>Thao tác</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($listTaiKhoan as $key => $taiKhoan): ?>
+									<?php foreach ($listDonHang as $key => $donHang): ?>
 										<tr>
 											<td><?= $key + 1 ?></td>
-											<td><?= $taiKhoan['ten_dang_nhap'] ?></td>
-											<td><img src="<?=BASE_URL . $taiKhoan['anh_dai_dien'] ?>" alt="Ảnh đại diện" width="150px"></td>
-											<td><?= $taiKhoan['email'] ?></td>
-											<td><?= $taiKhoan['so_dien_thoai'] ?></td>
-											<td> <?= $taiKhoan['vai_tro'] == 2 ? 'Khách hàng' : ($taiKhoan['vai_tro'] == 1 ? 'Admin': 'Không xác định')?></td>
+											<td><?= $donHang['ma_don_hang'] ?></td>
+											<td><?= $donHang['ten_nguoi_nhan'] ?></td>
+											<td><?= $donHang['sdt_nguoi_nhan'] ?></td>
+											<td><?= $donHang['ngay_dat'] ?></td>
+											<td><?=number_format($donHang['tong_tien'], 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?= $donHang['ten_trang_thai'] ?></td>
 											<td>
-											<button class="btn btn-info">Chi tiết</button>
-												<a href="?act=form-edit-tai-khoan&id_tai_khoan=<?= $taiKhoan['id_tai_khoan'] ?>"
-													class="btn btn-warning">Sửa</a>
-												<a href="?act=delete-tai-khoan&id_tai_khoan=<?= $taiKhoan['id_tai_khoan'] ?>" class="btn btn-danger"
-													onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
+												<div class="btn-group">
+													<a
+														href="<?= ADMIN_BASE_URL . '?act=detail-don-hang&id_don_hang=' . $donHang['id_don_hang'] ?>">
+														<button class="btn btn-primary"><i class="far fa-eye"></i></button>
+													</a>
+													<a
+														href="<?= ADMIN_BASE_URL . '?act=form-edit-don-hang&id_don_hang=' . $donHang['id_don_hang'] ?>">
+														<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
+													</a>
+												</div>
 											</td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
 								<tfoot>
-									<tr>
+								<tr>
 										<th>STT</th>
-										<th>Tên đăng nhập</th>
-										<th>Ảnh đại diện</th>
-										<th>Email</th>
+										<th>Mã đơn hàng</th>
+										<th>Tên người nhận</th>
 										<th>Số điện thoại</th>
-										<th>Vai trò</th>
+										<th>Ngày đặt</th>
+										<th>Tổng tiền</th>
+										<th>Trạng thái</th>
 										<th>Thao tác</th>
 									</tr>
 								</tfoot>

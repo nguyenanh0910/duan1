@@ -20,12 +20,6 @@
 				<div class="col-sm-6">
 					<h1>Thêm mới sản phẩm</h1>
 				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Thêm sản phẩm</li>
-					</ol>
-				</div>
 			</div>
 		</div><!-- /.container-fluid -->
 	</section>
@@ -45,49 +39,81 @@
 						<!-- form start -->
 						<form action="?act=add-san-pham" method="POST" enctype="multipart/form-data">
 							<div class="card-body">
+								<div class="form-group">
+									<label for="exampleInputEmail1">Tên sản phẩm</label>
+									<input type="text" class="form-control" name="ten_san_pham" placeholder="Nhập tên sản phẩm">
+									<?php if (isset($_SESSION['error']['ten_san_pham'])) { ?>
+										<p class="text-danger"><?= $_SESSION['error']['ten_san_pham'] ?></p>
+									<?php } ?>
+								</div>
 								<div class="row">
 									<div class="form-group col-md-6">
 										<label for="exampleInputEmail1">Danh mục sản phẩm</label>
 										<select class="form-control form-select" name="id_danh_muc">
 											<option disabled selected>Chọn danh mục sản phẩm</option>
-											<?php foreach ($listDanhMuc as $danhMuc) :?>
-												<option value="<?= $danhMuc['id_danh_muc']?>"><?= $danhMuc['ten_danh_muc']?></option>
+											<?php foreach ($listDanhMuc as $danhMuc): ?>
+												<option value="<?= $danhMuc['id_danh_muc'] ?>"><?= $danhMuc['ten_danh_muc'] ?></option>
 											<?php endforeach; ?>
 										</select>
+										<?php if (isset($_SESSION['error']['id_danh_muc'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['id_danh_muc'] ?></p>
+										<?php } ?>
 									</div>
 									<div class="form-group col-md-6">
-										<label for="exampleInputEmail1">Tên sản phẩm</label>
-										<input type="text" class="form-control" name="ten_san_pham" placeholder="Nhập tên sản phẩm">
+										<label for="exampleInputEmail1">Số lượng</label>
+										<input type="text" class="form-control" name="so_luong" placeholder="Nhập số lượng sản phẩm">
+										<?php if (isset($_SESSION['error']['so_luong'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['so_luong'] ?></p>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col-md-6">
 										<label for="form-group">Ảnh sản phẩm</label>
 										<input type="file" class="form-control" name="hinh_anh">
+										<?php if (isset($_SESSION['error']['hinh_anh'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['hinh_anh'] ?></p>
+										<?php } ?>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="form-group">Album ảnh sản phẩm</label>
-										<input type="file" class="form-control" name="album_anh[]" multiple>
+										<input type="file" class="form-control" name="img_array[]" multiple>
 									</div>
 								</div>
 								<div class="row">
-								<div class="form-group col-md-6">
+									<div class="form-group col-md-6">
 										<label for="exampleInputEmail1">Giá sản phẩm</label>
 										<input type="text" class="form-control" name="gia_san_pham" placeholder="Nhập giá sản phẩm">
+										<?php if (isset($_SESSION['error']['gia_san_pham'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['gia_san_pham'] ?></p>
+										<?php } ?>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="exampleInputEmail1">Giá khuyến mãi</label>
 										<input type="text" class="form-control" name="gia_khuyen_mai" placeholder="Nhập giá khuyến mãi">
+										<?php if (isset($_SESSION['error']['gia_khuyen_mai'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['gia_khuyen_mai'] ?></p>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="row">
-								<div class="form-group col-md-6">
-										<label for="exampleInputEmail1">Số lượng</label>
-										<input type="text" class="form-control" name="so_luong" placeholder="Nhập số lượng sản phẩm">
-									</div>
 									<div class="form-group col-md-6">
 										<label for="exampleInputEmail1">Ngày nhập</label>
 										<input type="date" class="form-control" name="ngay_nhap">
+										<?php if (isset($_SESSION['error']['ngay_nhap'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['ngay_nhap'] ?></p>
+										<?php } ?>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="exampleInputEmail1">Trạng thái sản phẩm</label>
+										<select class="form-control form-select" name="trang_thai">
+											<option disabled selected>Chọn trạng thái sản phẩm</option>
+											<option value="1">Còn bán</option>
+											<option value="2">Dừng bán</option>
+										</select>
+										<?php if (isset($_SESSION['error']['trang_thai'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['trang_thai'] ?></p>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="form-group">
@@ -101,10 +127,6 @@
 								<button type="submit" class="btn btn-primary mr-2" name="btn_add">Thêm mới</button>
 								<a href="<?= ADMIN_BASE_URL . '?act=list-san-pham' ?>" class="btn btn-primary">Danh sách sản phẩm</a>
 							</div>
-							<?php
-							if (isset($thongbao) && ($thongbao != ""))
-								echo $thongbao;
-							?>
 						</form>
 					</div>
 					<!-- /.card -->
@@ -122,64 +144,6 @@
 <?php include './views/layout/footer.php'; ?>
 <!-- End footer  -->
 <!-- Page specific script -->
-<script>
-	$(function () {
-		$("#example1").DataTable({
-			"responsive": true, "lengthChange": false, "autoWidth": false,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
-			"language": {
-				"search": "Tìm kiếm:"
-			}
-		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-		$('#example2').DataTable({
-			"paging": true,
-			"lengthChange": false,
-			"searching": false,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": true,
-		});
-	});
-</script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
 </body>
 
 </html>

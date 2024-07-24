@@ -18,13 +18,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Thêm mới danh mục</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Thêm danh mục</li>
-					</ol>
+					<h1>Thêm mới danh mục sản phẩm</h1>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -48,6 +42,9 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Tên danh mục</label>
 									<input type="text" class="form-control" name="ten_danh_muc" placeholder="Nhập tên danh mục">
+									<?php if (isset($_SESSION['error']['ten_danh_muc'])) { ?>
+										<p class="text-danger"><?= $_SESSION['error']['ten_danh_muc'] ?></p>
+									<?php } ?>
 								</div>
 								<div class="form-group">
 									<label for="exampleDescription">Mô tả</label>
@@ -60,10 +57,6 @@
 								<button type="submit" class="btn btn-primary mr-2" name="btn_add">Thêm mới</button>
 								<a href="<?= ADMIN_BASE_URL . '?act=list-danh-muc' ?>" class="btn btn-primary">Danh sách danh mục</a>
 							</div>
-							<?php
-							if (isset($thongbao) && ($thongbao != ""))
-								echo $thongbao;
-							?>
 						</form>
 					</div>
 					<!-- /.card -->
@@ -81,64 +74,6 @@
 <?php include './views/layout/footer.php'; ?>
 <!-- End footer  -->
 <!-- Page specific script -->
-<script>
-	$(function () {
-		$("#example1").DataTable({
-			"responsive": true, "lengthChange": false, "autoWidth": false,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
-			"language": {
-				"search": "Tìm kiếm:"
-			}
-		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-		$('#example2').DataTable({
-			"paging": true,
-			"lengthChange": false,
-			"searching": false,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": true,
-		});
-	});
-</script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
 </body>
 
 </html>

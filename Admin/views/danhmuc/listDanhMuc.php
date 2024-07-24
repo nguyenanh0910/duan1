@@ -18,13 +18,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Quản lý danh mục</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Quản lý danh mục</li>
-					</ol>
+					<h1>Quản lý danh mục sản phẩm</h1>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -39,7 +33,8 @@
 						<div class="card-header">
 							<h3 class="card-title" style="font-size: 1.5rem;">Danh sách danh mục</h3>
 							<div class="card-tools">
-								<a href="<?= ADMIN_BASE_URL . '?act=form-add-danh-muc' ?>" class="btn btn-success">Thêm mới danh mục</a>
+								<a href="<?= ADMIN_BASE_URL . '?act=form-add-danh-muc' ?>"><button class="btn btn-success">Thêm mới danh
+										mục</button></a>
 							</div>
 						</div>
 						<!-- /.card-header -->
@@ -60,10 +55,13 @@
 											<td><?= $danhMuc['ten_danh_muc'] ?></td>
 											<td><?= $danhMuc['mo_ta'] ?></td>
 											<td>
-												<a href="?act=form-edit-danh-muc&id_danh_muc=<?= $danhMuc['id_danh_muc'] ?>"
-													class="btn btn-warning">Sửa</a>
-												<a href="?act=delete-danh-muc&id_danh_muc=<?= $danhMuc['id_danh_muc'] ?>" class="btn btn-danger"
-													onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
+												<a href="<?= ADMIN_BASE_URL . '?act=form-edit-danh-muc&id_danh_muc=' . $danhMuc['id_danh_muc'] ?>">
+													<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
+												</a>
+												<a href="<?= ADMIN_BASE_URL . '?act=delete-danh-muc&id_danh_muc=' . $danhMuc['id_danh_muc'] ?>"
+													onclick="return confirm('Bạn có muốn xóa không?')">
+													<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+												</a>
 											</td>
 										</tr>
 									<?php endforeach ?>

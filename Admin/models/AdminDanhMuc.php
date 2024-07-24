@@ -20,7 +20,7 @@ class AdminDanhMuc
 			return false;
 		}
 	}
-	public function addDanhMuc($ten_danh_muc, $mo_ta)
+	public function insertDanhMuc($ten_danh_muc, $mo_ta)
 	{
 		try {
 			$sql = "INSERT INTO tb_danhmuc (ten_danh_muc, mo_ta) VALUES (:ten_danh_muc, :mo_ta)";
@@ -49,7 +49,7 @@ class AdminDanhMuc
 			return false;
 		}
 	}
-	public function formEditDanhMuc($id_danh_muc)
+	public function getDetailDanhMuc($id_danh_muc)
 	{
 		try {
 			$sql = "SELECT * FROM tb_danhmuc WHERE id_danh_muc = :id_danh_muc";

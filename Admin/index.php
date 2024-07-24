@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Require file Common
 require_once '../commons/env.php'; // Khai báo biến môi trường
 require_once '../commons/function.php'; // Hàm hỗ trợ
@@ -8,12 +8,12 @@ require_once '../commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/AdminTrangChuController.php';
 require_once './controllers/AdminDanhMucController.php';
 require_once './controllers/AdminSanPhamController.php';
-require_once './controllers/AdminTaiKhoanController.php';
+require_once './controllers/AdminDonHangController.php';
 
 // Require toàn bộ file Models
 require_once './models/AdminDanhMuc.php';
 require_once './models/AdminSanPham.php';
-require_once './models/AdminTaiKhoan.php';
+require_once './models/AdminDonHang.php';
 // Route
 $act = $_GET['act'] ?? '/';
 
@@ -34,16 +34,16 @@ match ($act) {
 	'form-add-san-pham' => (new AdminSanPhamController())->formAddSanPham(),
 	'add-san-pham' => (new AdminSanPhamController())->addSanPham(),
 	'delete-san-pham' => (new AdminSanPhamController())->deleteSanPham(),
-	// 'form-edit-san-pham' => (new AdminSanPhamController())->formEditSanPham(),
-	// 'update-san-pham' => (new AdminSanPhamController())->updateSanPham(),
+	'form-edit-san-pham' => (new AdminSanPhamController())->formEditSanPham(),
+	'update-san-pham' => (new AdminSanPhamController())->updateSanPham(),
+	'edit-album-anh-san-pham' => (new AdminSanPhamController())->editAlbumAnhSanPham(),
+	'detail-san-pham' => (new AdminSanPhamController())->detailSanPham(),
 
-
-	// tài khoản
-	'list-tai-khoan' => (new AdminTaiKhoanController())->listTaiKhoan(),
-	'form-add-tai-khoan' => (new AdminTaiKhoanController())->formAddTaiKhoan(),
-	'add-tai-khoan' => (new AdminTaiKhoanController())->addTaiKhoan(),
-	'delete-tai-khoan' => (new AdminTaiKhoanController())->deleteTaiKhoan(),
-	// 'form-edit-tai-khoan' => (new AdminTaiKhoanController())->formEditTaiKhoan(),
-	// 'update-tai-khoan' => (new AdminTaiKhoanController())->updateTaiKhoan(),
+	// đơn hàng
+	'list-don-hang' => (new AdminDonHangController())->listDonHang(),
+	// 'delete-don-hang' => (new AdminDonHangController())->deleteDonHang(),
+	'form-edit-don-hang' => (new AdminDonHangController())->formEditDonHang(),
+	'update-don-hang' => (new AdminDonHangController())->updateDonHang(),
+	'detail-don-hang' => (new AdminDonHangController())->detailDonHang(),
 
 };

@@ -18,13 +18,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Quản lý sản phẩm</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Quản lý sản phẩm</li>
-					</ol>
+					<h1>Quản lý danh sách sản phẩm</h1>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -39,7 +33,7 @@
 						<div class="card-header">
 							<h3 class="card-title" style="font-size: 1.5rem;">Danh sách sản phẩm</h3>
 							<div class="card-tools">
-								<a href="<?= ADMIN_BASE_URL . '?act=form-add-san-pham' ?>" class="btn btn-success">Thêm mới sản phẩm</a>
+								<a href="<?= ADMIN_BASE_URL . '?act=form-add-san-pham' ?>"><button class="btn btn-success">Thêm mới sản phẩm</button></a>
 							</div>
 						</div>
 						<!-- /.card-header -->
@@ -62,17 +56,25 @@
 										<tr>
 											<td><?= $key + 1 ?></td>
 											<td><?= $sanPham['ten_san_pham'] ?></td>
-											<td><img src="<?=BASE_URL . $sanPham['hinh_anh']?>" alt="ảnh cute" width="150px"></td>
-											<td><?= $sanPham['gia_san_pham'] ?></td>
+											<td><img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh cute" width="150px"></td>
+											<td><?=number_format($sanPham['gia_san_pham'], 0, ',' , '.'). ' VNĐ' ?></td>
 											<td><?= $sanPham['so_luong'] ?></td>
 											<td><?= $sanPham['ten_danh_muc'] ?></td>
-											<td><?= $sanPham['trang_thai'] ?></td>
+											<td><?= $sanPham['trang_thai'] == 1 ? 'Còn bán' : 'Dừng bán' ?></td>
 											<td>
-												<button class="btn btn-info">Chi tiết</button>
-												<a href="?act=form-edit-san-pham&id_danh_muc=<?= $sanPham['id_san_pham'] ?>"
-													class="btn btn-warning">Sửa</a>
-												<a href="?act=delete-san-pham&id_san_pham=<?= $sanPham['id_san_pham'] ?>" class="btn btn-danger"
-													onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>
+												<div class="btn-group">
+													<a
+														href="<?= ADMIN_BASE_URL . '?act=detail-san-pham&id_san_pham=' . $sanPham['id_san_pham'] ?>">
+														<button class="btn btn-primary"><i class="far fa-eye"></i></button>
+													</a>
+													<a
+														href="<?= ADMIN_BASE_URL . '?act=form-edit-san-pham&id_san_pham=' . $sanPham['id_san_pham'] ?>">
+														<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
+													</a>
+													<a href="<?= ADMIN_BASE_URL . '?act=delete-san-pham&id_san_pham=' . $sanPham['id_san_pham'] ?>"
+														onclick="return confirm('Bạn có muốn xóa không?')"><button
+															class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+												</div>
 											</td>
 										</tr>
 									<?php endforeach ?>
