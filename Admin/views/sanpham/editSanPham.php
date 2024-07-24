@@ -45,16 +45,16 @@
 					<form action="<?= ADMIN_BASE_URL . '?act=update-san-pham' ?>" method="post" enctype="multipart/form-data">
 						<div class="card-body">
 							<div class="form-group">
-								<input type="hidden" name="id_san_pham" value="<?= $editSanPham['id_san_pham'] ?>">
+								<input type="hidden" name="id" value="<?= $editSanPham['id'] ?>">
 								<label for="">Danh mục sản phẩm</label>
-								<select class="form-control form-select" name="id_danh_muc">
+								<select class="form-control form-select" name="danh_muc_id">
 									<option disabled selected>Chọn danh mục sản phẩm</option>
 									<?php foreach ($listDanhMuc as $danhMuc): ?>
-										<option value="<?= $danhMuc['id_danh_muc'] ?>" <?= $danhMuc['id_danh_muc'] == $editSanPham['id_danh_muc'] ? 'selected' : '' ?>><?= $danhMuc['ten_danh_muc'] ?></option>
+										<option value="<?= $danhMuc['id'] ?>" <?= $danhMuc['id'] == $editSanPham['danh_muc_id'] ? 'selected' : '' ?>><?= $danhMuc['ten_danh_muc'] ?></option>
 									<?php endforeach; ?>
 								</select>
-								<?php if (isset($_SESSION['error']['id_danh_muc'])) { ?>
-									<p class="text-danger"><?= $_SESSION['error']['id_danh_muc'] ?></p>
+								<?php if (isset($_SESSION['error']['danh_muc_id'])) { ?>
+									<p class="text-danger"><?= $_SESSION['error']['danh_muc_id'] ?></p>
 								<?php } ?>
 							</div>
 							<div class="form-group">
@@ -150,15 +150,15 @@
 										</tr>
 									</thead>
 									<tbody>
-										<input type="hidden" name="id_san_pham" value="<?= $editSanPham['id_san_pham'] ?>">
+										<input type="hidden" name="san_pham_id" value="<?= $editSanPham['id'] ?>">
 										<input type="hidden" name="img_delete" id="img_delete">
 										<?php foreach ($listAnhSanPham as $key => $value): ?>
 											<tr id="faqs-row-<?= $key ?>">
-												<input type="hidden" name="current_img_ids[]" value="<?= $value['id_anh_san_pham'] ?>">
+												<input type="hidden" name="current_img_ids[]" value="<?= $value['id'] ?>">
 												<td><img src="<?= BASE_URL . $value['link_anh'] ?>" style="width:50px; height:50px;" alt=""></td>
 												<td><input type="file" class="form-control" name="img_array[]"></td>
 												<td class="mt-10"><button type="button" class="badge badge-danger"
-														onclick="removeRow(<?= $key ?>, <?= $value['id_anh_san_pham'] ?>)"><i class="fa fa-trash"></i>
+														onclick="removeRow(<?= $key ?>, <?= $value['id'] ?>)"><i class="fa fa-trash"></i>
 														Xóa</button></td>
 											</tr>
 										<?php endforeach ?>

@@ -49,14 +49,14 @@
 								<div class="row">
 									<div class="form-group col-md-6">
 										<label for="exampleInputEmail1">Danh mục sản phẩm</label>
-										<select class="form-control form-select" name="id_danh_muc">
+										<select class="form-control form-select" name="danh_muc_id">
 											<option disabled selected>Chọn danh mục sản phẩm</option>
 											<?php foreach ($listDanhMuc as $danhMuc): ?>
-												<option value="<?= $danhMuc['id_danh_muc'] ?>"><?= $danhMuc['ten_danh_muc'] ?></option>
+												<option value="<?= $danhMuc['id'] ?>"><?= $danhMuc['ten_danh_muc'] ?></option>
 											<?php endforeach; ?>
 										</select>
-										<?php if (isset($_SESSION['error']['id_danh_muc'])) { ?>
-											<p class="text-danger"><?= $_SESSION['error']['id_danh_muc'] ?></p>
+										<?php if (isset($_SESSION['error']['danh_muc_id'])) { ?>
+											<p class="text-danger"><?= $_SESSION['error']['danh_muc_id'] ?></p>
 										<?php } ?>
 									</div>
 									<div class="form-group col-md-6">
@@ -124,7 +124,7 @@
 							<!-- /.card-body -->
 
 							<div class="card-footer ">
-								<button type="submit" class="btn btn-primary mr-2" name="btn_add">Thêm mới</button>
+								<button type="submit" class="btn btn-primary mr-2">Thêm mới</button>
 								<a href="<?= ADMIN_BASE_URL . '?act=list-san-pham' ?>" class="btn btn-primary">Danh sách sản phẩm</a>
 							</div>
 						</form>

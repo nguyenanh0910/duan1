@@ -64,14 +64,14 @@
 											<td>
 												<div class="btn-group">
 													<a
-														href="<?= ADMIN_BASE_URL . '?act=detail-san-pham&id_san_pham=' . $sanPham['id_san_pham'] ?>">
+														href="<?= ADMIN_BASE_URL . '?act=detail-san-pham&id=' . $sanPham['id'] ?>">
 														<button class="btn btn-primary"><i class="far fa-eye"></i></button>
 													</a>
 													<a
-														href="<?= ADMIN_BASE_URL . '?act=form-edit-san-pham&id_san_pham=' . $sanPham['id_san_pham'] ?>">
+														href="<?= ADMIN_BASE_URL . '?act=form-edit-san-pham&id=' . $sanPham['id'] ?>">
 														<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
 													</a>
-													<a href="<?= ADMIN_BASE_URL . '?act=delete-san-pham&id_san_pham=' . $sanPham['id_san_pham'] ?>"
+													<a href="<?= ADMIN_BASE_URL . '?act=delete-san-pham&id=' . $sanPham['id'] ?>"
 														onclick="return confirm('Bạn có muốn xóa không?')"><button
 															class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
 												</div>

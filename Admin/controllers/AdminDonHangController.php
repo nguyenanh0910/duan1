@@ -17,12 +17,13 @@ class AdminDonHangController
 	}
 
 	public function detailDonHang(){
-		$id_don_hang = $_GET['id_don_hang'];
+		$id = $_GET['id'];
 		// lấy thông tin đơn hàng ở bảng tb_donhang
-		$donHang = $this->modelDonHang->getDetailDonHang($id_don_hang);
+		$donHang = $this->modelDonHang->getDetailDonHang($id);
 		
 		// lấy danh sách sản phẩm đã đặt của đơn hàng ở bảng tb_chitietdonhang
-		$sanPhamDonHang = $this->modelDonHang->getListSpDonHang($id_don_hang);
+		$sanPhamDonHang = $this->modelDonHang->getListSpDonHang($id);
+		// var_dump($sanPhamDonHang); die;
 		$listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
 
 		require_once './views/donhang/detailDonHang.php';
@@ -32,11 +33,11 @@ class AdminDonHangController
 	// Sửa đơn hàng
 	public function formEditDonHang()
 	{
-		$id_don_hang = $_GET['id_don_hang'];
-		$donHang = $this->modelDonHang->getDetailDonHang($id_don_hang);
+		$id = $_GET['id'];
+		$donHang = $this->modelDonHang->getDetailDonHang($id);
 		$listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
 		if ($donHang) {
-			$id_don_hang = $_GET['id_don_hang'];
+			$id = $_GET['id'];
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/donhang/editDonHang.php';
 			// xóa session sau khi load trang
@@ -52,13 +53,13 @@ class AdminDonHangController
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Lấy dữ liệu
 			// Lấy dữ liệu cũ của sản phẩm
-			$id_don_hang = $_POST['id_don_hang'] ?? '';
+			$id = $_POST['id'] ?? '';
 			$ten_nguoi_nhan = $_POST['ten_nguoi_nhan'] ?? '';
 			$sdt_nguoi_nhan = $_POST['sdt_nguoi_nhan'] ?? '';
 			$email_nguoi_nhan = $_POST['email_nguoi_nhan'] ?? '';
 			$dia_chi_nguoi_nhan = $_POST['dia_chi_nguoi_nhan'] ?? '';
 			$ghi_chu = $_POST['ghi_chu'] ?? '';
-			$id_trang_thai_dh = $_POST['id_trang_thai_dh'] ?? '';
+			$trang_thai_dh_id = $_POST['trang_thai_dh_id'] ?? '';
 			// Validate dữ liệu
 			$errors = [];
 
@@ -75,18 +76,18 @@ class AdminDonHangController
 			if (empty($dia_chi_nguoi_nhan)) {
 				$errors['dia_chi_nguoi_nhan'] = "Địa chỉ người nhận không được để trống.";
 			}
-			if (empty($id_trang_thai_dh)) {
-				$errors['id_trang_thai_dh'] = "Trạng thái đơn hàng phải chọn.";
+			if (empty($trang_thai_dh_id)) {
+				$errors['trang_thai_dh_id'] = "Trạng thái đơn hàng phải chọn.";
 			}
 			$_SESSION['error'] = $errors;
 			if (empty($errors)) {
 				// Gọi phương thức trong model để thêm sản phẩm vào cơ sở dữ liệu
-				$this->modelDonHang->updateDonHang($id_don_hang, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan,  $dia_chi_nguoi_nhan, $ghi_chu, $id_trang_thai_dh);
+				$this->modelDonHang->updateDonHang($id, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan,  $dia_chi_nguoi_nhan, $ghi_chu, $trang_thai_dh_id);
 				header("Location: " . ADMIN_BASE_URL . '?act=list-don-hang');
 				exit();
 			} else {
 				$_SESSION['flash'] = true;
-				header("Location: " . ADMIN_BASE_URL . '?act=form-edit-don-hang&id_don_hang=' . $id_don_hang);
+				header("Location: " . ADMIN_BASE_URL . '?act=form-edit-don-hang&id=' . $id);
 				exit();
 			}
 		}

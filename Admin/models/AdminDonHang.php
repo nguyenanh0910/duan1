@@ -13,7 +13,7 @@ class AdminDonHang
 		try {
 			$sql = "SELECT tb_donhang.*, tb_trangthaidonhang.ten_trang_thai 
 			FROM tb_donhang  
-			INNER JOIN tb_trangthaidonhang ON tb_donhang.id_trang_thai_dh = tb_trangthaidonhang.id_trang_thai_dh";
+			INNER JOIN tb_trangthaidonhang ON tb_donhang.trang_thai_dh_id = tb_trangthaidonhang.id";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();
@@ -34,18 +34,18 @@ class AdminDonHang
 			return false;
 		}
 	}
-	public function getDetailDonHang($id_don_hang)
+	public function getDetailDonHang($id)
 	{
 		try {
 			$sql = "SELECT tb_donhang.*, tb_trangthaidonhang.ten_trang_thai, 
 							tb_taikhoan.ho_ten, tb_taikhoan.email, tb_taikhoan.so_dien_thoai, tb_phuongthucthanhtoan.ten_phuong_thuc
 							FROM tb_donhang 
-							INNER JOIN tb_trangthaidonhang ON tb_donhang.id_trang_thai_dh = tb_trangthaidonhang.id_trang_thai_dh
-							INNER JOIN tb_taikhoan ON tb_donhang.id_tai_khoan = tb_taikhoan.id_tai_khoan 
-							INNER JOIN tb_phuongthucthanhtoan ON tb_donhang.id_phuong_thuc_tt = tb_phuongthucthanhtoan.id_phuong_thuc_tt
-							WHERE tb_donhang.id_don_hang = :id_don_hang ";
+							INNER JOIN tb_trangthaidonhang ON tb_donhang.trang_thai_dh_id = tb_trangthaidonhang.id
+							INNER JOIN tb_taikhoan ON tb_donhang.tai_khoan_id = tb_taikhoan.id 
+							INNER JOIN tb_phuongthucthanhtoan ON tb_donhang.phuong_thuc_tt_id = tb_phuongthucthanhtoan.id
+							WHERE tb_donhang.id = :id ";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_don_hang' => $id_don_hang]);
+			$stmt->execute([':id' => $id]);
 			// var_dump($stmt); die;
 			return $stmt->fetch();
 		} catch (Exception $e) {
@@ -53,15 +53,15 @@ class AdminDonHang
 			return false;
 		}
 	}
-	public function getListSpDonHang($id_don_hang)
+	public function getListSpDonHang($id)
 	{
 		try {
 			$sql = "SELECT tb_chitietdonhang.*, tb_sanpham.ten_san_pham 
 			FROM tb_chitietdonhang 
-			INNER JOIN tb_sanpham ON tb_chitietdonhang.id_san_pham = tb_sanpham.id_san_pham
-			WHERE tb_chitietdonhang.id_don_hang = :id_don_hang";
+			INNER JOIN tb_sanpham ON tb_chitietdonhang.san_pham_id = tb_sanpham.id
+			WHERE tb_chitietdonhang.don_dang_id = :id";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_don_hang' => $id_don_hang]);
+			$stmt->execute([':id' => $id]);
 			return $stmt->fetchAll();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
@@ -70,7 +70,7 @@ class AdminDonHang
 	}
 
 	// Sửa đơn hàng
-	public function updateDonHang($id_don_hang, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan,  $dia_chi_nguoi_nhan, $ghi_chu, $id_trang_thai_dh)
+	public function updateDonHang($id, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan,  $dia_chi_nguoi_nhan, $ghi_chu, $trang_thai_dh_id)
 	{
 		try {
 			$sql = "UPDATE tb_donhang 
@@ -80,18 +80,18 @@ class AdminDonHang
 									email_nguoi_nhan = :email_nguoi_nhan, 
 									dia_chi_nguoi_nhan = :dia_chi_nguoi_nhan, 
 									ghi_chu = :ghi_chu, 
-									id_trang_thai_dh = :id_trang_thai_dh
-								WHERE id_don_hang = :id_don_hang ";
+									trang_thai_dh_id = :trang_thai_dh_id
+								WHERE id = :id ";
 			$stmt = $this->conn->prepare($sql);
 			// var_dump($stmt); die;
 			$stmt->execute([
-				':id_don_hang' => $id_don_hang,
+				':id' => $id,
 				':ten_nguoi_nhan' => $ten_nguoi_nhan,
 				':sdt_nguoi_nhan' => $sdt_nguoi_nhan,
 				':email_nguoi_nhan' => $email_nguoi_nhan,
 				':dia_chi_nguoi_nhan' => $dia_chi_nguoi_nhan,
 				':ghi_chu' => $ghi_chu,
-				':id_trang_thai_dh' => $id_trang_thai_dh
+				':trang_thai_dh_id' => $trang_thai_dh_id
 			]);
 			return true;
 		} catch (PDOException $e) {

@@ -38,7 +38,7 @@
 						<!-- /.card-header -->
 						<!-- form start -->
 						<form action="<?= ADMIN_BASE_URL . '?act=update-don-hang' ?>" method="POST">
-							<input type="hidden" name="id_don_hang" value="<?= $donHang['id_don_hang'] ?>">
+							<input type="hidden" name="id" value="<?= $donHang['id'] ?>">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Tên người nhận</label>
@@ -80,26 +80,26 @@
 								<hr>
 								<div class="form-group">
 									<label for="">Trạng thái đơn hàng</label>
-									<select class="form-control form-select" name="id_trang_thai_dh">
+									<select class="form-control form-select" name="trang_thai_dh_id">
 										<?php foreach ($listTrangThaiDonHang as $trangThai): ?>
 											<option 
 											<?php
-												if ($donHang['id_trang_thai_dh'] > $trangThai['id_trang_thai_dh']
-														|| $donHang['id_trang_thai_dh'] == 9
-														|| $donHang['id_trang_thai_dh'] == 10
-														|| $donHang['id_trang_thai_dh'] == 11)
+												if ($donHang['trang_thai_dh_id'] > $trangThai['id']
+														|| $donHang['trang_thai_dh_id'] == 9
+														|| $donHang['trang_thai_dh_id'] == 10
+														|| $donHang['trang_thai_dh_id'] == 11)
 												 {
 													echo 'disabled';
 												}
 											?>
-											<?= $trangThai['id_trang_thai_dh'] == $donHang['id_trang_thai_dh'] ? 'selected' : '' ?>
-												value="<?= $trangThai['id_trang_thai_dh'] ?>">
+											<?= $trangThai['id'] == $donHang['trang_thai_dh_id'] ? 'selected' : '' ?>
+												value="<?= $trangThai['id'] ?>">
 												<?= $trangThai['ten_trang_thai'] ?>
 											</option>
 										<?php endforeach; ?>
 									</select>
-									<?php if (isset($_SESSION['error']['id_trang_thai_dh'])) { ?>
-										<p class="text-danger"><?= $_SESSION['error']['id_trang_thai_dh'] ?></p>
+									<?php if (isset($_SESSION['error']['trang_thai_dh_id'])) { ?>
+										<p class="text-danger"><?= $_SESSION['error']['trang_thai_dh_id'] ?></p>
 									<?php } ?>
 								</div>
 							</div>

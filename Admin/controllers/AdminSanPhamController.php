@@ -32,7 +32,7 @@ class AdminSanPhamController
 			$so_luong = $_POST['so_luong'] ?? '';
 			$ngay_nhap = $_POST['ngay_nhap'] ?? '';
 			$mo_ta = $_POST['mo_ta'] ?? '';
-			$id_danh_muc = $_POST['id_danh_muc'] ?? '';
+			$danh_muc_id = $_POST['danh_muc_id'] ?? '';
 			$trang_thai = $_POST['trang_thai'] ?? '';
 
 			// hình ảnh
@@ -60,8 +60,8 @@ class AdminSanPhamController
 			if (empty($ngay_nhap)) {
 				$errors['ngay_nhap'] = "Ngày nhập sản phẩm không được để trống.";
 			}
-			if (empty($id_danh_muc)) {
-				$errors['id_danh_muc'] = "Danh mục sản phẩm không được để trống.";
+			if (empty($danh_muc_id)) {
+				$errors['danh_muc_id'] = "Danh mục sản phẩm không được để trống.";
 			}
 			if (empty($trang_thai)) {
 				$errors['trang_thai'] = "Trạng thái sản phẩm không được để trống.";
@@ -72,7 +72,7 @@ class AdminSanPhamController
 			$_SESSION['error'] = $errors;
 			if (empty($errors)) {
 				// Gọi phương thức trong model để thêm sản phẩm vào cơ sở dữ liệu
-				$id_san_pham = $this->modelSanPham->insertSanPham($ten_san_pham, $file_thumb, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $id_danh_muc, $mo_ta, $trang_thai);
+				$id = $this->modelSanPham->insertSanPham($ten_san_pham, $file_thumb, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $mo_ta, $trang_thai);
 				// xử lý thêm album ảnh sản phẩm img_array
 				if (!empty($img_array['name'])) {
 					foreach ($img_array['name'] as $key => $value) {
@@ -84,7 +84,7 @@ class AdminSanPhamController
 							'size' => $img_array['size'][$key],
 						];
 						$link_anh = uploadFile($file, './uploads/');
-						$this->modelSanPham->insertAlbumAnhSanPham($id_san_pham, $link_anh);
+						$this->modelSanPham->insertAlbumAnhSanPham($id, $link_anh);
 					}
 				}
 				header("Location: " . ADMIN_BASE_URL . '?act=list-san-pham');
@@ -100,18 +100,18 @@ class AdminSanPhamController
 	// xóa sản phẩm 
 	public function deleteSanPham()
 	{
-		$id_san_pham = $_GET['id_san_pham'];
-		$sanPham = $this->modelSanPham->getDetailSanPham($id_san_pham);
-		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id_san_pham);
+		$id = $_GET['id'];
+		$sanPham = $this->modelSanPham->getDetailSanPham($id);
+		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
 		if ($sanPham) {
 			deleteFile($sanPham['hinh_anh']);
 			if ($listAnhSanPham) {
 				foreach ($listAnhSanPham as $key => $anhSP) {
 					deleteFile($anhSP['link_anh']);
-					$this->modelSanPham->destroyAnhSanPham($anhSP['id_anh_san_pham']);
+					$this->modelSanPham->destroyAnhSanPham($anhSP['id']);
 				}
 			}
-			$this->modelSanPham->deleteSanPham($id_san_pham);
+			$this->modelSanPham->deleteSanPham($id);
 		}
 		header("Location: " . ADMIN_BASE_URL . '?act=list-san-pham');
 		exit();
@@ -120,13 +120,13 @@ class AdminSanPhamController
 	// // Sửa sản phẩm
 	public function formEditSanPham()
 	{
-		$id_san_pham = $_GET['id_san_pham'];
-		$editSanPham = $this->modelSanPham->getDetailSanPham($id_san_pham);
+		$id = $_GET['id'];
+		$editSanPham = $this->modelSanPham->getDetailSanPham($id);
 		// var_dump($editSanPham);die;
-		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id_san_pham);
+		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
 		$listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
 		if ($editSanPham) {
-			$id_san_pham = $_GET['id_san_pham'];
+			$id = $_GET['id'];
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/sanpham/editSanPham.php';
 			// xóa session sau khi load trang
@@ -142,8 +142,8 @@ class AdminSanPhamController
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Lấy dữ liệu
 			// Lấy dữ liệu cũ của sản phẩm
-			$id_san_pham = $_POST['id_san_pham'] ?? '';
-			$sanPhamOld = $this->modelSanPham->getDetailSanPham($id_san_pham);
+			$id = $_POST['id'] ?? '';
+			$sanPhamOld = $this->modelSanPham->getDetailSanPham($id);
 			$old_file = $sanPhamOld['hinh_anh'] ?? ''; // lấy ảnh cũ để phục vụ cho sửa ảnh
 
 			$ten_san_pham = $_POST['ten_san_pham'] ?? '';
@@ -152,9 +152,8 @@ class AdminSanPhamController
 			$so_luong = $_POST['so_luong'] ?? '';
 			$ngay_nhap = $_POST['ngay_nhap'] ?? '';
 			$mo_ta = $_POST['mo_ta'] ?? '';
-			$id_danh_muc = $_POST['id_danh_muc'] ?? '';
+			$danh_muc_id = $_POST['danh_muc_id'] ?? '';
 			$trang_thai = $_POST['trang_thai'] ?? '';
-
 			// hình ảnh
 			$hinh_anh = $_FILES['hinh_anh'] ?? null;
 
@@ -177,8 +176,8 @@ class AdminSanPhamController
 			if (empty($ngay_nhap)) {
 				$errors['ngay_nhap'] = "Ngày nhập sản phẩm không được để trống.";
 			}
-			if (empty($id_danh_muc)) {
-				$errors['id_danh_muc'] = "Danh mục sản phẩm không được để trống.";
+			if (empty($danh_muc_id)) {
+				$errors['danh_muc_id'] = "Danh mục sản phẩm không được để trống.";
 			}
 			if (empty($trang_thai)) {
 				$errors['trang_thai'] = "Trạng thái sản phẩm không được để trống.";
@@ -195,15 +194,15 @@ class AdminSanPhamController
 			} else {
 				$new_file = $old_file;
 			}
-
 			if (empty($errors)) {
 				// Gọi phương thức trong model để thêm sản phẩm vào cơ sở dữ liệu
-				$this->modelSanPham->updateSanPham($id_san_pham, $ten_san_pham, $new_file, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $id_danh_muc, $mo_ta, $trang_thai);
+				$test = $this->modelSanPham->updateSanPham($id, $ten_san_pham, $new_file, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $mo_ta, $trang_thai);
+				// var_dump($test); die;
 				header("Location: " . ADMIN_BASE_URL . '?act=list-san-pham');
 				exit();
 			} else {
 				$_SESSION['flash'] = true;
-				header("Location: " . ADMIN_BASE_URL . '?act=form-edit-san-pham&id_san_pham=' . $id_san_pham);
+				header("Location: " . ADMIN_BASE_URL . '?act=form-edit-san-pham&id=' . $id);
 				exit();
 			}
 		}
@@ -214,10 +213,10 @@ class AdminSanPhamController
 	public function editAlbumAnhSanPham()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$id_san_pham = $_POST['id_san_pham'] ?? '';
+			$san_pham_id = $_POST['san_pham_id'] ?? '';
 
 			// lấy danh sách ảnh hiện tại của sản phẩm
-			$listAnhSanPhamCurrent = $this->modelSanPham->getListAnhSanPham($id_san_pham);
+			$listAnhSanPhamCurrent = $this->modelSanPham->getListAnhSanPham($san_pham_id);
 
 			// xử lý các ảnh được gửi từ form
 			$img_array = $_FILES['img_array'];
@@ -233,7 +232,7 @@ class AdminSanPhamController
 					$new_file = uploadFileAlbum($img_array, './uploads/', $key);
 					if ($new_file) {
 						$upload_file[] = [
-							'id_anh_san_pham' => $current_img_ids[$key] ?? null,
+							'id' => $current_img_ids[$key] ?? null,
 							'file' => $new_file
 						];
 					}
@@ -241,42 +240,42 @@ class AdminSanPhamController
 			}
 			// lưu ảnh mới vào db và xóa ảnh cũ nếu có
 			foreach ($upload_file as $file_info) {
-				if ($file_info['id_anh_san_pham']) {
-					$old_file = $this->modelSanPham->getDetailAnhSanPham($file_info['id_anh_san_pham'])['link_anh'];
+				if ($file_info['id']) {
+					$old_file = $this->modelSanPham->getDetailAnhSanPham($file_info['id'])['link_anh'];
 
 
 					// Cập nhật ảnh cũ
-					$this->modelSanPham->updateAnhSanPham($file_info['id_anh_san_pham'], $file_info['file']);
+					$this->modelSanPham->updateAnhSanPham($file_info['id'], $file_info['file']);
 
 					// xóa ảnh cũ
 					deleteFile($old_file);
 				} else {
-					$this->modelSanPham->insertAlbumAnhSanPham($id_san_pham, $file_info['file']);
+					$this->modelSanPham->insertAlbumAnhSanPham($san_pham_id, $file_info['file']);
 				}
 			}
 
 			// xử lý xóa ảnh
 			foreach ($listAnhSanPhamCurrent as $anhSP) {
-				$id_anh_san_pham = $anhSP['id_anh_san_pham'];
-				if (in_array($id_anh_san_pham, $img_delete)) {
+				$id = $anhSP['id'];
+				if (in_array($id, $img_delete)) {
 					// xóa ảnh trong db
-					$this->modelSanPham->destroyAnhSanPham($id_anh_san_pham);
+					$this->modelSanPham->destroyAnhSanPham($id);
 
 					// xóa file
 					deleteFile($anhSP['link_anh']);
 				}
 			}
-			header("Location: " . ADMIN_BASE_URL . '?act=form-edit-san-pham&id_san_pham=' . $id_san_pham);
+			header("Location: " . ADMIN_BASE_URL . '?act=form-edit-san-pham&id=' . $san_pham_id);
 			exit();
 		}
 	}
 	public function detailSanPham()
 	{
-		$id_san_pham = $_GET['id_san_pham'];
-		$sanPham = $this->modelSanPham->getDetailSanPham($id_san_pham);
-		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id_san_pham);
+		$id = $_GET['id'];
+		$sanPham = $this->modelSanPham->getDetailSanPham($id);
+		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
 		if ($sanPham) {
-			$id_san_pham = $_GET['id_san_pham'];
+			$id = $_GET['id'];
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/sanpham/detailSanPham.php';
 		} else {

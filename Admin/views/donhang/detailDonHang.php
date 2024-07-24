@@ -34,11 +34,11 @@
 			<div class="row">
 				<div class="col-12">
 					<?php
-						if ($donHang['id_trang_thai_dh'] == 1) {
+						if ($donHang['trang_thai_dh_id'] == 1) {
 							$colorAlerts = 'primary';
-						}elseif($donHang['id_trang_thai_dh'] >=2 && $donHang['id_trang_thai_dh'] <= 8){
+						}elseif($donHang['trang_thai_dh_id'] >=2 && $donHang['trang_thai_dh_id'] <= 8){
 							$colorAlerts = 'warning';
-						}elseif($donHang['id_trang_thai_dh'] == 9){
+						}elseif($donHang['trang_thai_dh_id'] == 9){
 							$colorAlerts = 'success';
 						}else {
 							$colorAlerts = 'danger';

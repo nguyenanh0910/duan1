@@ -63,11 +63,11 @@
 											<td>
 												<div class="btn-group">
 													<a
-														href="<?= ADMIN_BASE_URL . '?act=detail-don-hang&id_don_hang=' . $donHang['id_don_hang'] ?>">
+														href="<?= ADMIN_BASE_URL . '?act=detail-don-hang&id=' . $donHang['id'] ?>">
 														<button class="btn btn-primary"><i class="far fa-eye"></i></button>
 													</a>
 													<a
-														href="<?= ADMIN_BASE_URL . '?act=form-edit-don-hang&id_don_hang=' . $donHang['id_don_hang'] ?>">
+														href="<?= ADMIN_BASE_URL . '?act=form-edit-don-hang&id=' . $donHang['id'] ?>">
 														<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
 													</a>
 												</div>

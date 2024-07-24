@@ -55,10 +55,10 @@
 											<td><?= $danhMuc['ten_danh_muc'] ?></td>
 											<td><?= $danhMuc['mo_ta'] ?></td>
 											<td>
-												<a href="<?= ADMIN_BASE_URL . '?act=form-edit-danh-muc&id_danh_muc=' . $danhMuc['id_danh_muc'] ?>">
+												<a href="<?= ADMIN_BASE_URL . '?act=form-edit-danh-muc&id=' . $danhMuc['id'] ?>">
 													<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
 												</a>
-												<a href="<?= ADMIN_BASE_URL . '?act=delete-danh-muc&id_danh_muc=' . $danhMuc['id_danh_muc'] ?>"
+												<a href="<?= ADMIN_BASE_URL . '?act=delete-danh-muc&id=' . $danhMuc['id'] ?>"
 													onclick="return confirm('Bạn có muốn xóa không?')">
 													<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 												</a>

@@ -47,10 +47,10 @@ class AdminDanhMucController
 	// xóa danh mục 
 	public function deleteDanhMuc()
 	{
-		$id_danh_muc = $_GET['id_danh_muc'];
-		$danhMuc = $this->modelDanhMuc->getDetailDanhMuc($id_danh_muc);
+		$id = $_GET['id'];
+		$danhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
 		if ($danhMuc) {
-			$this->modelDanhMuc->deleteDanhMuc($id_danh_muc);
+			$this->modelDanhMuc->deleteDanhMuc($id);
 		} 
 		header("Location: " . ADMIN_BASE_URL . '?act=list-danh-muc');
 		exit();
@@ -59,10 +59,10 @@ class AdminDanhMucController
 	// Sửa danh mục
 	public function formEditDanhMuc()
 	{
-		$id_danh_muc = $_GET['id_danh_muc'];
-		$editDanhMuc = $this->modelDanhMuc->getDetailDanhMuc($id_danh_muc);
+		$id = $_GET['id'];
+		$editDanhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
 		if ($editDanhMuc) {
-			$id_danh_muc = $_GET['id_danh_muc'];
+			$id = $_GET['id'];
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/danhmuc/editDanhMuc.php';
 			// xóa session sau khi load trang
@@ -74,8 +74,8 @@ class AdminDanhMucController
 	}
 	public function updateDanhMuc()
 	{
-		if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_edit'])) {
-			$id_danh_muc = $_POST['id_danh_muc'] ?? '';
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$id = $_POST['id'] ?? '';
 			$ten_danh_muc = $_POST['ten_danh_muc'] ?? '';
 			$mo_ta = $_POST['mo_ta'] ?? '';
 			$errors = [];
@@ -88,13 +88,13 @@ class AdminDanhMucController
 			$_SESSION['error'] = $errors;
 			if (empty($errors)) {
 				// Gọi phương thức trong model để cập nhật danh mục vào cơ sở dữ liệu
-				$this->modelDanhMuc->updateDanhMuc($id_danh_muc, $ten_danh_muc, $mo_ta);
+				$this->modelDanhMuc->updateDanhMuc($id, $ten_danh_muc, $mo_ta);
 				header("Location: " . ADMIN_BASE_URL . '?act=list-danh-muc');
 				exit();
 			} else {
 				// đặt chỉ thị xóa session
 				$_SESSION['flash'] = true;
-				header("Location: " . ADMIN_BASE_URL . '?act=form-edit-danh-muc&id_danh_muc=' . $id_danh_muc);
+				header("Location: " . ADMIN_BASE_URL . '?act=form-edit-danh-muc&id=' . $id);
 				exit();
 			}
 		}

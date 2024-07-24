@@ -37,38 +37,38 @@ class AdminDanhMuc
 			return false;
 		}
 	}
-	public function deleteDanhMuc($id_danh_muc)
+	public function deleteDanhMuc($id)
 	{
 		try {
-			$sql = "DELETE FROM tb_danhmuc WHERE id_danh_muc = :id_danh_muc";
+			$sql = "DELETE FROM tb_danhmuc WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_danh_muc' => $id_danh_muc]);
+			$stmt->execute([':id' => $id]);
 			return true;
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
 			return false;
 		}
 	}
-	public function getDetailDanhMuc($id_danh_muc)
+	public function getDetailDanhMuc($id)
 	{
 		try {
-			$sql = "SELECT * FROM tb_danhmuc WHERE id_danh_muc = :id_danh_muc";
+			$sql = "SELECT * FROM tb_danhmuc WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_danh_muc' => $id_danh_muc]);
+			$stmt->execute([':id' => $id]);
 			return $stmt->fetch();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
 			return false;
 		}
 	}
-	public function updateDanhMuc($id_danh_muc, $ten_danh_muc, $mo_ta)
+	public function updateDanhMuc($id, $ten_danh_muc, $mo_ta)
 	{
 		try {
-			$sql = "UPDATE tb_danhmuc SET ten_danh_muc = :ten_danh_muc, mo_ta = :mo_ta WHERE id_danh_muc = :id_danh_muc";
+			$sql = "UPDATE tb_danhmuc SET ten_danh_muc = :ten_danh_muc, mo_ta = :mo_ta WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute(
 				[
-					':id_danh_muc' => $id_danh_muc,
+					':id' => $id,
 					':ten_danh_muc' => $ten_danh_muc,
 					':mo_ta' => $mo_ta,
 				]

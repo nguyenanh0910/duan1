@@ -11,7 +11,7 @@ class AdminSanPham
 	public function getAllSanPham()
 	{
 		try {
-			$sql = "SELECT tb_sanpham.*, tb_danhmuc.ten_danh_muc FROM tb_sanpham  INNER JOIN tb_danhmuc ON tb_sanpham.id_danh_muc = tb_danhmuc.id_danh_muc";
+			$sql = "SELECT tb_sanpham.*, tb_danhmuc.ten_danh_muc FROM tb_sanpham  INNER JOIN tb_danhmuc ON tb_sanpham.danh_muc_id = tb_danhmuc.id";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();
@@ -20,12 +20,12 @@ class AdminSanPham
 			return false;
 		}
 	}
-	public function insertSanPham($ten_san_pham, $hinh_anh, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $id_danh_muc, $mo_ta, $trang_thai)
+	public function insertSanPham($ten_san_pham, $hinh_anh, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $mo_ta, $trang_thai)
 	{
 		try {
 			$sql = "INSERT INTO tb_sanpham 
-                (ten_san_pham, hinh_anh, gia_san_pham, gia_khuyen_mai, so_luong, ngay_nhap, id_danh_muc, mo_ta, trang_thai)
-                VALUES (:ten_san_pham, :hinh_anh, :gia_san_pham, :gia_khuyen_mai, :so_luong, :ngay_nhap, :id_danh_muc, :mo_ta, :trang_thai)";
+                (ten_san_pham, hinh_anh, gia_san_pham, gia_khuyen_mai, so_luong, ngay_nhap, danh_muc_id, mo_ta, trang_thai)
+                VALUES (:ten_san_pham, :hinh_anh, :gia_san_pham, :gia_khuyen_mai, :so_luong, :ngay_nhap, :danh_muc_id, :mo_ta, :trang_thai)";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute([
 				':ten_san_pham' => $ten_san_pham,
@@ -34,7 +34,7 @@ class AdminSanPham
 				':gia_khuyen_mai' => $gia_khuyen_mai,
 				':so_luong' => $so_luong,
 				':ngay_nhap' => $ngay_nhap,
-				':id_danh_muc' => $id_danh_muc,
+				':danh_muc_id' => $danh_muc_id,
 				':mo_ta' => $mo_ta,
 				':trang_thai' => $trang_thai,
 			]);
@@ -46,15 +46,15 @@ class AdminSanPham
 		}
 	}
 
-	public function insertAlbumAnhSanPham($id_san_pham, $link_anh)
+	public function insertAlbumAnhSanPham($san_pham_id, $link_anh)
 	{
 		try {
 			$sql = "INSERT INTO tb_anhsanpham
-							(id_san_pham, link_anh)
-							VALUES (:id_san_pham, :link_anh)";
+							(san_pham_id, link_anh)
+							VALUES (:san_pham_id, :link_anh)";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute([
-				':id_san_pham' => $id_san_pham,
+				':san_pham_id' => $san_pham_id,
 				':link_anh' => $link_anh,
 			]);
 			// lấy id sản phẩm vừa thêm
@@ -65,14 +65,14 @@ class AdminSanPham
 		}
 	}
 
-	public function deleteSanPham($id_san_pham)
+	public function deleteSanPham($id)
 	{
 		try {
-			$sql = "DELETE FROM tb_sanpham WHERE id_san_pham = :id_san_pham";
+			$sql = "DELETE FROM tb_sanpham WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute(
 				[
-					':id_san_pham' => $id_san_pham,
+					':id' => $id,
 				]
 			);
 			return true;
@@ -81,15 +81,15 @@ class AdminSanPham
 			return false;
 		}
 	}
-	public function getDetailSanPham($id_san_pham)
+	public function getDetailSanPham($id)
 	{
 		try {
 			$sql = "SELECT tb_sanpham.*, tb_danhmuc.ten_danh_muc 
 							FROM tb_sanpham 
-							INNER JOIN tb_danhmuc ON tb_sanpham.id_danh_muc = tb_danhmuc.id_danh_muc 
-							WHERE tb_sanpham.id_san_pham = :id_san_pham ";
+							INNER JOIN tb_danhmuc ON tb_sanpham.danh_muc_id = tb_danhmuc.id 
+							WHERE tb_sanpham.id = :id ";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_san_pham' => $id_san_pham]);
+			$stmt->execute([':id' => $id]);
 			// var_dump($stmt); die;
 			return $stmt->fetch();
 		} catch (Exception $e) {
@@ -97,12 +97,12 @@ class AdminSanPham
 			return false;
 		}
 	}
-	public function getListAnhSanPham($id_san_pham)
+	public function getListAnhSanPham($san_pham_id)
 	{
 		try {
-			$sql = "SELECT * FROM tb_anhsanpham WHERE id_san_pham = :id_san_pham";
+			$sql = "SELECT * FROM tb_anhsanpham WHERE san_pham_id = :san_pham_id";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_san_pham' => $id_san_pham]);
+			$stmt->execute([':san_pham_id' => $san_pham_id]);
 			return $stmt->fetchAll();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
@@ -110,12 +110,12 @@ class AdminSanPham
 		}
 	}
 
-	public function getDetailAnhSanPham($id_anh_san_pham)
+	public function getDetailAnhSanPham($id)
 	{
 		try {
-			$sql = "SELECT * FROM tb_anhsanpham WHERE id_anh_san_pham = :id_anh_san_pham";
+			$sql = "SELECT * FROM tb_anhsanpham WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_anh_san_pham' => $id_anh_san_pham]);
+			$stmt->execute([':id' => $id]);
 			return $stmt->fetch();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
@@ -123,17 +123,17 @@ class AdminSanPham
 		}
 	}
 
-	public function updateAnhSanPham($id_anh_san_pham, $new_file)
+	public function updateAnhSanPham($id, $new_file)
 	{
 		try {
 			$sql = "UPDATE tb_anhsanpham 
 								SET
 									link_anh = :new_file
-								WHERE id_anh_san_pham = :id_anh_san_pham ";
+								WHERE id = :id ";
 
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute([
-				':id_anh_san_pham' => $id_anh_san_pham,
+				':id' => $id,
 				':new_file' => $new_file
 			]);
 			// lấy id sản phẩm vừa thêm
@@ -144,12 +144,12 @@ class AdminSanPham
 		}
 	}
 
-	public function destroyAnhSanPham($id_anh_san_pham)
+	public function destroyAnhSanPham($id)
 	{
 		try {
-			$sql = "DELETE FROM tb_anhsanpham WHERE id_anh_san_pham = :id_anh_san_pham";
+			$sql = "DELETE FROM tb_anhsanpham WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id_anh_san_pham' => $id_anh_san_pham]);
+			$stmt->execute([':id' => $id]);
 			return true;
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
@@ -157,7 +157,7 @@ class AdminSanPham
 		}
 	}
 
-	public function updateSanPham($id_san_pham, $ten_san_pham, $hinh_anh, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $id_danh_muc, $mo_ta, $trang_thai)
+	public function updateSanPham($id, $ten_san_pham, $hinh_anh, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $mo_ta, $trang_thai)
 	{
 		try {
 			$sql = "UPDATE tb_sanpham 
@@ -168,21 +168,21 @@ class AdminSanPham
 									gia_khuyen_mai = :gia_khuyen_mai, 
 									so_luong = :so_luong, 
 									ngay_nhap = :ngay_nhap, 
-									id_danh_muc = :id_danh_muc, 
+									danh_muc_id = :danh_muc_id, 
 									mo_ta = :mo_ta, 
 									trang_thai = :trang_thai
-								WHERE id_san_pham = :id_san_pham ";
+								WHERE id = :id ";
 
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute([
-				':id_san_pham' => $id_san_pham,
+				':id' => $id,
 				':ten_san_pham' => $ten_san_pham,
 				':hinh_anh' => $hinh_anh,
 				':gia_san_pham' => $gia_san_pham,
 				':gia_khuyen_mai' => $gia_khuyen_mai,
 				':so_luong' => $so_luong,
 				':ngay_nhap' => $ngay_nhap,
-				':id_danh_muc' => $id_danh_muc,
+				':danh_muc_id' => $danh_muc_id,
 				':mo_ta' => $mo_ta,
 				':trang_thai' => $trang_thai,
 			]);
