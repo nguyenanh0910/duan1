@@ -126,8 +126,6 @@ class AdminSanPhamController
 		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
 		$listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
 		if ($editSanPham) {
-			$id = $_GET['id'];
-			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/sanpham/editSanPham.php';
 			// xóa session sau khi load trang
 			deleteSessionError();
@@ -274,6 +272,7 @@ class AdminSanPhamController
 		$id = $_GET['id'];
 		$sanPham = $this->modelSanPham->getDetailSanPham($id);
 		$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
+		$listBinhLuan = $this->modelSanPham->getBinhLuanFromSanPham($id);
 		if ($sanPham) {
 			$id = $_GET['id'];
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
@@ -281,6 +280,30 @@ class AdminSanPhamController
 		} else {
 			header("Location: " . ADMIN_BASE_URL . '?act=list-san-pham');
 			exit();
+		}
+	}
+	public function updateTrangThaiBinhLuan()
+	{
+		$id = $_POST['id'];
+		$name_view = $_POST['name_view'];
+		$binhLuan = $this->modelSanPham->getDetailBinhLuan($id);
+		if ($binhLuan) {
+			$trang_thai_update = '';
+			if ($binhLuan['trang_thai'] == 1) {
+				$trang_thai_update = 2;
+			} else {
+				$trang_thai_update = 1;
+			}
+			$status = $this->modelSanPham->updateTrangThaiBinhLuan($id, $trang_thai_update);
+			if ($status) {
+				if ($name_view == 'detail_khach') {
+					header("Location: " . ADMIN_BASE_URL . '?act=detail-khach-hang&id=' . $binhLuan['tai_khoan_id']);
+					exit();
+				}else{
+					header("Location: " . ADMIN_BASE_URL . '?act=detail-san-pham&id=' . $binhLuan['san_pham_id']);
+					exit();
+				}
+			}
 		}
 	}
 }

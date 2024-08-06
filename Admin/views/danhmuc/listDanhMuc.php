@@ -97,7 +97,14 @@
 	$(function () {
 		$("#example1").DataTable({
 			"responsive": true, "lengthChange": false, "autoWidth": false,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
+			"buttons": [
+				{ extend: 'copy', text: 'Sao chép' },
+				{ extend: 'csv', text: 'Xuất CSV' },
+				{ extend: 'excel', text: 'Xuất Excel' },
+				{ extend: 'pdf', text: 'Xuất PDF' },
+				{ extend: 'print', text: 'In' },
+				{ extend: 'colvis', text: 'Hiển thị cột' }
+			],
 			"language": {
 				"search": "Tìm kiếm:"
 			}

@@ -37,8 +37,6 @@ class AdminDonHangController
 		$donHang = $this->modelDonHang->getDetailDonHang($id);
 		$listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
 		if ($donHang) {
-			$id = $_GET['id'];
-			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/donhang/editDonHang.php';
 			// xóa session sau khi load trang
 			deleteSessionError();
@@ -54,12 +52,14 @@ class AdminDonHangController
 			// Lấy dữ liệu
 			// Lấy dữ liệu cũ của sản phẩm
 			$id = $_POST['id'] ?? '';
+			$oldOrder = $this->modelDonHang->getDetailDonHang($id);
+			$trang_thai_old = $oldOrder['trang_thai_dh_id'];
 			$ten_nguoi_nhan = $_POST['ten_nguoi_nhan'] ?? '';
 			$sdt_nguoi_nhan = $_POST['sdt_nguoi_nhan'] ?? '';
 			$email_nguoi_nhan = $_POST['email_nguoi_nhan'] ?? '';
 			$dia_chi_nguoi_nhan = $_POST['dia_chi_nguoi_nhan'] ?? '';
 			$ghi_chu = $_POST['ghi_chu'] ?? '';
-			$trang_thai_dh_id = $_POST['trang_thai_dh_id'] ?? '';
+			$trang_thai_dh_id = $_POST['trang_thai_dh_id'] ?? $trang_thai_old;
 			// Validate dữ liệu
 			$errors = [];
 
@@ -92,40 +92,5 @@ class AdminDonHangController
 			}
 		}
 	}
-
-	// // xóa sản phẩm 
-	// public function deleteSanPham()
-	// {
-	// 	$id_don_hang = $_GET['id_san_pham'];
-	// 	$sanPham = $this->modelSanPham->formEditSanPham($id_san_pham);
-	// 	$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id_san_pham);
-	// 	if ($sanPham) {
-	// 		deleteFile($sanPham['hinh_anh']);
-	// 		$this->modelSanPham->deleteSanPham($id_san_pham);
-	// 	}
-	// 	if ($listAnhSanPham) {
-	// 		foreach ($listAnhSanPham as $key => $anhSP) {
-	// 			deleteFile($anhSP['link_anh']);
-	// 			$this->modelSanPham->destroyAnhSanPham($anhSP['id_anh_san_pham']);
-	// 		}
-	// 	}
-	// 	header("Location: " . ADMIN_BASE_URL . '?act=list-san-pham');
-	// 	exit();
-	// }
-
-	// public function detailSanPham()
-	// {
-	// 	$id_san_pham = $_GET['id_san_pham'];
-	// 	$sanPham = $this->modelSanPham->formEditSanPham($id_san_pham);
-	// 	$listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id_san_pham);
-	// 	if ($sanPham) {
-	// 		$id_san_pham = $_GET['id_san_pham'];
-	// 		// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
-	// 		require_once './views/sanpham/detailSanPham.php';
-	// 	} else {
-	// 		header("Location: " . ADMIN_BASE_URL . '?act=list-san-pham');
-	// 		exit();
-	// 	}
-	// }
 }
 ?>

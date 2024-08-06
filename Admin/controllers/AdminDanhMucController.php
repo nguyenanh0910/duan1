@@ -11,7 +11,7 @@ class AdminDanhMucController
 		$listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
 		require_once './views/danhmuc/listDanhMuc.php';
 	}
-	public function formaddDanhMuc()
+	public function formAddDanhMuc()
 	{
 		require_once './views/danhmuc/addDanhMuc.php';
 		deleteSessionError();
@@ -62,7 +62,6 @@ class AdminDanhMucController
 		$id = $_GET['id'];
 		$editDanhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
 		if ($editDanhMuc) {
-			$id = $_GET['id'];
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/danhmuc/editDanhMuc.php';
 			// xóa session sau khi load trang

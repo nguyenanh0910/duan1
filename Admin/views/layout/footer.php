@@ -29,3 +29,5 @@
 	<script src="./assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="./assets/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="./assets/dist/js/pages/dashboard3.js"></script>

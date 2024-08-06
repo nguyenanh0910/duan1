@@ -87,7 +87,7 @@
 								<strong style="color:red; font-size: large;">Thông tin</strong>
 								<address>
 									<strong>Mã đơn hàng:</strong> <?=$donHang['ma_don_hang']?><br>
-									<strong>Tổng tiền:</strong> <?=number_format($donHang['tong_tien'], 0, ',' , '.'). ' VNĐ' ?><br>
+									<strong>Tổng tiền:</strong> <?= fomartPrice($donHang['tong_tien'])?><br>
 									<strong>Ghi chú:</strong> <?=$donHang['ghi_chu']?><br>
 									<strong>Phương thức thanh toán:</strong> <?=$donHang['ten_phuong_thuc']?><br>
 								</address>
@@ -115,9 +115,9 @@
 											<tr>
 											<td><?=$key+1?></td>
 											<td><?=$sanPham['ten_san_pham']?></td>
-											<td><?=number_format($sanPham['don_gia'], 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?=fomartPrice($sanPham['don_gia']) ?></td>
 											<td><?=$sanPham['so_luong']?></td>
-											<td><?=number_format($sanPham['thanh_tien'], 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?=fomartPrice($sanPham['thanh_tien']) ?></td>
 										</tr>
 										<?php $tong_tien += $sanPham['thanh_tien'];?>
 										<?php endforeach ?>
@@ -139,16 +139,16 @@
 										<tr>
 											<th style="width:50%">Thành tiền:</th>
 											<td>
-												<?=number_format($tong_tien, 0, ',' , '.'). ' VNĐ' ?>
+												<?= fomartPrice($tong_tien) ?>
 											</td>
 										</tr>
 										<tr>
 											<th>Phí ship:</th>
-											<td><?=number_format(200000, 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?=fomartPrice(200000) ?></td>
 										</tr>
 										<tr>
 											<th>Tổng tiền:</th>
-											<td><?=number_format($tong_tien + 200000, 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?=fomartPrice($tong_tien + 200000) ?></td>
 										</tr>
 									</table>
 								</div>

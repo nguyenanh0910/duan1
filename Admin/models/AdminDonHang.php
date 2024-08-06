@@ -99,23 +99,22 @@ class AdminDonHang
 			return false;
 		}
 	}
-
-	// public function deleteSanPham($id_san_pham)
-	// {
-	// 	try {
-	// 		$sql = "DELETE FROM tb_sanpham WHERE id_san_pham = :id_san_pham";
-	// 		$stmt = $this->conn->prepare($sql);
-	// 		$stmt->execute(
-	// 			[
-	// 				':id_san_pham' => $id_san_pham,
-	// 			]
-	// 		);
-	// 		return true;
-	// 	} catch (Exception $e) {
-	// 		echo "Lỗi" . $e->getMessage();
-	// 		return false;
-	// 	}
-	// }
+	public function getDonHangFromKhachHang($id)
+	{
+		try {
+			$sql = "SELECT tb_donhang.*, tb_trangthaidonhang.ten_trang_thai 
+			FROM tb_donhang  
+			INNER JOIN tb_trangthaidonhang ON tb_donhang.trang_thai_dh_id = tb_trangthaidonhang.id
+			WHERE tb_donhang.tai_khoan_id = :id
+			";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([':id'=>$id]);
+			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
 }
 
 ?>

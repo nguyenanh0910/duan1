@@ -49,11 +49,11 @@
 					<div class="col-12 col-sm-6">
 						<h3 class="my-3">Tên sản phẩm: <span style="color: red"><?= $sanPham['ten_san_pham'] ?></span></h3>
 						<hr>
-						<h4 class="mt-3">Giá tiền: <small><?=number_format($sanPham['gia_san_pham'], 0, ',' , '.'). ' VNĐ' ?></small></h4>
-						<h4 class="mt-3">Giá khuyến mãi: <small><?=number_format($sanPham['gia_khuyen_mai'], 0, ',' , '.'). ' VNĐ' ?></small></h4>
+						<h4 class="mt-3">Giá tiền: <small><?= fomartPrice($sanPham['gia_san_pham']) ?></small></h4>
+						<h4 class="mt-3">Giá khuyến mãi: <small><?= fomartPrice($sanPham['gia_khuyen_mai']) ?></small></h4>
 						<h4 class="mt-3">Số lượng: <small><?= $sanPham['so_luong'] ?></small></h4>
 						<h4 class="mt-3">Lượt xem: <small><?= $sanPham['luot_xem'] ?></small></h4>
-						<h4 class="mt-3">Ngày nhập: <small><?= formatDate($sanPham['ngay_nhap'])?></small></h4>
+						<h4 class="mt-3">Ngày nhập: <small><?= formatDate($sanPham['ngay_nhap']) ?></small></h4>
 						<h4 class="mt-3">Danh mục: <small><?= $sanPham['ten_danh_muc'] ?></small></h4>
 						<h4 class="mt-3">Trạng thái: <small><?= $sanPham['trang_thai'] == 1 ? 'Còn bán' : 'Dừng bán' ?></small></h4>
 						<h4 class="mt-3">Mô tả: <small><?= $sanPham['mo_ta'] ?></small></h4>
@@ -67,53 +67,44 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="binh-luan" role="tabpanel" aria-labelledby="home-tab">
-						<table class="table table-striped table-hover">
+						<table id="example1" class="table table-striped table-hover">
 							<thead>
 								<tr>
-									<th>#</th>
-									<th>Tên người bình luận</th>
+									<th>STT</th>
+									<th>Người bình luận</th>
 									<th>Nội dung</th>
 									<th>Ngày đăng</th>
+									<th>Trạng thái</th>
 									<th>Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn Anh</td>
-									<td>Sản phẩm xịn</td>
-									<td>20/7/2024</td>
-									<td>
-										<div class="btn-group">
-											<a href="#">
-												<button class="btn-warning">
-													<i class="far fa-eye"></i>
+								<?php foreach ($listBinhLuan as $key => $binhLuan): ?>
+									<tr>
+										<td><?= $key + 1 ?></td>
+										<td>
+											<a target="_blank"
+												href="<?= ADMIN_BASE_URL . '?act=detail-khach-hang&id=' . $binhLuan['tai_khoan_id'] ?>">
+												<?= $binhLuan['ho_ten'] ?>
+											</a>
+										</td>
+										<td><?= $binhLuan['noi_dung'] ?></td>
+										<td><?= formatDate($binhLuan['ngay_dang']) ?></td>
+										<td><?= $binhLuan['trang_thai'] == 1 ? 'Hiển thị' : 'Đã ẩn' ?></td>
+										<td>
+											<form action="<?= ADMIN_BASE_URL . '?act=update-trang-thai-binh-luan' ?>" method="POST">
+												<input type="hidden" name="id" value="<?= $binhLuan['id'] ?>">
+												<input type="hidden" name="name_view" value="detail_san_pham">
+												<button
+													onclick="return confirm('<?= $binhLuan['trang_thai'] == 1 ? 'Bạn có muốn ẩn bình luận này không?' : 'Bạn có muốn hiển thị bình luận này không?' ?>')"
+													class="btn <?= $binhLuan['trang_thai'] == 1 ? 'btn-success' : 'btn-danger' ?>">
+													<?= $binhLuan['trang_thai'] == 1 ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>' ?>
 												</button>
-											</a>
-											<a href="#" onclick="return confirm('Bạn có muốn xóa không?')">
-												<button class="btn-danger"><i class="fas fa-trash-alt"></i></button>
-											</a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn Anh</td>
-									<td>Sản phẩm xịn</td>
-									<td>20/7/2024</td>
-									<td>
-										<div class="btn-group">
-											<a href="#">
-												<button class="btn-warning">
-													<i class="far fa-eye"></i>
-												</button>
-											</a>
-											<a href="#" onclick="return confirm('Bạn có muốn xóa không?')">
-												<button class="btn-danger"><i class="fas fa-trash-alt"></i></button>
-											</a>
-										</div>
-									</td>
-								</tr>
+
+											</form>
+										</td>
+									</tr>
+								<?php endforeach ?>
 							</tbody>
 						</table>
 					</div>
@@ -142,6 +133,31 @@
 			$(this).addClass('active')
 		})
 	})
+</script>
+<script>
+	$(function () {
+		$("#example1").DataTable({
+			"responsive": true,
+			"lengthChange": false,
+			"autoWidth": false,
+			"language": {
+				"search": "Tìm kiếm:"
+			}
+		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+		$('#example2').DataTable({
+			"paging": true,
+			"lengthChange": false,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": false,
+			"responsive": true,
+			"language": {
+				"search": "Tìm kiếm:"
+			}
+		});
+	});
 </script>
 
 </html>

@@ -193,6 +193,69 @@ class AdminSanPham
 			return false;
 		}
 	}
+
+	//Bình luận
+	public function getBinhLuanFromKhachHang($id){
+		try {
+			$sql = "SELECT tb_binhluan.*, tb_sanpham.ten_san_pham 
+			FROM tb_binhluan  
+			INNER JOIN tb_sanpham ON tb_binhluan.san_pham_id = tb_sanpham.id
+			WHERE tb_binhluan.tai_khoan_id = :id
+			";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([':id'=>$id]);
+			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
+	public function getDetailBinhLuan($id)
+	{
+		try {
+			$sql = "SELECT * FROM tb_binhluan WHERE id = :id";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([':id' => $id]);
+			return $stmt->fetch();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
+	public function updateTrangThaiBinhLuan($id, $trang_thai)
+	{
+		try {
+			$sql = "UPDATE tb_binhluan 
+								SET
+									trang_thai = :trang_thai
+								WHERE id = :id ";
+
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([
+				':id' => $id,
+				':trang_thai' => $trang_thai
+			]);
+			return true;
+		} catch (PDOException $e) {
+			echo "Lỗi SQL: " . $e->getMessage();
+			return false;
+		}
+	}
+	public function getBinhLuanFromSanPham($id){
+		try {
+			$sql = "SELECT tb_binhluan.*, tb_taikhoan.ho_ten 
+			FROM tb_binhluan  
+			INNER JOIN tb_taikhoan ON tb_binhluan.tai_khoan_id = tb_taikhoan.id
+			WHERE tb_binhluan.san_pham_id = :id
+			";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([':id'=>$id]);
+			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
 }
 
 ?>

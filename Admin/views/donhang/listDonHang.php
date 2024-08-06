@@ -57,17 +57,15 @@
 											<td><?= $donHang['ma_don_hang'] ?></td>
 											<td><?= $donHang['ten_nguoi_nhan'] ?></td>
 											<td><?= $donHang['sdt_nguoi_nhan'] ?></td>
-											<td><?= $donHang['ngay_dat'] ?></td>
-											<td><?=number_format($donHang['tong_tien'], 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?= formatDate($donHang['ngay_dat']) ?></td>
+											<td><?= fomartPrice($donHang['tong_tien']) ?></td>
 											<td><?= $donHang['ten_trang_thai'] ?></td>
 											<td>
 												<div class="btn-group">
-													<a
-														href="<?= ADMIN_BASE_URL . '?act=detail-don-hang&id=' . $donHang['id'] ?>">
+													<a href="<?= ADMIN_BASE_URL . '?act=detail-don-hang&id=' . $donHang['id'] ?>">
 														<button class="btn btn-primary"><i class="far fa-eye"></i></button>
 													</a>
-													<a
-														href="<?= ADMIN_BASE_URL . '?act=form-edit-don-hang&id=' . $donHang['id'] ?>">
+													<a href="<?= ADMIN_BASE_URL . '?act=form-edit-don-hang&id=' . $donHang['id'] ?>">
 														<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
 													</a>
 												</div>
@@ -76,7 +74,7 @@
 									<?php endforeach ?>
 								</tbody>
 								<tfoot>
-								<tr>
+									<tr>
 										<th>STT</th>
 										<th>Mã đơn hàng</th>
 										<th>Tên người nhận</th>
@@ -110,7 +108,14 @@
 	$(function () {
 		$("#example1").DataTable({
 			"responsive": true, "lengthChange": false, "autoWidth": false,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
+			"buttons": [
+				{ extend: 'copy', text: 'Sao chép' },
+				{ extend: 'csv', text: 'Xuất CSV' },
+				{ extend: 'excel', text: 'Xuất Excel' },
+				{ extend: 'pdf', text: 'Xuất PDF' },
+				{ extend: 'print', text: 'In' },
+				{ extend: 'colvis', text: 'Hiển thị cột' }
+			],
 			"language": {
 				"search": "Tìm kiếm:"
 			}

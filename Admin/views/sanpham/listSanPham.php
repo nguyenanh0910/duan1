@@ -33,7 +33,8 @@
 						<div class="card-header">
 							<h3 class="card-title" style="font-size: 1.5rem;">Danh sách sản phẩm</h3>
 							<div class="card-tools">
-								<a href="<?= ADMIN_BASE_URL . '?act=form-add-san-pham' ?>"><button class="btn btn-success">Thêm mới sản phẩm</button></a>
+								<a href="<?= ADMIN_BASE_URL . '?act=form-add-san-pham' ?>"><button class="btn btn-success">Thêm mới sản
+										phẩm</button></a>
 							</div>
 						</div>
 						<!-- /.card-header -->
@@ -57,23 +58,21 @@
 											<td><?= $key + 1 ?></td>
 											<td><?= $sanPham['ten_san_pham'] ?></td>
 											<td><img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh cute" width="150px"></td>
-											<td><?=number_format($sanPham['gia_san_pham'], 0, ',' , '.'). ' VNĐ' ?></td>
+											<td><?= fomartPrice($sanPham['gia_san_pham']) ?></td>
 											<td><?= $sanPham['so_luong'] ?></td>
 											<td><?= $sanPham['ten_danh_muc'] ?></td>
 											<td><?= $sanPham['trang_thai'] == 1 ? 'Còn bán' : 'Dừng bán' ?></td>
 											<td>
 												<div class="btn-group">
-													<a
-														href="<?= ADMIN_BASE_URL . '?act=detail-san-pham&id=' . $sanPham['id'] ?>">
+													<a href="<?= ADMIN_BASE_URL . '?act=detail-san-pham&id=' . $sanPham['id'] ?>">
 														<button class="btn btn-primary"><i class="far fa-eye"></i></button>
 													</a>
-													<a
-														href="<?= ADMIN_BASE_URL . '?act=form-edit-san-pham&id=' . $sanPham['id'] ?>">
+													<a href="<?= ADMIN_BASE_URL . '?act=form-edit-san-pham&id=' . $sanPham['id'] ?>">
 														<button class="btn btn-warning"><i class="fas fa-cogs"></i></button>
 													</a>
 													<a href="<?= ADMIN_BASE_URL . '?act=delete-san-pham&id=' . $sanPham['id'] ?>"
-														onclick="return confirm('Bạn có muốn xóa không?')"><button
-															class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+														onclick="return confirm('Bạn có muốn xóa không?')"><button class="btn btn-danger"><i
+																class="fas fa-trash-alt"></i></button></a>
 												</div>
 											</td>
 										</tr>
@@ -114,7 +113,14 @@
 	$(function () {
 		$("#example1").DataTable({
 			"responsive": true, "lengthChange": false, "autoWidth": false,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", { extend: 'colvis', text: 'Hiển thị' }],
+			"buttons": [
+				{ extend: 'copy', text: 'Sao chép' },
+				{ extend: 'csv', text: 'Xuất CSV' },
+				{ extend: 'excel', text: 'Xuất Excel' },
+				{ extend: 'pdf', text: 'Xuất PDF' },
+				{ extend: 'print', text: 'In' },
+				{ extend: 'colvis', text: 'Hiển thị cột' }
+			],
 			"language": {
 				"search": "Tìm kiếm:"
 			}

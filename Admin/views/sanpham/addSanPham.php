@@ -37,7 +37,7 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form action="?act=add-san-pham" method="POST" enctype="multipart/form-data">
+						<form action="<?= ADMIN_BASE_URL . '?act=add-san-pham' ?>" method="POST" enctype="multipart/form-data">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Tên sản phẩm</label>

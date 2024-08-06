@@ -37,7 +37,7 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form action="?act=add-danh-muc" method="POST">
+						<form action="<?= ADMIN_BASE_URL . '?act=add-danh-muc' ?>" method="POST">
 							<div class="card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Tên danh mục</label>

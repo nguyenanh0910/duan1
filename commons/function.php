@@ -48,8 +48,10 @@ function deleteSessionError(){
 	if(isset($_SESSION['flash'])){
 		// hủy session sau khi đã tải trang 
 		unset($_SESSION['flash']);
-		session_unset();
-		session_destroy();
+		unset($_SESSION['error']);
+		unset($_SESSION['form_data']);
+		// session_unset();
+		// session_destroy();
 	}
 }
 
@@ -66,5 +68,25 @@ function uploadFileAlbum($file, $folderUpload, $key){
 }
 // format date
 function formatDate($date){
-	return date("d/m/Y", strtotime($date));
+	return date("d-m-Y", strtotime($date));
+}
+
+// format price
+function fomartPrice($price){
+	return number_format($price, 0, ',' , '.'). ' VNĐ';
+}
+
+// check login
+function checkLoginAdmin(){
+	if (!isset($_SESSION['user_admin'])) { // không có session thì redirect về trang login
+		header("Location: " . ADMIN_BASE_URL . '?act=login-admin');
+		exit();
+	}
+}
+
+function checkLoginClient(){
+	if (!isset($_SESSION['user_client'])) { // không có session thì redirect về trang login
+		header("Location: " . BASE_URL . '?act=login-client');
+		exit();
+	}
 }
