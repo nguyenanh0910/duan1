@@ -85,9 +85,9 @@
 											<option 
 											<?php
 												if ($donHang['trang_thai_dh_id'] > $trangThai['id']
-														|| $donHang['trang_thai_dh_id'] == 9
-														|| $donHang['trang_thai_dh_id'] == 10
-														|| $donHang['trang_thai_dh_id'] == 11)
+														|| $donHang['trang_thai_dh_id'] == 7
+														|| $donHang['trang_thai_dh_id'] == 8
+														|| $donHang['trang_thai_dh_id'] == 9)
 												 {
 													echo 'disabled';
 												}

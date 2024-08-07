@@ -10,20 +10,24 @@
 <div class="container">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb breadcrumb2">
-			<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-			<li class="breadcrumb-item">Register</li>
+			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
+				/
+			</li>
+			<li style="margin-left: 0.5rem;">Đăng ký</li>
 		</ol>
 	</nav>
 	<div class="row justify-content-center">
 		<div class="col-lg-8 col-md-12 mb-5">
 			<div class="login">
-				<h2>Đăng ký </h2>
-				<?php if (isset($_SESSION['success'])) { ?>
-					<div class="alert alert-info alert-dismissable">
-						<i class="fa fa-check-circle mr-2"></i>
-						<?= $_SESSION['success'] ?>
+				<h2>Đăng Ký </h2>
+				<?php if (isset($_SESSION['message'])) {
+					$alertClass = strpos($_SESSION['message'], 'thành công') !== false ? 'alert-success' : 'alert-danger';
+					?>
+					<div class="alert <?= $alertClass ?> alert-dismissable">
+						<i class="fa fa-<?= $alertClass == 'alert-success' ? 'check-circle' : 'exclamation-circle' ?> mr-2"></i>
+						<?= $_SESSION['message'] ?>
 					</div>
-					<?php unset($_SESSION['success']); // Xóa thông báo khỏi session ?>
+					<?php unset($_SESSION['message']); // Xóa thông báo khỏi session ?>
 				<?php } ?>
 				<div class="row">
 					<div class="login-form-container">

@@ -68,10 +68,10 @@
 <div class="container py-5">
 	<div class="row">
 		<div class="col-lg-4 col-md-6 col-sm-6 address wow fadeInLeft">
-			<div class="footer-logo"><img src="./assets/images/logo.png" alt="" title="" class="img-fluid"></div>
-			<p>Địa chỉ: 123-45 Đường 11378 Manchester</p>
-			<p>Điện thoại: +12 3456 78901</p>
-			<p>Email: <a href="mailto:info.organicstore@gmail.com">info.organicstore@gmail.com</a></p>
+			<div class="footer-logo"><img src="./assets/images/logo.png" alt="" title="" class="img-fluid" style="height:65px"></div>
+			<p>Địa chỉ: Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</p>
+			<p>Điện thoại: 19008668</p>
+			<p>Email: <a href="mailto:info.organicstore@gmail.com">info.bha@gmail.com</a></p>
 			<ul class="social-2">
 				<li><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
 				<li><a href="#" title="instagram"><i class="fa fa-instagram"></i></a></li>
@@ -104,7 +104,7 @@
 		<div class="col-lg-2 col-md-6 col-sm-6 footer-link wow fadeInLeft">
 			<h3>Liên Kết Nhanh</h3>
 			<ul>
-				<li><a href="cart.html">Giỏ Hàng</a></li>
+				<li><a href="<?=BASE_URL . '?act=gio-hang'?>">Giỏ Hàng</a></li>
 				<li><a href="wishlist.html">Danh Sách Yêu Thích</a></li>
 				<li><a href="comingsoon.html">Sắp Ra Mắt</a></li>
 				<li><a href="404.html">404</a></li>

@@ -9,12 +9,15 @@ require_once './controllers/TrangChuController.php';
 require_once './controllers/SanPhamController.php';
 require_once './controllers/TaiKhoanController.php';
 require_once './controllers/GioHangController.php';
+require_once './controllers/DonHangController.php';
+require_once './controllers/LienHeController.php';
 
 // Require toàn bộ file Models
 require_once './models/SanPham.php';
 require_once './models/DanhMuc.php';
 require_once './models/TaiKhoan.php';
 require_once './models/GioHang.php';
+require_once './models/DonHang.php';
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -35,6 +38,7 @@ match ($act) {
 	// sản phẩm
 	'danh-sach-san-pham' => (new SanPhamController())->showSanPham(),
 	'chi-tiet-san-pham' => (new SanPhamController())->detailSanPham(),
+	'gui-binh-luan' => (new SanPhamController())->cmtSanPham(),
 
 	// auth đăng nhập
 	'login-client' => (new TaiKhoanController())->formLogin(),
@@ -43,13 +47,27 @@ match ($act) {
 	// auth đăng ký
 	'form-dang-ky-client' => (new TaiKhoanController())->formRegister(),
 	'dang-ky-client' => (new TaiKhoanController())->addClient(),
-	
+
+	// auth quên mật khẩu
+	'form-quen-mat-khau' => (new TaiKhoanController())->formForgot(),
+
 	// thông tin cá nhân
 	'form-edit-thong-tin-ca-nhan-khach-hang' => (new TaiKhoanController())->formEditCaNhanKhachHang(),
 	'update-thong-tin-ca-nhan-khach-hang' => (new TaiKhoanController())->updateCaNhanKhachHang(),
 	'update-mat-khau-ca-nhan-khach-hang' => (new TaiKhoanController())->updateMatKhauCaNhan(),
 
 	// giỏ hàng
-	'gio-hang' =>  (new GioHangController())->showGioHang(),
+	'gio-hang' => (new GioHangController())->showGioHang(),
+	'them-gio-hang' => (new GioHangController())->addGioHang(),
+	'cap-nhat-gio-hang' => (new GioHangController())->updateCart(),
+	'xoa-san-pham-gio-hang' => (new GioHangController())->deleteCart(),
+	//đơn hàng
+	'form-thanh-toan' => (new DonHangController())->formCheckOut(),
+	'xac-nhan-thanh-toan' => (new DonHangController())->checkOut(),
+	'thanh-toan-thanh-cong' => (new DonHangController())->thankYou(),
+	'chi-tiet-don-hang' => (new DonHangController())->detailDonHang(),
+	'huy-don-hang' => (new DonHangController())->cancelDonHang(),
 
+	// liên hệ
+	'lien-he' => (new LienHeController())->formLienHe(),
 };

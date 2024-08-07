@@ -284,7 +284,7 @@ class AdminTaiKhoanController
 				$status = $this->modelTaiKhoan->resetPassword($user['id'], $hashPass);
 
 				if ($status) {
-					$_SESSION['success'] = "Đã đổi mật khẩu thành công";
+					$_SESSION['success2'] = "Đã đổi mật khẩu thành công";
 					$_SESSION['flash'] = true;
 					header("Location: " . ADMIN_BASE_URL . '?act=form-edit-thong-tin-ca-nhan-quan-tri');
 					exit();

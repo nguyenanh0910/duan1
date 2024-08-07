@@ -129,13 +129,13 @@
 				</form>
 				<hr>
 				<h3 class="pb-3">Đổi mật khẩu</h3>
-				<?php if (isset($_SESSION['success'])) { ?>
+				<?php if (isset($_SESSION['success2'])) { ?>
 					<div class="alert alert-info alert-dismissable">
 						<a class="panel-close close" data-dismiss="alert">×</a>
 						<i class="fas fa-lock mr-2"></i>
-						<?= $_SESSION['success'] ?>
+						<?= $_SESSION['success2'] ?>
 					</div>
-					<?php unset($_SESSION['success']); // Xóa thông báo khỏi session ?>
+					<?php unset($_SESSION['success2']); // Xóa thông báo khỏi session ?>
 				<?php } ?>
 				<form action="<?= ADMIN_BASE_URL . '?act=update-mat-khau-ca-nhan-quan-tri' ?>" method="post">
 					<div class="form-group">

@@ -59,7 +59,7 @@ class AdminDonHang
 			$sql = "SELECT tb_chitietdonhang.*, tb_sanpham.ten_san_pham 
 			FROM tb_chitietdonhang 
 			INNER JOIN tb_sanpham ON tb_chitietdonhang.san_pham_id = tb_sanpham.id
-			WHERE tb_chitietdonhang.don_dang_id = :id";
+			WHERE tb_chitietdonhang.don_hang_id = :id";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute([':id' => $id]);
 			return $stmt->fetchAll();

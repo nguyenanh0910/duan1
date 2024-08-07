@@ -10,7 +10,8 @@
 <div class="container mb-5">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb breadcrumb2">
-			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a> /
+			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
+				/
 			</li>
 			<li style="margin-left: 0.5rem;">Thông tin tài khoản</li>
 		</ol>
@@ -114,12 +115,12 @@
 										<hr>
 										<form action="<?= BASE_URL . '?act=update-mat-khau-ca-nhan-khach-hang' ?>" method="post">
 											<h3>Thay đổi mật khẩu</h3>
-											<?php if (isset($_SESSION['success'])) { ?>
+											<?php if (isset($_SESSION['success2'])) { ?>
 												<div class="alert alert-info alert-dismissable">
 													<i class="fa fa-lock mr-2"></i>
-													<?= $_SESSION['success'] ?>
+													<?= $_SESSION['success2'] ?>
 												</div>
-												<?php unset($_SESSION['success']); // Xóa thông báo khỏi session ?>
+												<?php unset($_SESSION['success2']); // Xóa thông báo khỏi session ?>
 											<?php } ?>
 											<div class="account-input-box">
 												<div class="row">
@@ -156,46 +157,45 @@
 						</div>
 						<div class="tab-pane fade" id="orders">
 							<h3>Danh sách đơn hàng</h3>
+							<?php if (isset($_SESSION['message'])) {
+								$alertClass = strpos($_SESSION['message'], 'thành công') !== false ? 'alert-success' : 'alert-danger';
+								?>
+								<div class="alert <?= $alertClass ?> alert-dismissable">
+									<i class="fa fa-<?= $alertClass == 'alert-success' ? 'check-circle' : 'exclamation-circle' ?> mr-2"></i>
+									<?= $_SESSION['message'] ?>
+								</div>
+								<?php unset($_SESSION['message']); // Xóa thông báo khỏi session ?>
+							<?php } ?>
 							<div class="table-responsive">
-								<table class="table boder-b">
+								<table class="table table-striped">
 									<thead>
 										<tr>
-											<th>Order</th>
-											<th>Date</th>
-											<th>Status</th>
-											<th>Total</th>
-											<th>Actions</th>
+											<th scope="col">#</th>
+											<th scope="col">Mã đơn hàng</th>
+											<th scope="col">Ngày đặt</th>
+											<th scope="col">Trạng thái</th>
+											<th scope="col">Tổng tiền</th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>May 10, 2018</td>
-											<td>Processing</td>
-											<td>$25.00 for 1 item </td>
-											<td><a href="cart.html" class="view">view</a></td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>May 10, 2018</td>
-											<td>Processing</td>
-											<td>$17.00 for 1 item </td>
-											<td><a href="cart.html" class="view">view</a></td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>May 10, 2018</td>
-											<td>Processing</td>
-											<td>$17.00 for 1 item </td>
-											<td><a href="cart.html" class="view">view</a></td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>May 10, 2018</td>
-											<td>Processing</td>
-											<td>$17.00 for 1 item </td>
-											<td><a href="cart.html" class="view">view</a></td>
-										</tr>
+										<?php foreach ($listDonHang as $key => $donHang): ?>
+											<tr>
+												<td scope="row"><?= $key + 1 ?></td>
+												<td><?=$donHang['ma_don_hang']?></td>
+												<td><?= formatDate($donHang['ngay_dat']) ?></td>
+												<td><?= $donHang['ten_trang_thai'] ?></td>
+												<td><?= fomartPrice($donHang['tong_tien']) ?></td>
+												<td>
+													<a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $donHang['id'] ?>" class="view">Xem chi
+														tiết</a>
+													<?php if ($donHang['ten_trang_thai'] != 'Hủy đơn'): ?>
+														<a href="<?= BASE_URL . '?act=huy-don-hang&id=' . $donHang['id'] ?>" class="huy"
+															onclick="return confirm('Bạn có muốn hủy đơn không?')">Hủy đơn</a>
+													<?php endif; ?>
+												</td>
+											</tr>
+										<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>
@@ -307,5 +307,29 @@
 		setTimeout(() => toast.classList.remove("show"), 3000);
 	}
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to get URL parameter
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get the value of the 'tab' parameter
+        var activeTab = getUrlParameter('tab');
+
+        // If a tab is specified in the URL, activate it
+        if (activeTab) {
+            var tabElement = document.querySelector('.nav a[href="#' + activeTab + '"]');
+            if (tabElement) {
+                var tab = new bootstrap.Tab(tabElement);
+                tab.show();
+            }
+        }
+    });
+</script>
+
 
 </html>

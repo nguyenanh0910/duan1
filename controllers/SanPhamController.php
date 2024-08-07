@@ -41,6 +41,7 @@ class SanPhamController
 		$danhMuc = $this->modelDanhMuc->getAllDanhMuc();
 		$sanPhamCungLoai = $this->modelSanPham->getRelatedSanPham($id);
 		if ($sanPham) {
+			$this->modelSanPham->updateLuotXem($id);
 			// Gọi phương thức trong model để lấy chi tiết danh mục từ CSDL
 			require_once './views/sanpham/detailSanPham.php';
 		} else {
@@ -78,5 +79,34 @@ class SanPhamController
 		// Bao gồm view để hiển thị sản phẩm
 		require_once './views/sanpham/listSanPham.php';
 	}
+	public function cmtSanPham()
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$san_pham_id = $_POST['san_pham_id'];
+			$tai_khoan_id = $_SESSION['client']['id']; // Giả sử người dùng đã đăng nhập và thông tin tài khoản nằm trong session
+			$noi_dung = $_POST['noi_dung'];
 
+			$errors = [];
+			if (empty($noi_dung)) {
+				$errors['noi_dung'] = "Nội dung không được để trống.";
+			}
+			$_SESSION['error'] = $errors;
+			if (empty($errors)) {
+				$status = $this->modelSanPham->insertBinhLuan($san_pham_id, $tai_khoan_id, $noi_dung);
+				if ($status) {
+					$_SESSION['message2'] = 'Đăng bình luận thành công';
+					header("Location: " . BASE_URL . '?act=chi-tiet-san-pham&id=' . $san_pham_id . '&tab=nav-contact');
+					exit();
+				} else {
+					$_SESSION['message2'] = "Thất bại";
+					header("Location: " . BASE_URL . '?act=chi-tiet-san-pham&id=' . $san_pham_id . '&tab=nav-contact');
+					exit();
+				}
+			}else {
+				$_SESSION['flash'] = false;
+				header("Location: " . BASE_URL . '?act=chi-tiet-san-pham&id=' . $san_pham_id . '&tab=nav-contact');
+				exit();
+			}
+		}
+	}
 }

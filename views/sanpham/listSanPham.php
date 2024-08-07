@@ -8,19 +8,15 @@
 
 <!-- content  -->
 <div class="container">
-	<nav aria-label="breadcrumb" class="bread-boder">
-		<div class="row">
-			<div class="col-lg-8 col-md-6">
-				<ol class=" breadcrumb">
-					<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a> /
-					</li>
-					<li style="margin-left: 0.5rem;"><a href="<?= BASE_URL . '?act=danh-sach-san-pham' ?>"> Sản phẩm</a></li>
-				</ol>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-		<div class="clearfix"></div>
+<nav aria-label="breadcrumb">
+		<ol class="breadcrumb2 breadcrumb">
+			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
+				/
+			</li>
+			<li style="margin-left: 0.5rem;"><a href="<?= BASE_URL . '?act=danh-sach-san-pham' ?>"> Sản phẩm</a></li>
+		</ol>
 	</nav>
+	<div class="clearfix"></div>
 	<div class="row">
 		<div class="col-lg-3 col-md-12">
 			<div class="inner-left-menu">

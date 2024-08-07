@@ -235,7 +235,7 @@ a:hover {
 	background: #f57b23;
 	color: #fff;
 	border-radius: 0;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 11px 20px
 }
 
@@ -253,7 +253,7 @@ a:hover {
 	background: #f46f23;
 	color: #fff;
 	padding: 11px 20px;
-	font-weight: 800;
+	font-weight: bold;
 	width: 100%;
 	display: block
 }
@@ -355,7 +355,7 @@ a:hover {
 	text-transform: uppercase;
 	padding: 9px 37px;
 	text-transform: uppercase;
-	font-weight: 800;
+	font-weight: bold;
 	color: #fff;
 }
 
@@ -370,7 +370,7 @@ a:hover {
 
 .carousel-caption h6 {
 	font-size: 14px;
-	font-weight: 800;
+	font-weight: bold;
 	text-transform: uppercase;
 	margin: 0;
 	padding: 0;
@@ -379,21 +379,21 @@ a:hover {
 
 .carousel-caption h2 {
 	font-size: 60px;
-	font-weight: 800;
+	font-weight: bold;
 	margin: 0 0 10px 0;
 	padding: 0
 }
 
 .carousel-caption h3 {
 	font-size: 30px;
-	font-weight: 800;
+	font-weight: bold;
 	margin: 0 0 28px 0;
 	padding: 0
 }
 
 .carousel-caption h3 span {
 	font-size: 18px;
-	font-weight: 800;
+	font-weight: bold;
 	margin: 0;
 	padding: 0
 }
@@ -511,7 +511,7 @@ a:hover {
 	background: #fff;
 	text-align: center;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	font-size: 16px;
 	color: #f46f23;
 	padding: 15px 0 0 0;
@@ -540,7 +540,7 @@ a:hover {
 	font-size: 35px;
 	position: relative;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0 0 10px 0;
 	margin: 62px 0 30px 0;
 }
@@ -599,7 +599,7 @@ a:hover {
 	font-size: 35px;
 	position: relative;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0 0 15px 0;
 	margin: 0 0 21px 0;
 }
@@ -665,7 +665,7 @@ a:hover {
 	font-size: 35px;
 	position: relative;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0 0 15px 0;
 	margin: 0 0 21px 0;
 }
@@ -699,7 +699,7 @@ a:hover {
 	font-size: 35px;
 	position: relative;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0 0 15px 0;
 	margin: 0 0 21px 0;
 }
@@ -732,7 +732,7 @@ a:hover {
 	font-size: 35px;
 	position: relative;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0 0 15px 0;
 	margin: 50px 0 21px 0;
 	display: block;
@@ -762,7 +762,7 @@ a:hover {
 
 .product-div h3 {
 	font-size: 22px;
-	font-weight: 800;
+	font-weight: bold;
 	margin: 0 0 20px 0;
 	padding: 0;
 	text-align: center
@@ -783,7 +783,7 @@ a:hover {
 	display: inline-block;
 	text-align: center;
 	font-size: 22px;
-	font-weight: 800;
+	font-weight: bold;
 	color: #f46f23;
 	padding: 8px 14px 8px 14px;
 	line-height: 25px;
@@ -793,7 +793,7 @@ a:hover {
 
 .counter li h5 {
 	font-size: 22px;
-	font-weight: 800;
+	font-weight: bold;
 	margin: 0;
 	padding: 0;
 }
@@ -867,7 +867,7 @@ a:hover {
 .footer-link h3 {
 	font-size: 19px;
 	text-transform: uppercase;
-	font-weight: 800;
+	font-weight: bold;
 	margin: 0 0 20px 0;
 	padding: 0;
 }
@@ -933,7 +933,7 @@ a:hover {
 	color: #f46f23;
 	height: 50px;
 	border-radius: 0 90px 90px 0;
-	font-weight: 800;
+	font-weight: bold;
 	text-transform: uppercase;
 	cursor: pointer;
 	line-height: 42px;
@@ -1056,7 +1056,7 @@ input:focus {
 }
 
 #newsletter h4 {
-	font-weight: 800;
+	font-weight: bold;
 }
 
 #newsletter p {
@@ -1145,7 +1145,7 @@ input:focus {
 .rate-price {
 	font-size: 16px;
 	width: 100%;
-	font-weight: 800;
+	font-weight: bold;
 }
 
 .rate-price li .dropdown-toggle::after {
@@ -1504,7 +1504,7 @@ input:focus {
 }
 
 .product .product-name {
-	font-weight: 800;
+	font-weight: bold;
 	margin: 10px 0 5px 0
 }
 
@@ -1756,7 +1756,7 @@ button:focus {
 }
 
 .inner-header2 h3 {
-	font-weight: 800;
+	font-weight: bold;
 	text-align: center;
 	text-transform: uppercase;
 	padding: 5% 0;
@@ -1776,7 +1776,7 @@ button:focus {
 }
 
 .inner-header h3 {
-	font-weight: 800;
+	font-weight: bold;
 	text-align: center;
 	text-transform: uppercase;
 	padding: 5% 0;
@@ -2186,7 +2186,7 @@ button:focus {
 	font-size: 35px;
 	position: relative;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0 0 10px 0;
 	margin: 62px 0 30px 0;
 }
@@ -2600,7 +2600,7 @@ button:focus {
 .ul-css li input[type=radio]+label {
 	position: relative;
 	padding-left: 0.875rem;
-	font-weight: 800;
+	font-weight: bold;
 	font-size: 14px
 }
 
@@ -4002,7 +4002,7 @@ main.posts-listing .post-footer {
 	bottom: 0;
 	line-height: 40px;
 	font-size: 14px;
-	font-weight: 800;
+	font-weight: bold;
 	z-index: 999;
 }
 
@@ -5526,7 +5526,7 @@ a.text-dark:hover {
 }
 
 .count-text {
-	font-weight: 800;
+	font-weight: bold;
 	font-size: 20px
 }
 
@@ -5567,7 +5567,7 @@ a.text-dark:hover {
 }
 
 .icon-detail h5 {
-	font-weight: 800;
+	font-weight: bold;
 	margin: 10px 0 10px 0;
 	color: #f46f23;
 }
@@ -5607,7 +5607,7 @@ a.text-dark:hover {
 	padding: 0 0 5px 0;
 	margin: 0 0 20px 0;
 	text-align: center;
-	font-weight: 800;
+	font-weight: bold;
 }
 
 .login .form-group .col-6 {
@@ -5699,7 +5699,7 @@ a.text-dark:hover {
 	background: #f36e24;
 	color: #ffffff;
 	font-size: 14px;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 14px 30px;
 	text-transform: capitalize;
 	text-decoration: none;
@@ -5769,7 +5769,7 @@ a.text-dark:hover {
 }
 
 .dashboard-content .table thead {
-	background: #f6f6f6 none repeat scroll 0 0;
+	border-top: 1px solid #ebebeb;
 	border-bottom: 1px solid #ebebeb;
 }
 
@@ -5793,8 +5793,18 @@ a.text-dark:hover {
 	text-transform: capitalize;
 	border-radius: 100px
 }
-
+.dashboard-content .huy {
+	background: red;
+	color: #ffffff;
+	font-size: 12px;
+	padding: 6px 12px;
+	text-transform: capitalize;
+	border-radius: 100px
+}
 .dashboard-content .view:hover {
+	background: #000000;
+}
+.dashboard-content .huy:hover {
 	background: #000000;
 }
 
@@ -5869,14 +5879,14 @@ a.text-dark:hover {
 	display: block;
 	font-size: 14px;
 	margin-bottom: 3px;
-	font-weight: 800;
+	font-weight: bold;
 }
 
 .account-login-form p {
 	display: block;
 	font-size: 14px;
 	margin-bottom: 3px;
-	font-weight: 800;
+	font-weight: bold;
 }
 
 .account-input-box input {
@@ -5912,7 +5922,7 @@ a.text-dark:hover {
 
 .product .product-price {
 	margin: 0;
-	font-weight: 800;
+	font-weight: bold;
 	padding: 0;
 	text-align: center;
 	font-size: 15px;
@@ -6535,7 +6545,7 @@ a.text-dark:hover {
 .faq-img img {}
 
 .faq-box .btn-link {
-	font-weight: 800;
+	font-weight: bold;
 	color: #4a4760;
 	background-color: #dcdcdc;
 	display: block;
@@ -6629,7 +6639,7 @@ a.text-dark:hover {
 	display: inline-block;
 	font-size: 36px;
 	line-height: 1;
-	font-weight: 800;
+	font-weight: bold;
 	margin-right: 20px;
 	background: #fff;
 	height: 130px;
@@ -7637,7 +7647,7 @@ a.text-dark:hover {
 
 .submit-comment {
 	line-height: 35px;
-	font-weight: 800;
+	font-weight: bold;
 	border: 0;
 	background: #f36e24;
 	padding: 7px 20px 7px 20px;

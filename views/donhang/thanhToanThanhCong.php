@@ -13,50 +13,27 @@
 			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
 				/
 			</li>
-			<li style="margin-left: 0.5rem;">Đăng nhập</li>
+			<li style="margin-left: 0.5rem;">Thanh toán thành công</li>
 		</ol>
 	</nav>
+	<br>
 	<div class="row justify-content-center">
-		<div class="col-lg-6 col-md-8">
+		<div class="col-lg-8 col-md-12 mb-5">
+			<h2 class="text-center">Thanh toán đơn hàng thành công</h2>
 			<div class="login">
-				<h2>Đăng Nhập</h2>
-				<form method="POST" action="<?= BASE_URL . '?act=check-login-client' ?>">
-					<?php if (isset($_SESSION['error'])) { ?>
-						<p class="text-danger text-center"><?= $_SESSION['error'] ?></p>
-					<?php } else { ?>
-						<p class="text-center"></p>
-					<?php } ?>
-					<div class="form-group mb-3">
-						<label for="exampleInputEmail1"><strong>Email *</strong></label>
-						<input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Nhập email">
-					</div>
-					<div class="form-group mb-3">
-						<label for="exampleInputPassword1"><strong>Mật khẩu *</strong></label>
-						<input type="password" name="mat_khau" class="form-control" id="exampleInputPassword1"
-							placeholder="Nhập mật khẩu">
-					</div>
-					<div class="form-group mb-3">
-						<div class="row">
-							<div class="col-6">
-								<input type="checkbox">
-								Lưu mật khẩu
-							</div>
-							<div class="col-6 text-end"><a href="<?=BASE_URL . '?act=form-quen-mat-khau'?>">Quên mật khẩu</a></div>
-						</div>
-					</div>
+				<div class="row text-center">
+					<span class="sidebar-title">- Cảm ơn bạn đã đặt hàng ! -</span>
 					<div class="clearfix"></div>
-					<div class="text-center">
-						<button type="submit" class="btn btn-primary">Đăng nhập</button>
-					</div>
-				</form>
-				<hr>
-				<div class="clearfix"></div>
-					<div class="d-flex justify-content-center">
-						<p style="margin-right:5px">Bạn chưa có tài khoản?</p> <a href="<?=BASE_URL . '?act=form-dang-ky-client'?>"> Đăng ký tài khoản</a>
-					</div>
+					<p>Mã đơn đặt hàng của bạn là <b><?= $ma_don_hang ?></b><br></p>
+					<p>Bạn sẽ sớm nhận được email đến xác nhận thông tin đơn hàng và một đường link để kiểm tra tình trạng đơn
+						hàng. Hy vọng bạn sẽ hài lòng với sản phẩm vừa đặt mua.</p>
+					<div class="text-center col-xs-12"><a href="<?= BASE_URL . '?act=danh-sach-san-pham' ?>"
+							class="btn btn-warning">Tiếp tục mua sắm</a></div>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <div class="clearfix"></div>
 <!-- end content  -->
@@ -119,5 +96,7 @@
 	}
 	// ]]>
 </script>
+
+
 
 </html>

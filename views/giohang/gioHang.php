@@ -10,92 +10,116 @@
 <div class="container">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb breadcrumb2">
-			<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-			<li class="breadcrumb-item">Cart</li>
+			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
+				/
+			</li>
+			<li style="margin-left: 0.5rem;">Giỏ hàng</li>
 		</ol>
 	</nav>
-	<div class="row">
-		<div class="col-12 col-xl-8 mb-4">
-			<div class="table-responsive cart-table table-borderless">
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="text-center">Sản phẩm</th>
-							<th class="text-center">&nbsp;</th>
-							<th class="text-center">Giá sản phẩm</th>
-							<th class="text-center">Số lượng</th>
-							<th>Thành tiền</th>
-							<th> </th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="product-thumbnail text-center"><a href="#"><img
-										src="assets/images/product-img/product-img-1.jpg" class="" alt=""></a></td>
-							<td>
-								<div class="cart-detail">Lorem Ipsum is simply dummy.</div>
-							</td>
-							<td class="text-center">
-								<div style="width:80px">$10.9 </div>
-							</td>
-							<td class="product-quantity" data-title="Quantity">
-								<div class="input-group"> <span class="input-group-btn">
-										<button type="button" class="btn btn-default btn-number" data-type="minus"
-											data-field="quant[1]"> <i class="fa fa-minus"></i> </button>
-									</span>
-									<input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"> <i class="fa fa-plus"></i> </button>
-									</span>
-								</div>
-							</td>
-							<td>
-								<div style="width:100px">
-									$30.9</div>
-							</td>
-							<td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<table class="w-100 coupon">
-									<tbody>
-										<tr>
-											<td class="text-end"><a href="#" class="btn cart mb-1 mt-1">Cập nhật giỏ hàng</a></td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="col-12 col-xl-4 mb-5">
-			<div class="cart_totals">
-				<div class="table-responsive">
-					<table class="table table-borderless mb-0">
+	<?php if (!empty($cartItems)) { ?>
+		<div class="row">
+			<div class="col-12 col-xl-8 mb-4">
+				<div class="table-responsive cart-table table-borderless">
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Sản phẩm</th>
+								<th>&nbsp;</th>
+								<th>Giá sản phẩm</th>
+								<th>Số lượng</th>
+								<th>Thành tiền</th>
+								<th> </th>
+							</tr>
+						</thead>
+						<?php
+						$tong_tien = 0;
+						?>
 						<tbody>
-							<tr class="cart-subtotal">
-								<td>Tổng tiền</td>
-								<td class="text-end">$20.00</td>
-							</tr>
-							<tr class="shipping">
-							<td><strong>Phí ship</strong></td>
-							<td class="text-end">$20.00</td>
-							</tr>
-							<tr class="order-total">
-								<td>
-									<h5>Thành tiền</h5>
-								</td>
-								<td class="text-end">$40.00</td>
-							</tr>
+							<?php foreach ($cartItems as $key => $cart): ?>
+								<?php
+								// Tính tổng tiền cho sản phẩm này
+								$totalPrice = $cart['gia_khuyen_mai'] * $cart['so_luong'];
+								$tong_tien += $totalPrice;
+								?>
+								<tr data-product-id="<?= $cart['id'] ?>">
+									<td><?= $key + 1 ?></td>
+									<td class="product-thumbnail text-center"><a href="#"><img src="<?= BASE_URL . $cart['hinh_anh'] ?>"
+												alt="ảnh sản phẩm"></a></td>
+									<td>
+										<div class="cart-detail"><?= $cart['ten_san_pham'] ?></div>
+									</td>
+									<td>
+										<div class="price" data-product-id="<?= $cart['san_pham_id'] ?>">
+											<?= fomartPrice($cart['gia_khuyen_mai']) ?>
+										</div>
+									</td>
+									<td class="product-quantity" style="padding-left:53px">
+										<div class="input-group">
+											<span class="input-group-btn">
+												<button class="btn btn-default btn-number" data-action="minus"
+													data-product-id="<?= $cart['san_pham_id'] ?>">
+													<i class="fa fa-minus"></i>
+												</button>
+											</span>
+											<input type="text" class="form-control input-number" value="<?= $cart['so_luong'] ?>" min="1"
+												data-product-id="<?= $cart['san_pham_id'] ?>" readonly>
+											<span class="input-group-btn">
+												<button class="btn btn-default btn-number" data-action="plus"
+													data-product-id="<?= $cart['san_pham_id'] ?>">
+													<i class="fa fa-plus"></i>
+												</button>
+											</span>
+										</div>
+									</td>
+									<td>
+										<div class="total-price" data-product-id="<?= $cart['san_pham_id'] ?>"><?= fomartPrice($totalPrice) ?>
+										</div>
+									</td>
+									<td><a href="<?= BASE_URL . '?act=xoa-san-pham-gio-hang&id=' . $cart['id'] ?>"
+											onclick="return confirm('Bạn có muốn xóa không?')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+									</td>
+								</tr>
+							<?php endforeach ?>
 						</tbody>
 					</table>
-					<a href="checkout.html" class="btn cart w-100">Tiến hành thanh toán</a>
+				</div>
+			</div>
+			<div class="col-12 col-xl-4 mb-5">
+				<div class="cart_totals">
+					<div class="table-responsive">
+						<table class="table table-borderless mb-0">
+							<tbody>
+								<tr class="cart-subtotal">
+									<td>Tổng tiền</td>
+									<td class="text-end total-price-2" data-product-id="<?= $cart['san_pham_id'] ?>">
+										<?= fomartPrice($tong_tien) ?>
+									</td>
+								</tr>
+								<tr class="shipping">
+									<td><strong>Phí ship</strong></td>
+									<td class="text-end price-ship"><?= fomartPrice(20000) ?></td>
+								</tr>
+								<tr class="order-total">
+									<td>
+										<h5 style="font-weight:bold">Thành tiền</h5>
+									</td>
+									<td style="font-weight:bold; font-size:large;" class="text-end total-price-3"
+										data-product-id="<?= $cart['san_pham_id'] ?>">
+										<?= fomartPrice((20000 + $tong_tien)) ?>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<a href="<?= BASE_URL . '?act=form-thanh-toan' ?>" class="btn cart w-100">Tiến hành thanh toán</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	<?php } else { ?>
+		<p class="text-center text-danger">Không có sản phẩm trong giỏ hàng. Vui lòng truy cập trang <a
+				href="<?= BASE_URL . '?act=danh-sach-san-pham' ?>">sản phẩm</a> để mua hàng</p>
+	<?php } ?>
 </div>
 <div class="clearfix"></div>
 <!-- end content  -->
@@ -158,5 +182,101 @@
 	}
 	// ]]>
 </script>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// Xử lý các nút cộng/trừ
+		const buttons = document.querySelectorAll('.btn-number');
+
+		buttons.forEach(button => {
+			button.addEventListener('click', function (event) {
+				event.preventDefault();
+				const action = this.getAttribute('data-action');
+				const productId = this.getAttribute('data-product-id');
+				const quantityInput = document.querySelector(`.input-number[data-product-id="${productId}"]`);
+
+				if (quantityInput) {
+					let quantity = parseInt(quantityInput.value);
+					if (isNaN(quantity)) {
+						quantity = 1; // Đặt số lượng mặc định nếu giá trị không hợp lệ
+					}
+
+					if (action === 'plus') {
+						quantity++;
+					} else if (action === 'minus' && quantity > 1) {
+						quantity--;
+					}
+
+					// Cập nhật số lượng sản phẩm trên trang
+					quantityInput.value = quantity;
+
+					// Gửi yêu cầu AJAX để cập nhật số lượng sản phẩm
+					const xhr = new XMLHttpRequest();
+					xhr.open('POST', '<?= BASE_URL . '?act=cap-nhat-gio-hang' ?>', true);
+					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+					xhr.onload = function () {
+						if (xhr.status === 200) {
+							// Xử lý phản hồi từ máy chủ nếu cần
+							console.log('Số lượng sản phẩm đã được cập nhật.');
+
+							// Cập nhật giá cho sản phẩm cụ thể
+							const priceElement = document.querySelector(`.price[data-product-id="${productId}"]`);
+							const totalPriceElement = document.querySelector(`.total-price[data-product-id="${productId}"]`);
+
+							if (priceElement && totalPriceElement) {
+								const price = parseFloat(priceElement.textContent.replace(/[^0-9]+/g, ""));
+								const totalPrice = price * quantity;
+								const formattedTotalPrice = totalPrice.toLocaleString('vi-VN', { minimumFractionDigits: 0 }) + ' VNĐ';
+								totalPriceElement.textContent = formattedTotalPrice;
+							}
+
+							// Cập nhật tổng giá của tất cả các sản phẩm
+							const priceElements = document.querySelectorAll('.price[data-product-id]');
+							let totalPrice2 = 0;
+							const shippingFee = 20000; // Phí vận chuyển
+
+							priceElements.forEach(priceElement => {
+								const productId = priceElement.getAttribute('data-product-id');
+								const quantityInput = document.querySelector(`.input-number[data-product-id="${productId}"]`);
+								if (quantityInput) {
+									const quantity = parseInt(quantityInput.value) || 1;
+									const price = parseFloat(priceElement.textContent.replace(/[^0-9]+/g, ""));
+									totalPrice2 += price * quantity;
+								}
+							});
+
+							// Định dạng tổng giá sản phẩm
+							const formattedTotalPrice2 = totalPrice2.toLocaleString('vi-VN', { minimumFractionDigits: 0 }) + ' VNĐ';
+
+							// Tính tổng tiền bao gồm phí ship
+							const totalPrice3 = totalPrice2 + shippingFee;
+							const formattedTotalPrice3 = totalPrice3.toLocaleString('vi-VN', { minimumFractionDigits: 0 }) + ' VNĐ';
+
+							// Cập nhật phần tử với giá đã định dạng
+							const totalPriceElement2 = document.querySelector('.total-price-2');
+							const totalPriceElement3 = document.querySelector('.total-price-3');
+
+							if (totalPriceElement2) {
+								totalPriceElement2.textContent = formattedTotalPrice2;
+							}
+							if (totalPriceElement3) {
+								totalPriceElement3.textContent = formattedTotalPrice3;
+							}
+						} else {
+							console.error('Lỗi khi cập nhật số lượng sản phẩm.');
+						}
+					};
+					xhr.send('product_id=' + encodeURIComponent(productId) + '&quantity=' + encodeURIComponent(quantity));
+				} else {
+					console.error('Không tìm thấy phần tử input-number.');
+				}
+			});
+		});
+	});
+
+
+</script>
+
+
+
 
 </html>

@@ -13,50 +13,79 @@
 			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
 				/
 			</li>
-			<li style="margin-left: 0.5rem;">Đăng nhập</li>
+			<li style="margin-left: 0.5rem;">Liên hệ</li>
 		</ol>
 	</nav>
-	<div class="row justify-content-center">
-		<div class="col-lg-6 col-md-8">
-			<div class="login">
-				<h2>Đăng Nhập</h2>
-				<form method="POST" action="<?= BASE_URL . '?act=check-login-client' ?>">
-					<?php if (isset($_SESSION['error'])) { ?>
-						<p class="text-danger text-center"><?= $_SESSION['error'] ?></p>
-					<?php } else { ?>
-						<p class="text-center"></p>
-					<?php } ?>
-					<div class="form-group mb-3">
-						<label for="exampleInputEmail1"><strong>Email *</strong></label>
-						<input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Nhập email">
-					</div>
-					<div class="form-group mb-3">
-						<label for="exampleInputPassword1"><strong>Mật khẩu *</strong></label>
-						<input type="password" name="mat_khau" class="form-control" id="exampleInputPassword1"
-							placeholder="Nhập mật khẩu">
-					</div>
-					<div class="form-group mb-3">
-						<div class="row">
-							<div class="col-6">
-								<input type="checkbox">
-								Lưu mật khẩu
+</div>
+<div class="clearfix"></div>
+<div class="contact-page contact-us">
+	<div class="feature map">
+	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8679632343833!2d105.74435187519812!3d21.0379684874624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313455305afd834b%3A0x17268e09af37081e!2sT%C3%B2a%20nh%C3%A0%20FPT%20Polytechnic.!5e0!3m2!1svi!2s!4v1723006932922!5m2!1svi!2s"></iframe>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center mb-4">
+			<div class="col-md-10">
+				<div class="contact-method">
+					<div class="row">
+						<div class="col-12 col-md-4">
+							<div class="method-block"> <i class="fa fa-map-marker"></i>
+								<div class="method-block_text">
+									<p>Trịnh Văn Bô, Nam Từ Liêm</p>
+									<p>Hà Nội</p>
+								</div>
 							</div>
-							<div class="col-6 text-end"><a href="<?=BASE_URL . '?act=form-quen-mat-khau'?>">Quên mật khẩu</a></div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="method-block"><i class="fa fa-envelope"></i>
+								<div class="method-block_text">
+									<p> <span>Hotline : </span>180096688</p>
+									<p><span>Mail : </span><a href="mailto:contact@srgit.com">contact@contact.com</a></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="method-block"><i class="fa fa-clock-o"></i>
+								<div class="method-block_text">
+									<p> <span>Thời gian hoạt động : </span>08:30 AM – 17:30 PM</p>
+									<p><span>Chủ nhật : </span> <span class="text-danger">Nghỉ</span> </p>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="clearfix"></div>
-					<div class="text-center">
-						<button type="submit" class="btn btn-primary">Đăng nhập</button>
-					</div>
-				</form>
-				<hr>
-				<div class="clearfix"></div>
-					<div class="d-flex justify-content-center">
-						<p style="margin-right:5px">Bạn chưa có tài khoản?</p> <a href="<?=BASE_URL . '?act=form-dang-ky-client'?>"> Đăng ký tài khoản</a>
-					</div>
+				</div>
+				<div class="leave-message">
+					<h1 class="title">Để lại lời nhắn</h1>
+					<p>Nhân viên của chúng tôi sẽ gọi lại sau và trả lời câu hỏi của bạn.</p>
+					<form action="#" method="post">
+						<div class="row">
+							<div class="col-12 col-md-6 mb-3">
+								<div class="form-group">
+									<input name="name" id="name" class="form-control" type="text" placeholder="Tên">
+								</div>
+							</div>
+							<div class="col-12 col-md-6 mb-3">
+								<div class="form-group">
+									<input name="email" id="email" class="form-control" type="email" placeholder="Email">
+								</div>
+							</div>
+							<div class="col-12 mb-3">
+								<div class="form-group">
+									<textarea name="message" id="message" class="form-control" cols="30" rows="10"
+										placeholder="Nội dung"></textarea>
+								</div>
+							</div>
+							<div class="col-12 text-center">
+								<div class="form-group">
+									<input type="button" onClick="return ajaxmailcontact();" class="btn add-to-cart2" value="Gửi">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <div class="clearfix"></div>
 <!-- end content  -->

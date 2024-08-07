@@ -54,7 +54,7 @@
 										<tr>
 											<td><?= $key + 1 ?></td>
 											<td><?= $khachHang['ho_ten'] ?></td>
-											<td><img src="<?= BASE_URL . $khachHang['anh_dai_dien'] ?>" style="width:100px;" alt="" 
+											<td class="text-center"><img src="<?= BASE_URL . $khachHang['anh_dai_dien'] ?>" style="width:80px;" alt="" 
 											onerror="this.onerror = null; this.src='https://cdn.icon-icons.com/icons2/589/PNG/256/icontexto-user-web20-delicious_icon-icons.com_55375.png'"></td>
 											<td><?= $khachHang['email'] ?></td>
 											<td><?= $khachHang['so_dien_thoai'] ?></td>

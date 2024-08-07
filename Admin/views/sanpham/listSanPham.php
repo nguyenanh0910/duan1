@@ -57,7 +57,7 @@
 										<tr>
 											<td><?= $key + 1 ?></td>
 											<td><?= $sanPham['ten_san_pham'] ?></td>
-											<td><img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh cute" width="150px"></td>
+											<td class="text-center"><img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh cute" style="width:100px"></td>
 											<td><?= fomartPrice($sanPham['gia_san_pham']) ?></td>
 											<td><?= $sanPham['so_luong'] ?></td>
 											<td><?= $sanPham['ten_danh_muc'] ?></td>

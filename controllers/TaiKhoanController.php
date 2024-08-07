@@ -1,10 +1,13 @@
 <?php
+require_once './commons/function.php';
 class TaiKhoanController
 {
 	public $modelTaiKhoan;
+	public $modelDonHang;
 	public function __construct()
 	{
 		$this->modelTaiKhoan = new TaiKhoan();
+		$this->modelDonHang = new DonHang();
 	}
 	public function formLogin()
 	{
@@ -26,6 +29,8 @@ class TaiKhoanController
 			if ($user == $email) { // trường hợp đăng nhập thành công
 				// Lưu thông tin vào session
 				$_SESSION['user_client'] = $user;
+				$_SESSION['client'] = $this->modelTaiKhoan->getTaiKhoanFromEmail($email);
+				// var_dump($_SESSION['thongTin']); die;
 				// var_dump($_SESSION['user_client']); die;
 				header("Location: " . BASE_URL);
 				exit();
@@ -54,6 +59,7 @@ class TaiKhoanController
 	{
 		$email = $_SESSION['user_client'];
 		$thongTin = $this->modelTaiKhoan->getTaiKhoanFromEmail($email);
+		$listDonHang = $this->modelDonHang->getAllDonHang();
 		require_once './views/taikhoan/editCaNhan.php';
 		deleteSessionError();
 	}
@@ -98,7 +104,7 @@ class TaiKhoanController
 				$status = $this->modelTaiKhoan->resetPassword($user['id'], $hashPass);
 
 				if ($status) {
-					$_SESSION['success'] = "Đã đổi mật khẩu thành công";
+					$_SESSION['success2'] = "Đã đổi mật khẩu thành công";
 					$_SESSION['flash'] = true;
 					header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang');
 					exit();
@@ -171,7 +177,7 @@ class TaiKhoanController
 					exit();
 				}
 			} else {
-				$_SESSION['flash'] = true;
+				$_SESSION['flash'] = false;
 				header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang');
 				exit();
 			}
@@ -223,7 +229,7 @@ class TaiKhoanController
 				// Gọi phương thức trong model để thêm khách hàng vào cơ sở dữ liệu
 				$status = $this->modelTaiKhoan->insertClient($ho_ten, $so_dien_thoai, $email, $hashPass, $trang_thai, $chuc_vu_id);
 				if ($status) {
-					$_SESSION['success'] = 'Đăng ký thông tin thành công. <a href="' . BASE_URL . '?act=login-client">Vui lòng đăng nhập</a>';
+					$_SESSION['message'] = 'Đăng ký thông tin thành công. <a href="' . BASE_URL . '?act=login-client">Vui lòng đăng nhập</a>';
 					$_SESSION['flash'] = true;
 					header("Location: " . BASE_URL . '?act=form-dang-ky-client');
 					exit();
@@ -231,10 +237,14 @@ class TaiKhoanController
 
 			} else {
 				$_SESSION['flash'] = false;
+				$_SESSION['message'] = "Đăng ký thất bại" ; 
 				header("Location: " . BASE_URL . '?act=form-dang-ky-client');
 				exit();
 			}
 		}
 	}
-
+public function formForgot(){
+	require_once './views/auth/formForgot.php';
+		deleteSessionError();
+}
 }

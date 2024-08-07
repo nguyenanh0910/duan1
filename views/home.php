@@ -10,7 +10,7 @@
 
 <!-- slider -->
 <div class="text-center">
-	<img src="./assets/images/rev-banner/img-1.jpg" alt="">
+	<img src="./assets/images/rev-banner/img-1.jpg" alt="banner" style="width:100%">
 </div>
 <!--end slider -->
 

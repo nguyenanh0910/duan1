@@ -297,7 +297,7 @@ class AdminSanPhamController
 			$status = $this->modelSanPham->updateTrangThaiBinhLuan($id, $trang_thai_update);
 			if ($status) {
 				if ($name_view == 'detail_khach') {
-					header("Location: " . ADMIN_BASE_URL . '?act=detail-khach-hang&id=' . $binhLuan['tai_khoan_id']);
+					header("Location: " . ADMIN_BASE_URL . '?act=detail-khach-hang&id=' . $binhLuan['tai_khoan_id'] . '&tab=binh-luan');
 					exit();
 				}else{
 					header("Location: " . ADMIN_BASE_URL . '?act=detail-san-pham&id=' . $binhLuan['san_pham_id']);

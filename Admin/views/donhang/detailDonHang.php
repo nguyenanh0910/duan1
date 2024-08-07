@@ -36,9 +36,9 @@
 					<?php
 						if ($donHang['trang_thai_dh_id'] == 1) {
 							$colorAlerts = 'primary';
-						}elseif($donHang['trang_thai_dh_id'] >=2 && $donHang['trang_thai_dh_id'] <= 8){
+						}elseif($donHang['trang_thai_dh_id'] >=2 && $donHang['trang_thai_dh_id'] <= 6){
 							$colorAlerts = 'warning';
-						}elseif($donHang['trang_thai_dh_id'] == 9){
+						}elseif($donHang['trang_thai_dh_id'] == 7){
 							$colorAlerts = 'success';
 						}else {
 							$colorAlerts = 'danger';
@@ -137,18 +137,18 @@
 								<div class="table-responsive">
 									<table class="table">
 										<tr>
-											<th style="width:50%">Thành tiền:</th>
+											<th style="width:50%">Tổng tiền:</th>
 											<td>
 												<?= fomartPrice($tong_tien) ?>
 											</td>
 										</tr>
 										<tr>
 											<th>Phí ship:</th>
-											<td><?=fomartPrice(200000) ?></td>
+											<td><?=fomartPrice(20000) ?></td>
 										</tr>
 										<tr>
-											<th>Tổng tiền:</th>
-											<td><?=fomartPrice($tong_tien + 200000) ?></td>
+											<th>Thành tiền:</th>
+											<td><?=fomartPrice($tong_tien + 20000) ?></td>
 										</tr>
 									</table>
 								</div>

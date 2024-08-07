@@ -210,6 +210,28 @@
 		});
 	});
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to get URL parameter
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
 
+        // Get the value of the 'tab' parameter
+        var activeTab = getUrlParameter('tab');
+
+        // If a tab is specified in the URL, activate it
+        if (activeTab) {
+            var tabElement = document.querySelector('.nav a[href="#' + activeTab + '"]');
+            if (tabElement) {
+                var tab = new bootstrap.Tab(tabElement);
+                tab.show();
+            }
+        }
+    });
+</script>
 
 </html>
