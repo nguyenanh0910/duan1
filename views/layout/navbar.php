@@ -11,7 +11,7 @@
 				<li class="nav-item dropdown megamenu-li"> <a class="nav-link"
 						href="<?= BASE_URL . '?act=danh-sach-san-pham' ?>">Sản phẩm </a> </li>
 				<li class="nav-item dropdown megamenu-li"> <a class="nav-link"
-						href="<?= BASE_URL . '?act=danh-sach-san-pham' ?>">Giới thiệu </a> </li>
+						href="<?= BASE_URL . '?act=gioi-thieu' ?>">Giới thiệu </a> </li>
 				<li class="nav-item dropdown megamenu-li"> <a class="nav-link" href="<?= BASE_URL . '?act=lien-he' ?>">Liên
 						hệ</a> </li>
 				<?php if (isset($_SESSION['user'])): ?>

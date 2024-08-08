@@ -218,7 +218,7 @@ class AdminTaiKhoanController
 				exit();
 			} else {
 				// Lỗi thì lưu lỗi vào session
-				$_SESSION['error'] = $user;
+				$_SESSION['error'] = "Email hoặc mật khẩu không đúng";
 				$_SESSION['flash'] = true;
 				header("Location: " . ADMIN_BASE_URL . '?act=login-admin');
 				exit();

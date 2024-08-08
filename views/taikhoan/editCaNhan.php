@@ -182,16 +182,21 @@
 										<?php foreach ($listDonHang as $key => $donHang): ?>
 											<tr>
 												<td scope="row"><?= $key + 1 ?></td>
-												<td><?=$donHang['ma_don_hang']?></td>
+												<td><?= $donHang['ma_don_hang'] ?></td>
 												<td><?= formatDate($donHang['ngay_dat']) ?></td>
 												<td><?= $donHang['ten_trang_thai'] ?></td>
 												<td><?= fomartPrice($donHang['tong_tien']) ?></td>
 												<td>
 													<a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $donHang['id'] ?>" class="view">Xem chi
 														tiết</a>
-													<?php if ($donHang['ten_trang_thai'] != 'Hủy đơn'): ?>
+													<?php if ($donHang['ten_trang_thai'] == 'Chưa xác nhận'): ?>
 														<a href="<?= BASE_URL . '?act=huy-don-hang&id=' . $donHang['id'] ?>" class="huy"
 															onclick="return confirm('Bạn có muốn hủy đơn không?')">Hủy đơn</a>
+													<?php elseif ($donHang['ten_trang_thai'] == 'Đã nhận'): ?>
+														<a href="<?= BASE_URL . '?act=xac-nhan-don-hang&id=' . $donHang['id'] ?>" class="nhan"
+															onclick="return confirm('Bạn chắc chắn đã nhận được hàng?')">Đã nhận</a>
+														<a href="<?= BASE_URL . '?act=hoan-don-hang&id=' . $donHang['id'] ?>" class="huy"
+															onclick="return confirm('Bạn có muốn hoàn hàng hàng?')">Hoàn hàng</a>
 													<?php endif; ?>
 												</td>
 											</tr>
@@ -308,27 +313,27 @@
 	}
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Function to get URL parameter
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            var results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        }
+	document.addEventListener('DOMContentLoaded', function () {
+		// Function to get URL parameter
+		function getUrlParameter(name) {
+			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+			var results = regex.exec(location.search);
+			return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+		}
 
-        // Get the value of the 'tab' parameter
-        var activeTab = getUrlParameter('tab');
+		// Get the value of the 'tab' parameter
+		var activeTab = getUrlParameter('tab');
 
-        // If a tab is specified in the URL, activate it
-        if (activeTab) {
-            var tabElement = document.querySelector('.nav a[href="#' + activeTab + '"]');
-            if (tabElement) {
-                var tab = new bootstrap.Tab(tabElement);
-                tab.show();
-            }
-        }
-    });
+		// If a tab is specified in the URL, activate it
+		if (activeTab) {
+			var tabElement = document.querySelector('.nav a[href="#' + activeTab + '"]');
+			if (tabElement) {
+				var tab = new bootstrap.Tab(tabElement);
+				tab.show();
+			}
+		}
+	});
 </script>
 
 

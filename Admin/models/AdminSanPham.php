@@ -195,7 +195,8 @@ class AdminSanPham
 	}
 
 	//Bình luận
-	public function getBinhLuanFromKhachHang($id){
+	public function getBinhLuanFromKhachHang($id)
+	{
 		try {
 			$sql = "SELECT tb_binhluan.*, tb_sanpham.ten_san_pham 
 			FROM tb_binhluan  
@@ -203,7 +204,7 @@ class AdminSanPham
 			WHERE tb_binhluan.tai_khoan_id = :id
 			";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id'=>$id]);
+			$stmt->execute([':id' => $id]);
 			return $stmt->fetchAll();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
@@ -241,7 +242,8 @@ class AdminSanPham
 			return false;
 		}
 	}
-	public function getBinhLuanFromSanPham($id){
+	public function getBinhLuanFromSanPham($id)
+	{
 		try {
 			$sql = "SELECT tb_binhluan.*, tb_taikhoan.ho_ten 
 			FROM tb_binhluan  
@@ -249,8 +251,43 @@ class AdminSanPham
 			WHERE tb_binhluan.san_pham_id = :id
 			";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id'=>$id]);
+			$stmt->execute([':id' => $id]);
 			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
+
+	// get sản phẩm bán chạy
+
+	public function getBestSellingSanPham()
+	{
+			try {
+					$sql = "SELECT tb_sanpham.*, SUM(tb_chitietdonhang.so_luong) AS total_sales
+									FROM tb_sanpham 
+									INNER JOIN tb_chitietdonhang ON tb_sanpham.id = tb_chitietdonhang.san_pham_id
+									INNER JOIN tb_donhang ON tb_chitietdonhang.don_hang_id = tb_donhang.id
+									WHERE tb_donhang.trang_thai_dh_id = 7
+									GROUP BY tb_sanpham.id
+									ORDER BY total_sales DESC
+									LIMIT 5";
+					$stmt = $this->conn->prepare($sql);
+					$stmt->execute();
+					return $stmt->fetchAll();
+			} catch (Exception $e) {
+					echo "Lỗi: " . $e->getMessage();
+					return false;
+			}
+	}
+	
+	public function getTongSanPham()
+	{
+		try {
+			$sql = "SELECT COUNT(*) AS so_san_pham FROM tb_sanpham";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			return $stmt->fetch();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
 			return false;

@@ -5801,10 +5801,15 @@ a.text-dark:hover {
 	text-transform: capitalize;
 	border-radius: 100px
 }
-.dashboard-content .view:hover {
-	background: #000000;
+.dashboard-content .nhan {
+	background: #368724;
+	color: #ffffff;
+	font-size: 12px;
+	padding: 6px 12px;
+	text-transform: capitalize;
+	border-radius: 100px
 }
-.dashboard-content .huy:hover {
+.dashboard-content .view:hover, .dashboard-content .huy:hover, .dashboard-content .nhan:hover {
 	background: #000000;
 }
 

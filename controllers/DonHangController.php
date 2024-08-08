@@ -111,23 +111,41 @@ class DonHangController
 		require_once './views/donhang/detailDonHang.php';
 
 	}
-	public function cancelDonHang()
+	public function handleOrderAct($act)
 	{
-		$id = $_GET['id'];
-		$donHang = $this->modelDonHang->getDetailDonHang($id);
-		if ($donHang) {
-			$status = $this->modelDonHang->cancelDonHang($id);
-			if ($status) {
-				$_SESSION['flash'] = true;
-				$_SESSION['message'] = 'Hủy đơn hàng thành công';
-				header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
-				exit();
+			$id = $_GET['id'];
+			$status = $this->modelDonHang->handleOrderAct($id, $act);
+	
+			$messageSuccess = '';
+			$messageFailure = '';
+	
+			if ($act == 'cancel') {
+					$messageSuccess = 'Hủy đơn hàng thành công';
+					$messageFailure = "Không thể hủy đơn hàng khi đơn hàng đã được xác nhận";
+			} elseif ($act == 'confirm') {
+					$messageSuccess = 'Nhận hàng thành công!';
+					$messageFailure = "Không thể xác nhận đơn hàng khi đơn hàng chưa được giao thành công";
+			} elseif ($act == 'refund') {
+					$messageSuccess = 'Yêu cầu hoàn hàng thành công! Nhân viên tư vấn sẽ liên hệ tới bạn để hướng dẫn tiếp theo.';
+					$messageFailure = "Không thể hoàn hàng khi đơn hàng chưa được giao thành công";
 			} else {
-				$_SESSION['flash'] = false;
-				$_SESSION['message'] = "Không thể hủy đơn hàng khi đơn hàng đã được xác nhận";
-				header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
-				exit();
+					$_SESSION['flash'] = false;
+					$_SESSION['message'] = "Hành động không hợp lệ";
+					header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
+					exit();
 			}
-		}
+	
+			if ($status) {
+					$_SESSION['flash'] = true;
+					$_SESSION['message'] = $messageSuccess;
+			} else {
+					$_SESSION['flash'] = false;
+					$_SESSION['message'] = $messageFailure;
+			}
+	
+			header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
+			exit();
 	}
+	
+
 }

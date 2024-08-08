@@ -25,149 +25,134 @@
 	</section>
 
 	<!-- Main content -->
-	<div class="content">
+	<section class="content">
 		<div class="container-fluid">
+			<!-- Small boxes (Stat box) -->
+			<div class="row">
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-info">
+						<div class="inner">
+							<h3><?= $soDonHang['so_don_hang'] ?></h3>
+
+							<p>Tổng số đơn hàng</p>
+						</div>
+						<div class="icon">
+							<i class="fas fa-shopping-bag"></i>
+						</div>
+						<a href="<?= ADMIN_BASE_URL . '?act=list-don-hang' ?>" class="small-box-footer">Xem chi tiết <i
+								class="fas fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-danger">
+						<div class="inner">
+							<h3><?= number_format(($soDonHangHoan['so_don_hang_hoan'] / $soDonHang['so_don_hang']) * 100, 2) ?><sup
+									style="font-size: 20px">%</sup></h3>
+
+							<p>Tỉ lệ hoàn hàng </p>
+						</div>
+						<div class="icon">
+							<i class="far fa-chart-bar"></i>
+						</div>
+						<a href="<?= ADMIN_BASE_URL . '?act=list-don-hang' ?>" class="small-box-footer">Xem chi tiết <i
+								class="fas fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-success">
+						<div class="inner">
+							<h3><?= $soSanPham['so_san_pham'] ?></h3>
+
+							<p>Tổng số sản phẩm</p>
+						</div>
+						<div class="icon">
+							<i class="fas fa-mobile-alt fa-lg"></i>
+						</div>
+						<a href="<?= ADMIN_BASE_URL . '?act=list-san-pham' ?>" class="small-box-footer">Xem chi tiết <i
+								class="fas fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-warning">
+						<div class="inner">
+							<h3><?= $soKhachHang['so_khach_hang'] ?></h3>
+
+							<p>Tổng số khách hàng</p>
+						</div>
+						<div class="icon">
+							<i class="far fa-user"></i>
+						</div>
+						<a href="<?= ADMIN_BASE_URL . '?act=list-tai-khoan-khach-hang' ?>" class="small-box-footer">Xem chi tiết <i
+								class="fas fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+				<!-- ./col -->
+			</div>
+			<!-- /.row -->
+			<!-- Main row -->
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="card">
-						<div class="card-header border-0">
-							<div class="d-flex justify-content-between">
-								<h3 class="card-title">Online Store Visitors</h3>
-								<a href="javascript:void(0);">View Report</a>
-							</div>
-						</div>
+						<div class="card-header">
+							<h3 class="card-title">
+								<i class="fas fa-chart-pie mr-1"></i>
+								Doanh thu
+							</h3>
+						</div><!-- /.card-header -->
+
 						<div class="card-body">
-							<div class="d-flex">
-								<p class="d-flex flex-column">
-									<span class="text-bold text-lg">820</span>
-									<span>Visitors Over Time</span>
-								</p>
-								<p class="ml-auto d-flex flex-column text-right">
-									<span class="text-success">
-										<i class="fas fa-arrow-up"></i> 12.5%
-									</span>
-									<span class="text-muted">Since last week</span>
-								</p>
+							<div class="tab-content p-0">
+								<!-- Morris chart - Sales -->
+								<div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
+									<canvas id="revenue-chart-canvas" height="300"></canvas>
+								</div>
 							</div>
-							<!-- /.d-flex -->
-
-							<div class="position-relative mb-4">
-								<canvas id="visitors-chart" height="200"></canvas>
-							</div>
-
-							<div class="d-flex flex-row justify-content-end">
-								<span class="mr-2">
-									<i class="fas fa-square text-primary"></i> This Week
-								</span>
-
-								<span>
-									<i class="fas fa-square text-gray"></i> Last Week
-								</span>
-							</div>
-						</div>
+						</div><!-- /.card-body -->
 					</div>
 					<!-- /.card -->
-
+				</div>
+				<!-- /.col-md-6 -->
+				<div class="col-lg-6">
 					<div class="card">
-						<div class="card-header border-0">
-							<h3 class="card-title">Products</h3>
-							<div class="card-tools">
-								<a href="#" class="btn btn-tool btn-sm">
-									<i class="fas fa-download"></i>
-								</a>
-								<a href="#" class="btn btn-tool btn-sm">
-									<i class="fas fa-bars"></i>
-								</a>
-							</div>
+						<div class="card-header">
+							<h3 class="card-title">
+							<i class="fas fa-mobile-alt fa-lg  mr-1"></i>
+								Sản phẩm bán chạy
+							</h3>
 						</div>
 						<div class="card-body table-responsive p-0">
 							<table class="table table-striped table-valign-middle">
 								<thead>
 									<tr>
-										<th>Product</th>
-										<th>Price</th>
-										<th>Sales</th>
-										<th>More</th>
+										<th colspan="2">Sản phẩm</th>
+										<th>Giá bán</th>
+										<th>Số lượng bán</th>
+										<th>Xem</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-											Some Product
-										</td>
-										<td>$13 USD</td>
-										<td>
-											<small class="text-success mr-1">
-												<i class="fas fa-arrow-up"></i>
-												12%
-											</small>
-											12,000 Sold
-										</td>
-										<td>
-											<a href="#" class="text-muted">
-												<i class="fas fa-search"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-											Another Product
-										</td>
-										<td>$29 USD</td>
-										<td>
-											<small class="text-warning mr-1">
-												<i class="fas fa-arrow-down"></i>
-												0.5%
-											</small>
-											123,234 Sold
-										</td>
-										<td>
-											<a href="#" class="text-muted">
-												<i class="fas fa-search"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-											Amazing Product
-										</td>
-										<td>$1,230 USD</td>
-										<td>
-											<small class="text-danger mr-1">
-												<i class="fas fa-arrow-down"></i>
-												3%
-											</small>
-											198 Sold
-										</td>
-										<td>
-											<a href="#" class="text-muted">
-												<i class="fas fa-search"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-											Perfect Item
-											<span class="badge bg-danger">NEW</span>
-										</td>
-										<td>$199 USD</td>
-										<td>
-											<small class="text-success mr-1">
-												<i class="fas fa-arrow-up"></i>
-												63%
-											</small>
-											87 Sold
-										</td>
-										<td>
-											<a href="#" class="text-muted">
-												<i class="fas fa-search"></i>
-											</a>
-										</td>
-									</tr>
+									<?php foreach ($sanPhamBanChay as $sanPham): ?>
+										<tr>
+											<td colspan="2">
+												<img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh sản phẩm" class=" img-size-32 mr-2">
+												<?= $sanPham['ten_san_pham'] ?>
+											</td>
+											<td><?= fomartPrice($sanPham['gia_khuyen_mai'])  ?></td>
+											<td><?= $sanPham['total_sales'] ?></td>
+											<td>
+												<a href="<?=ADMIN_BASE_URL . '?act=detail-san-pham&id=' .$sanPham['id']?>" class="text-muted">
+													<i class="fas fa-search"></i>
+												</a>
+											</td>
+										</tr>
+									<?php endforeach ?>
 								</tbody>
 							</table>
 						</div>
@@ -175,111 +160,113 @@
 					<!-- /.card -->
 				</div>
 				<!-- /.col-md-6 -->
-				<div class="col-lg-6">
-					<div class="card">
-						<div class="card-header border-0">
-							<div class="d-flex justify-content-between">
-								<h3 class="card-title">Sales</h3>
-								<a href="javascript:void(0);">View Report</a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="d-flex">
-								<p class="d-flex flex-column">
-									<span class="text-bold text-lg">$18,230.00</span>
-									<span>Sales Over Time</span>
-								</p>
-								<p class="ml-auto d-flex flex-column text-right">
-									<span class="text-success">
-										<i class="fas fa-arrow-up"></i> 33.1%
-									</span>
-									<span class="text-muted">Since last month</span>
-								</p>
-							</div>
-							<!-- /.d-flex -->
-
-							<div class="position-relative mb-4">
-								<canvas id="sales-chart" height="200"></canvas>
-							</div>
-
-							<div class="d-flex flex-row justify-content-end">
-								<span class="mr-2">
-									<i class="fas fa-square text-primary"></i> This year
-								</span>
-
-								<span>
-									<i class="fas fa-square text-gray"></i> Last year
-								</span>
-							</div>
-						</div>
-					</div>
-					<!-- /.card -->
-
-					<div class="card">
-						<div class="card-header border-0">
-							<h3 class="card-title">Online Store Overview</h3>
-							<div class="card-tools">
-								<a href="#" class="btn btn-sm btn-tool">
-									<i class="fas fa-download"></i>
-								</a>
-								<a href="#" class="btn btn-sm btn-tool">
-									<i class="fas fa-bars"></i>
-								</a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-								<p class="text-success text-xl">
-									<i class="ion ion-ios-refresh-empty"></i>
-								</p>
-								<p class="d-flex flex-column text-right">
-									<span class="font-weight-bold">
-										<i class="ion ion-android-arrow-up text-success"></i> 12%
-									</span>
-									<span class="text-muted">CONVERSION RATE</span>
-								</p>
-							</div>
-							<!-- /.d-flex -->
-							<div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-								<p class="text-warning text-xl">
-									<i class="ion ion-ios-cart-outline"></i>
-								</p>
-								<p class="d-flex flex-column text-right">
-									<span class="font-weight-bold">
-										<i class="ion ion-android-arrow-up text-warning"></i> 0.8%
-									</span>
-									<span class="text-muted">SALES RATE</span>
-								</p>
-							</div>
-							<!-- /.d-flex -->
-							<div class="d-flex justify-content-between align-items-center mb-0">
-								<p class="text-danger text-xl">
-									<i class="ion ion-ios-people-outline"></i>
-								</p>
-								<p class="d-flex flex-column text-right">
-									<span class="font-weight-bold">
-										<i class="ion ion-android-arrow-down text-danger"></i> 1%
-									</span>
-									<span class="text-muted">REGISTRATION RATE</span>
-								</p>
-							</div>
-							<!-- /.d-flex -->
-						</div>
-					</div>
-				</div>
-				<!-- /.col-md-6 -->
 			</div>
-			<!-- /.row -->
+			<!-- /.content-wrapper -->
 		</div>
-		<!-- /.container-fluid -->
-	</div>
-	<!-- /.content -->
+		<!-- end content  -->
+	</section>
 </div>
-<!-- /.content-wrapper -->
 <!-- Footer  -->
 <?php include './views/layout/footer.php'; ?>
 <!-- End footer  -->
 <!-- Page specific script -->
 </body>
+<?php
+
+// Tạo mảng chứa tất cả các ngày trong tháng hiện tại
+$labels = [];
+$data = [];
+
+// Xác định ngày bắt đầu và kết thúc của tháng
+$start = new DateTime('first day of this month');
+$end = new DateTime('last day of this month');
+
+// Lặp qua từng ngày trong tháng
+while ($start <= $end) {
+	$date = $start->format('Y-m-d');
+	$labels[] = $date;
+	$data[$date] = 0; // Mặc định là 0
+
+	$start->modify('+1 day');
+}
+
+// Cập nhật dữ liệu từ doanh thu
+foreach ($doanhThu as $row) {
+	$data[$row['day']] = $row['doanh_thu'];
+}
+
+// Chuyển mảng dữ liệu thành các mảng riêng biệt cho Chart.js
+$dataValues = array_values($data);
+?>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		// Lấy dữ liệu JSON từ PHP
+		var labels = <?= json_encode($labels); ?>; // Ngày trong tháng, ví dụ ['2024-08-01', '2024-08-02', ...]
+
+		var data = <?= json_encode($dataValues); ?>;
+
+		// Chuyển đổi labels thành số ngày trong tháng
+		var daysInMonth = labels.map(function (date) {
+			return new Date(date).getDate(); // Lấy ngày trong tháng từ định dạng 'Y-m-d'
+		});
+
+		// Tạo tiêu đề trục Y dựa trên tháng và năm hiện tại
+		var month = new Date().getMonth() + 1; // Tháng hiện tại (0-11, cộng thêm 1)
+		var year = new Date().getFullYear(); // Năm hiện tại
+		var titleText = `Tháng ${month}/${year}`;
+
+		var ctx = document.getElementById('revenue-chart-canvas').getContext('2d');
+		var revenueChart = new Chart(ctx, {
+			type: 'line', // Sử dụng biểu đồ đường
+			data: {
+				labels: daysInMonth,
+				datasets: [{
+					label: 'Doanh thu theo tháng',
+					data: data,
+					backgroundColor: 'rgba(60,141,188,0.4)', // Màu nền của đường
+					borderColor: 'rgba(60,141,188,1)', // Màu của đường
+					borderWidth: 2, // Độ dày của đường
+					pointBackgroundColor: '#3b8bba', // Màu của điểm dữ liệu
+					pointBorderColor: '#3b8bba', // Màu viền điểm dữ liệu
+					pointHoverBackgroundColor: '#3b8bba', // Màu nền của điểm khi hover
+					pointHoverBorderColor: '#3b8bba', // Màu viền của điểm khi hover
+					fill: false // Không đổ màu dưới đường biểu đồ
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					x: {
+						display: true,
+						title: {
+							display: true,
+							text: titleText // Tiêu đề trục x là "Tháng/Năm"
+						},
+						ticks: {
+							autoSkip: false, // Không tự động bỏ qua nhãn
+							maxRotation: 0, // Không xoay nhãn
+							minRotation: 0, // Không xoay nhãn
+							// Hiển thị số ngày trong tháng
+							callback: function (value, index, values) {
+								return value + 1; // Chỉ hiển thị số ngày
+							}
+						}
+					},
+					y: {
+						display: true,
+						ticks: {
+							callback: function (value, index, values) {
+								// Định dạng giá trị Y
+								return new Intl.NumberFormat().format(value) + 'VNĐ';
+							}
+						}
+					}
+				}
+			}
+		});
+	});
+</script>
+
 
 </html>

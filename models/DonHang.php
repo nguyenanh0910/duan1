@@ -163,10 +163,9 @@ class DonHang
 			return false;
 		}
 	}
-	public function cancelDonHang($id)
+	public function handleOrderAct($id, $act)
 	{
 		try {
-
 			// Bước 1: Kiểm tra trạng thái đơn hàng hiện tại
 			$sqlCheck = "SELECT trang_thai_dh_id FROM tb_donhang WHERE id = :id";
 			$stmtCheck = $this->conn->prepare($sqlCheck);
@@ -175,16 +174,27 @@ class DonHang
 
 			if ($order) {
 				$trang_thai_dh_id = $order['trang_thai_dh_id'];
+				$sqlUpdate = "";
+				$newStatus = null;
 
-				// Bước 2: Nếu trạng thái cho phép hủy (trang_thai_dh_id <= 1), thực hiện cập nhật
-				if ($trang_thai_dh_id <= 1) {
-					// Cập nhật trạng thái đơn hàng
+				// Bước 2: Xác định hành động và trạng thái mới
+				if ($act == 'cancel' && $trang_thai_dh_id <= 1) {
 					$sqlUpdate = "UPDATE tb_donhang SET trang_thai_dh_id = 9 WHERE id = :id";
+				} elseif ($act == 'confirm' && $trang_thai_dh_id == 6) {
+					$sqlUpdate = "UPDATE tb_donhang SET trang_thai_dh_id = 7 WHERE id = :id";
+				} elseif ($act == 'refund' && $trang_thai_dh_id == 6) {
+					$sqlUpdate = "UPDATE tb_donhang SET trang_thai_dh_id = 8 WHERE id = :id";
+				} else {
+					return false; // Trạng thái không cho phép hành động
+				}
+
+				if ($sqlUpdate) {
+					// Cập nhật trạng thái đơn hàng
 					$stmtUpdate = $this->conn->prepare($sqlUpdate);
 					$stmtUpdate->execute([':id' => $id]);
-					return true; // Hủy đơn thành công
+					return true;
 				} else {
-					return false; // Trạng thái không cho phép hủy đơn
+					return false; // Không thực hiện hành động
 				}
 			} else {
 				return false; // Đơn hàng không tồn tại
@@ -194,5 +204,7 @@ class DonHang
 			return false;
 		}
 	}
+
+
 
 }

@@ -64,6 +64,7 @@
 					<div class="clearfix"></div>
 					<div class="row">
 						<?php foreach ($sanPham as $sp): ?>
+							<?php if ($sp['trang_thai'] == 1): ?>
 							<div class="col-md-4 col-sm-6 mb-4">
 								<div class="product">
 									<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sp['id'] ?>">
@@ -82,6 +83,7 @@
 									</div>
 								</div>
 							</div>
+							<?php endif ;?>
 						<?php endforeach ?>
 						<div class="clearfix"></div>
 						<div class="col text-center">

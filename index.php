@@ -11,6 +11,7 @@ require_once './controllers/TaiKhoanController.php';
 require_once './controllers/GioHangController.php';
 require_once './controllers/DonHangController.php';
 require_once './controllers/LienHeController.php';
+require_once './controllers/GioiThieuController.php';
 
 // Require toàn bộ file Models
 require_once './models/SanPham.php';
@@ -66,8 +67,13 @@ match ($act) {
 	'xac-nhan-thanh-toan' => (new DonHangController())->checkOut(),
 	'thanh-toan-thanh-cong' => (new DonHangController())->thankYou(),
 	'chi-tiet-don-hang' => (new DonHangController())->detailDonHang(),
-	'huy-don-hang' => (new DonHangController())->cancelDonHang(),
+	'huy-don-hang' => (new DonHangController())->handleOrderAct('cancel'),
+	'xac-nhan-don-hang' => (new DonHangController())->handleOrderAct('confirm'),
+	'hoan-don-hang' => (new DonHangController())->handleOrderAct('refund'),
 
 	// liên hệ
 	'lien-he' => (new LienHeController())->formLienHe(),
+
+	// Giới thiệu
+	'gioi-thieu' => (new GioiThieuController())->formGioiThieu(),
 };

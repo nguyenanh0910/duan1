@@ -70,7 +70,7 @@ class AdminDonHang
 	}
 
 	// Sửa đơn hàng
-	public function updateDonHang($id, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan,  $dia_chi_nguoi_nhan, $ghi_chu, $trang_thai_dh_id)
+	public function updateDonHang($id, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan, $dia_chi_nguoi_nhan, $ghi_chu, $trang_thai_dh_id)
 	{
 		try {
 			$sql = "UPDATE tb_donhang 
@@ -108,8 +108,53 @@ class AdminDonHang
 			WHERE tb_donhang.tai_khoan_id = :id
 			";
 			$stmt = $this->conn->prepare($sql);
-			$stmt->execute([':id'=>$id]);
+			$stmt->execute([':id' => $id]);
 			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
+	public function getDoanhThu()
+	{
+		try {
+			$sql = "SELECT DATE_FORMAT(ngay_dat, '%Y-%m-%d') AS day, SUM(tong_tien) AS doanh_thu
+									FROM tb_donhang
+									WHERE trang_thai_dh_id = 7
+										AND ngay_dat >= DATE_FORMAT(NOW(), '%Y-%m-01')
+										AND ngay_dat <= LAST_DAY(NOW())
+									GROUP BY day
+									ORDER BY day";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi: " . $e->getMessage();
+			return false;
+		}
+	}
+
+
+
+	public function getTongDonHang()
+	{
+		try {
+			$sql = "SELECT COUNT(*) AS so_don_hang FROM tb_donhang";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
+	public function getTongDonHangHoan()
+	{
+		try {
+			$sql = "SELECT COUNT(*) AS so_don_hang_hoan FROM tb_donhang WHERE trang_thai_dh_id = 8";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			return $stmt->fetch();
 		} catch (Exception $e) {
 			echo "Lỗi" . $e->getMessage();
 			return false;

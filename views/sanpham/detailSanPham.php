@@ -80,8 +80,7 @@
 											<div class="d-flex" style="text-align:center; align-items:center">
 												<h4>Số lượng :</h4>
 												<span class="input-group-btn pl-1" style="width:50%">
-													<input type="number" name="so_luong" min="1" step="1" value="1"
-														style="width:50%; text-align:center">
+													<input type="number" name="so_luong" min="1" step="1" value="1" max="<?=$sanPham['so_luong']?>"	style="width:50%; text-align:center">
 												</span>
 											</div>
 										</div>
@@ -203,6 +202,7 @@
 			<h2 class="wow fadeInDown">Sản Phẩm Liên Quan</h2>
 			<div class="owl-carousel latest-products owl-theme wow fadeIn">
 				<?php foreach ($sanPhamCungLoai as $sanPham): ?>
+					<?php if ($sanPham['trang_thai'] == 1): ?>
 					<div class="item">
 						<div class="product">
 							<!-- <div class="item-product"> -->
@@ -235,6 +235,7 @@
 						</div> -->
 						</div>
 					</div>
+					<?php endif ;?>
 				<?php endforeach ?>
 			</div>
 		</div>

@@ -48,24 +48,26 @@
 		<h2 class="wow fadeInDown">Sản Phẩm Mới</h2>
 		<div class="owl-carousel latest-products owl-theme wow fadeIn">
 			<?php foreach ($sanPhamNew as $sanPham): ?>
+				<?php if ($sanPham['trang_thai'] == 1): ?>
 				<div class="item">
 					<div class="product">
 						<!-- <div class="item-product"> -->
-							<div class="carousel slide" data-ride="carousel">
-								<div class="carousel-inner">
-									<div class="carousel-item active">
-										<div class='badge'>
-											<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id']?>"><img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>"
-													alt="ảnh sản phẩm" style="height: 250px; width:250px"></a>
-										</div>
+						<div class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<div class='badge'>
+										<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id'] ?>"><img
+												src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh sản phẩm"
+												style="height: 250px; width:250px"></a>
 									</div>
 								</div>
 							</div>
-							<a class="name" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id']?>">
-								<h3 class="product-name text-capitalize"><?= $sanPham['ten_san_pham'] ?></h3>
-							</a>
-							<h3 class="product-price"><del><?= fomartPrice($sanPham['gia_san_pham']) ?></del></h3>
-							<h3 class="product-price"><?= fomartPrice($sanPham['gia_khuyen_mai']) ?></h3>
+						</div>
+						<a class="name" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id'] ?>">
+							<h3 class="product-name text-capitalize"><?= $sanPham['ten_san_pham'] ?></h3>
+						</a>
+						<h3 class="product-price"><del><?= fomartPrice($sanPham['gia_san_pham']) ?></del></h3>
+						<h3 class="product-price"><?= fomartPrice($sanPham['gia_khuyen_mai']) ?></h3>
 						<!-- </div> -->
 						<!-- <div class="product-select">
 							<button data-bs-toggle="tooltip" data-bs-placement="top" title="" class="add-to-compare round-icon-btn"
@@ -79,6 +81,7 @@
 						</div> -->
 					</div>
 				</div>
+				<?php endif ; ?>
 			<?php endforeach ?>
 		</div>
 	</div>
@@ -125,26 +128,28 @@
 		<h2 class="wow fadeInDown">Sản Phẩm Bán Chạy</h2>
 		<div class="owl-carousel latest-products owl-theme wow fadeIn">
 			<?php foreach ($sanPhamBanChay as $sanPham): ?>
-				<div class="item">
-					<div class="product">
-						<!-- <div class="item-product"> -->
+				<?php if ($sanPham['trang_thai'] == 1): ?>
+					<div class="item">
+						<div class="product">
+							<!-- <div class="item-product"> -->
 							<div class="carousel slide" data-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
 										<div class='badge'>
-											<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id']?>"><img src="<?= BASE_URL . $sanPham['hinh_anh'] ?>"
-													alt="ảnh sản phẩm" style="height: 250px; width:250px"></a>
+											<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id'] ?>"><img
+													src="<?= BASE_URL . $sanPham['hinh_anh'] ?>" alt="ảnh sản phẩm"
+													style="height: 250px; width:250px"></a>
 										</div>
 									</div>
 								</div>
 							</div>
-							<a class="name" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id']?>">
+							<a class="name" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sanPham['id'] ?>">
 								<h3 class="product-name text-capitalize"><?= $sanPham['ten_san_pham'] ?></h3>
 							</a>
 							<h3 class="product-price"><del><?= fomartPrice($sanPham['gia_san_pham']) ?></del></h3>
 							<h3 class="product-price"><?= fomartPrice($sanPham['gia_khuyen_mai']) ?></h3>
-						<!-- </div> -->
-						<!-- <div class="product-select">
+							<!-- </div> -->
+							<!-- <div class="product-select">
 							<button data-bs-toggle="tooltip" data-bs-placement="top" title="" class="add-to-compare round-icon-btn"
 								data-id="< $sanPham['id'] >" data-src="#popup-1"><i class="fa fa-eye" aria-hidden="true"></i></button>
 							<button data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist"
@@ -154,8 +159,9 @@
 								onClick="window.location.href='cart.html'" class="add-to-cart round-icon-btn"><i
 									class="fa fa-shopping-bag" aria-hidden="true"></i></button>
 						</div> -->
+						</div>
 					</div>
-				</div>
+				<?php endif; ?>
 			<?php endforeach ?>
 		</div>
 	</div>

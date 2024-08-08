@@ -197,5 +197,17 @@ class AdminTaiKhoan
 			return false;
 		}
 	}
+	public function getTongKhachHang()
+	{
+		try {
+			$sql = "SELECT COUNT(*) AS so_khach_hang FROM tb_taikhoan WHERE chuc_vu_id = 2";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
 
 }
