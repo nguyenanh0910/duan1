@@ -70,7 +70,7 @@
 							<select class="form-control form-select" name="phuong_thuc_tt_id">
 								<option disabled selected>Chọn phương thức thanh toán</option>
 								<?php foreach ($phuongThucThanhToan as $thanhToan): ?>
-									<option value="<?= $thanhToan['id'] ?>"><?= $thanhToan['ten_phuong_thuc'] ?></option>
+									<option value="<?= $thanhToan['id'] ?>" name="<?php if($thanhToan['id'] == 2 ? 'payUrl' : '') ?>"><?= $thanhToan['ten_phuong_thuc'] ?></option>
 								<?php endforeach; ?>
 							</select>
 							<?php if (isset($_SESSION['error']['phuong_thuc_tt_id'])) { ?>

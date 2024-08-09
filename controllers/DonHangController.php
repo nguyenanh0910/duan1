@@ -35,10 +35,9 @@ class DonHangController
 			$ghi_chu = $_POST['ghi_chu'] ?? '';
 			$phuong_thuc_tt_id = $_POST['phuong_thuc_tt_id'] ?? '';
 			$tong_tien = $_POST['tong_tien'] ?? '';
-			// var_dump($tong_tien); die;
+
 			// Xác thực dữ liệu
 			$errors = [];
-			// Kiểm tra rỗng
 			if (empty($ten_nguoi_nhan)) {
 				$errors['ten_nguoi_nhan'] = "Tên người nhận không được để trống.";
 			}
@@ -46,7 +45,7 @@ class DonHangController
 				$errors['email_nguoi_nhan'] = "Email không được để trống.";
 			}
 			if (empty($sdt_nguoi_nhan)) {
-				$errors['sdt_nguoi_nhan'] = "Số điện thoại không được để trống";
+				$errors['sdt_nguoi_nhan'] = "Số điện thoại không được để trống.";
 			}
 			if (empty($dia_chi_nguoi_nhan)) {
 				$errors['dia_chi_nguoi_nhan'] = "Địa chỉ không được để trống.";
@@ -56,10 +55,9 @@ class DonHangController
 			}
 
 			$_SESSION['error'] = $errors;
-			// var_dump($errors); die;
-			// Nếu không có lỗi thì thực hiện các bước lưu đơn hàng
+
 			if (empty($errors)) {
-				// Thêm đơn hàng
+				// Thêm đơn hàng trước khi thanh toán qua MoMo
 				$result = $this->modelDonHang->addDonHang($tai_khoan_id, $ten_nguoi_nhan, $email_nguoi_nhan, $sdt_nguoi_nhan, $dia_chi_nguoi_nhan, $tong_tien, $ghi_chu, $phuong_thuc_tt_id);
 
 				if ($result) {
@@ -67,7 +65,6 @@ class DonHangController
 					$ma_don_hang = $result['ma_don_hang'];
 
 					// Thêm chi tiết đơn hàng từ giỏ hàng
-					$cartItems = $this->modelGioHang->getCartItems($tai_khoan_id);
 					foreach ($cartItems as $item) {
 						$don_gia = $item['gia_khuyen_mai'];
 						$so_luong = $item['so_luong'];
@@ -76,12 +73,55 @@ class DonHangController
 						// Giảm số lượng sản phẩm trong kho
 						$this->modelSanPham->giamSoLuongSanPham($item['san_pham_id'], $so_luong);
 					}
-
 					// Xóa giỏ hàng sau khi đặt hàng
 					$this->modelGioHang->clearCart($tai_khoan_id);
-					// Chuyển hướng đến trang cảm ơn
-					header("Location: " . BASE_URL . "?act=thanh-toan-thanh-cong&ma_don_hang=" . urlencode($ma_don_hang));
-					exit();
+
+					// Kiểm tra phương thức thanh toán
+					if ($phuong_thuc_tt_id == 2) {
+						// Tích hợp MoMo cho thanh toán
+						$endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+						$partnerCode = 'MOMOBKUN20180529';
+						$accessKey = 'klm05TvNBzhg7h7j';
+						$secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+						$orderInfo = "Thanh toán qua MoMo";
+						$amount = $tong_tien;
+						$orderId = time();
+						$redirectUrl = BASE_URL . "?act=thanh-toan-thanh-cong&ma_don_hang=" . urlencode($ma_don_hang); // URL sẽ redirect về sau khi thanh toán thành công
+						$ipnUrl = BASE_URL . "?act=ipn-momo"; // URL MoMo sẽ gọi đến khi có thay đổi trạng thái thanh toán
+						$extraData = "";
+
+						$requestId = time();
+						$requestType = "payWithATM";
+						$rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+						$signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+						$data = array(
+							'partnerCode' => $partnerCode,
+							'partnerName' => "Test",
+							"storeId" => "MomoTestStore",
+							'requestId' => $requestId,
+							'amount' => $amount,
+							'orderId' => $orderId,
+							'orderInfo' => $orderInfo,
+							'redirectUrl' => $redirectUrl,
+							'ipnUrl' => $ipnUrl,
+							'lang' => 'vi',
+							'extraData' => $extraData,
+							'requestType' => $requestType,
+							'signature' => $signature
+						);
+
+						$result = $this->execPostRequest($endpoint, json_encode($data));
+						$jsonResult = json_decode($result, true);
+
+						// Redirect đến trang thanh toán của MoMo
+						header('Location: ' . $jsonResult['payUrl']);
+						exit();
+					} else {
+						// Chuyển hướng đến trang cảm ơn
+						header("Location: " . BASE_URL . "?act=thanh-toan-thanh-cong&ma_don_hang=" . urlencode($ma_don_hang));
+						exit();
+					}
 				}
 			} else {
 				$_SESSION['flash'] = true;
@@ -90,6 +130,28 @@ class DonHangController
 			}
 		}
 	}
+
+	private function execPostRequest($url, $data)
+	{
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt(
+			$ch,
+			CURLOPT_HTTPHEADER,
+			array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($data)
+			)
+		);
+
+		$result = curl_exec($ch);
+		curl_close($ch);
+
+		return $result;
+	}
+
 	public function thankYou()
 	{
 		$ma_don_hang = isset($_GET['ma_don_hang']) ? $_GET['ma_don_hang'] : '';
@@ -113,39 +175,39 @@ class DonHangController
 	}
 	public function handleOrderAct($act)
 	{
-			$id = $_GET['id'];
-			$status = $this->modelDonHang->handleOrderAct($id, $act);
-	
-			$messageSuccess = '';
-			$messageFailure = '';
-	
-			if ($act == 'cancel') {
-					$messageSuccess = 'Hủy đơn hàng thành công';
-					$messageFailure = "Không thể hủy đơn hàng khi đơn hàng đã được xác nhận";
-			} elseif ($act == 'confirm') {
-					$messageSuccess = 'Nhận hàng thành công!';
-					$messageFailure = "Không thể xác nhận đơn hàng khi đơn hàng chưa được giao thành công";
-			} elseif ($act == 'refund') {
-					$messageSuccess = 'Yêu cầu hoàn hàng thành công! Nhân viên tư vấn sẽ liên hệ tới bạn để hướng dẫn tiếp theo.';
-					$messageFailure = "Không thể hoàn hàng khi đơn hàng chưa được giao thành công";
-			} else {
-					$_SESSION['flash'] = false;
-					$_SESSION['message'] = "Hành động không hợp lệ";
-					header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
-					exit();
-			}
-	
-			if ($status) {
-					$_SESSION['flash'] = true;
-					$_SESSION['message'] = $messageSuccess;
-			} else {
-					$_SESSION['flash'] = false;
-					$_SESSION['message'] = $messageFailure;
-			}
-	
+		$id = $_GET['id'];
+		$status = $this->modelDonHang->handleOrderAct($id, $act);
+
+		$messageSuccess = '';
+		$messageFailure = '';
+
+		if ($act == 'cancel') {
+			$messageSuccess = 'Hủy đơn hàng thành công';
+			$messageFailure = "Không thể hủy đơn hàng khi đơn hàng đã được xác nhận";
+		} elseif ($act == 'confirm') {
+			$messageSuccess = 'Nhận hàng thành công!';
+			$messageFailure = "Không thể xác nhận đơn hàng khi đơn hàng chưa được giao thành công";
+		} elseif ($act == 'refund') {
+			$messageSuccess = 'Yêu cầu hoàn hàng thành công! Nhân viên tư vấn sẽ liên hệ tới bạn để hướng dẫn tiếp theo.';
+			$messageFailure = "Không thể hoàn hàng khi đơn hàng chưa được giao thành công";
+		} else {
+			$_SESSION['flash'] = false;
+			$_SESSION['message'] = "Hành động không hợp lệ";
 			header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
 			exit();
+		}
+
+		if ($status) {
+			$_SESSION['flash'] = true;
+			$_SESSION['message'] = $messageSuccess;
+		} else {
+			$_SESSION['flash'] = false;
+			$_SESSION['message'] = $messageFailure;
+		}
+
+		header("Location: " . BASE_URL . '?act=form-edit-thong-tin-ca-nhan-khach-hang&tab=orders');
+		exit();
 	}
-	
+
 
 }

@@ -49,7 +49,7 @@
 					<!-- small box -->
 					<div class="small-box bg-danger">
 						<div class="inner">
-							<h3><?= number_format(($soDonHangHoan['so_don_hang_hoan'] / $soDonHang['so_don_hang']) * 100, 2) ?><sup
+							<h3><?= number_format(($soDonHangHoan['so_don_hang_hoan'] / ($soDonHang['so_don_hang'] == 0 ? '1' : $soDonHang['so_don_hang'])) * 100, 2) ?><sup
 									style="font-size: 20px">%</sup></h3>
 
 							<p>Tỉ lệ hoàn hàng </p>
