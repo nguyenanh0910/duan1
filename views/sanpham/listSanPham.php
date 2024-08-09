@@ -8,7 +8,7 @@
 
 <!-- content  -->
 <div class="container">
-<nav aria-label="breadcrumb">
+	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb2 breadcrumb">
 			<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
 				/
@@ -65,25 +65,33 @@
 					<div class="row">
 						<?php foreach ($sanPham as $sp): ?>
 							<?php if ($sp['trang_thai'] == 1): ?>
-							<div class="col-md-4 col-sm-6 mb-4">
-								<div class="product">
-									<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sp['id'] ?>">
-										<img src="<?= BASE_URL . $sp['hinh_anh'] ?>" alt="ảnh sản phẩm" style="height: 250px; width:250px">
-									</a>
-									<h3 class="product-name">
-										<a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sp['id'] ?>"><?= $sp['ten_san_pham'] ?></a>
-									</h3>
-									<div class="row m-0 list-n">
-										<div class="col-lg-12 p-0">
-											<h3 class="product-price">
-												<del><?= fomartPrice($sp['gia_san_pham']) ?></del>
+								<div class="col-md-4 col-sm-6 mb-4">
+									<div class="item">
+										<div class="product">
+											<div class='badge'>
+												<?php if ($sp['so_luong'] == 0): ?>
+													<div class="text">Hết hàng</div>
+												<?php endif; ?>
+												<a class="product-img" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sp['id'] ?>">
+													<img src="<?= BASE_URL . $sp['hinh_anh'] ?>" alt="ảnh sản phẩm"
+														style="height: 250px; width:250px">
+												</a>
+											</div>
+											<h3 class="product-name">
+												<a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $sp['id'] ?>"><?= $sp['ten_san_pham'] ?></a>
 											</h3>
-											<h3 class="product-price"><?= fomartPrice($sp['gia_khuyen_mai']) ?></h3>
+											<div class="row m-0 list-n">
+												<div class="col-lg-12 p-0">
+													<h3 class="product-price">
+														<del><?= fomartPrice($sp['gia_san_pham']) ?></del>
+													</h3>
+													<h3 class="product-price"><?= fomartPrice($sp['gia_khuyen_mai']) ?></h3>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<?php endif ;?>
+							<?php endif; ?>
 						<?php endforeach ?>
 						<div class="clearfix"></div>
 						<div class="col text-center">

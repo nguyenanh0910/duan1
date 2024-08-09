@@ -13,7 +13,7 @@ class SanPham
 	public function getNewSanPham()
 	{
 		try {
-			$sql = "SELECT * FROM tb_sanpham ORDER BY ngay_nhap DESC";
+			$sql = "SELECT * FROM tb_sanpham ORDER BY ngay_nhap DESC LIMIT 10";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();
@@ -32,7 +32,7 @@ class SanPham
 							FROM tb_sanpham 
 							INNER JOIN tb_chitietdonhang ON tb_sanpham.id = tb_chitietdonhang.san_pham_id
 							GROUP BY tb_sanpham.id
-        			ORDER BY total_sales DESC LIMIT 5";
+        			ORDER BY total_sales DESC LIMIT 10";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();
@@ -94,7 +94,7 @@ class SanPham
 											FROM tb_sanpham
 											WHERE id = :id
 									) AND id <> :id
-									LIMIT 5;";
+									LIMIT 10";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute(['id' => $id]);
 			return $stmt->fetchAll();
@@ -198,7 +198,8 @@ class SanPham
 			return false;
 		}
 	}
-	public function updateLuotXem($id){
+	public function updateLuotXem($id)
+	{
 		try {
 			$sql = "UPDATE tb_sanpham SET luot_xem = luot_xem + 1 WHERE id = :id";
 			$stmt = $this->conn->prepare($sql);
