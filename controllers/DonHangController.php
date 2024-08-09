@@ -178,18 +178,23 @@ class DonHangController
 		$id = $_GET['id'];
 		$status = $this->modelDonHang->handleOrderAct($id, $act);
 
+		// lấy thông tin đơn hàng 
+		$donHang = $this->modelDonHang->getDetailDonHang($id);
+		//
 		$messageSuccess = '';
 		$messageFailure = '';
 
 		if ($act == 'cancel') {
 			$messageSuccess = 'Hủy đơn hàng thành công';
 			$messageFailure = "Không thể hủy đơn hàng khi đơn hàng đã được xác nhận";
+			$this->modelSanPham->hoanSoLuongSanPham($donHang['san_pham_id'], $donHang['so_luong']);
 		} elseif ($act == 'confirm') {
 			$messageSuccess = 'Nhận hàng thành công!';
 			$messageFailure = "Không thể xác nhận đơn hàng khi đơn hàng chưa được giao thành công";
 		} elseif ($act == 'refund') {
 			$messageSuccess = 'Yêu cầu hoàn hàng thành công! Nhân viên tư vấn sẽ liên hệ tới bạn để hướng dẫn tiếp theo.';
 			$messageFailure = "Không thể hoàn hàng khi đơn hàng chưa được giao thành công";
+			$this->modelSanPham->hoanSoLuongSanPham($donHang['san_pham_id'], $donHang['so_luong']);
 		} else {
 			$_SESSION['flash'] = false;
 			$_SESSION['message'] = "Hành động không hợp lệ";

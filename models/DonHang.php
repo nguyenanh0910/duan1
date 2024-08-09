@@ -120,12 +120,13 @@ class DonHang
 	public function getDetailDonHang($id)
 	{
 		try {
-			$sql = "SELECT tb_donhang.*, tb_trangthaidonhang.ten_trang_thai, 
+			$sql = "SELECT tb_donhang.*, tb_trangthaidonhang.ten_trang_thai, tb_chitietdonhang.san_pham_id, tb_chitietdonhang.so_luong,
 							tb_taikhoan.ho_ten, tb_taikhoan.email, tb_taikhoan.so_dien_thoai, tb_phuongthucthanhtoan.ten_phuong_thuc
 							FROM tb_donhang 
 							INNER JOIN tb_trangthaidonhang ON tb_donhang.trang_thai_dh_id = tb_trangthaidonhang.id
 							INNER JOIN tb_taikhoan ON tb_donhang.tai_khoan_id = tb_taikhoan.id 
 							INNER JOIN tb_phuongthucthanhtoan ON tb_donhang.phuong_thuc_tt_id = tb_phuongthucthanhtoan.id
+							INNER JOIN tb_chitietdonhang ON tb_donhang.id = tb_chitietdonhang.don_hang_id
 							WHERE tb_donhang.id = :id ";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute([':id' => $id]);

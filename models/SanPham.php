@@ -167,6 +167,19 @@ class SanPham
 			echo "Lỗi: " . $e->getMessage();
 		}
 	}
+	public function hoanSoLuongSanPham($id, $so_luong)
+	{
+		try {
+			$sql = "UPDATE tb_sanpham SET so_luong = so_luong + :so_luong WHERE id = :id";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([
+				':so_luong' => $so_luong,
+				':id' => $id
+			]);
+		} catch (Exception $e) {
+			echo "Lỗi: " . $e->getMessage();
+		}
+	}
 	public function insertBinhLuan($san_pham_id, $tai_khoan_id, $noi_dung)
 	{
 		try {
