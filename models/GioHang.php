@@ -177,5 +177,4 @@ public function deleteCart($id)
         return false;
     }
 }
-
 }

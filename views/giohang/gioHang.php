@@ -20,6 +20,12 @@
 		<div class="row">
 			<div class="col-12 col-xl-8 mb-4">
 				<div class="table-responsive cart-table table-borderless">
+					<?php if (isset($_SESSION['error_message'])): ?>
+						<div class="alert alert-danger">
+							<?= $_SESSION['error_message'] ?>
+						</div>
+						<?php unset($_SESSION['error_message']); ?>
+					<?php endif; ?>
 					<table class="table text-center">
 						<thead>
 							<tr>

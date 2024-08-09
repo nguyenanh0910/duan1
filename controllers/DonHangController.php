@@ -20,9 +20,42 @@ class DonHangController
 		$tai_khoan_id = $_SESSION['client']['id'];
 		$cartItems = $this->modelGioHang->getCartItems($tai_khoan_id);
 		$phuongThucThanhToan = $this->modelDonHang->getAllPhuongThucThanhToan();
+
+		// Kiểm tra số lượng sản phẩm trong kho
+		$outOfStockItems = [];
+		$updatedQuantities = []; // Mảng lưu số lượng sản phẩm được cập nhật
+
+		foreach ($cartItems as $item) {
+			$productId = $item['san_pham_id'];
+			$quantityInCart = $item['so_luong'];
+
+			// Lấy số lượng còn trong kho
+			$product = $this->modelSanPham->getDetailSanPham($productId);
+			$quantityInStock = $product['so_luong'];
+
+			if ($quantityInStock < $quantityInCart) {
+				$outOfStockItems[] = $productId;
+				$updatedQuantities[$productId] = $quantityInStock; // Cập nhật số lượng còn
+			}
+		}
+
+		if (!empty($outOfStockItems)) {
+			// Cập nhật số lượng cho các sản phẩm hết hàng
+			foreach ($updatedQuantities as $productId => $quantityInStock) {
+				$this->modelGioHang->updateSoLuongSP($productId, $quantityInStock, $tai_khoan_id);
+			}
+
+			// Thiết lập thông báo lỗi và quay lại trang giỏ hàng
+			$_SESSION['error_message'] = 'Có sản phẩm hết hàng trong giỏ. Số lượng sản phẩm đã được cập nhật lại. Vui lòng kiểm tra lại.';
+			header('Location: ' . BASE_URL . '?act=gio-hang');
+			exit();
+		}
+
+		// Nếu tất cả sản phẩm còn trong kho, tiếp tục yêu cầu trang thanh toán
 		require_once './views/donhang/formThanhToan.php';
 		deleteSessionError();
 	}
+
 	public function checkOut()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
