@@ -62,33 +62,41 @@
 								</p>
 								<p><strong>Danh mục</strong>: &nbsp;&nbsp;<?= $sanPham['ten_danh_muc'] ?> </p>
 							</div>
-							<div class="quality">
-								<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="POST">
-									<?php if (isset($_SESSION['message'])) {
-										$alertClass = strpos($_SESSION['message'], 'thành công') !== false ? 'alert-success' : 'alert-danger';
-										?>
-										<div class="alert <?= $alertClass ?> alert-dismissable">
-											<i
-												class="fa fa-<?= $alertClass == 'alert-success' ? 'check-circle' : 'exclamation-circle' ?> mr-2"></i>
-											<?= $_SESSION['message'] ?>
-										</div>
-										<?php unset($_SESSION['message']); // Xóa thông báo khỏi session ?>
-									<?php } ?>
-									<input type="hidden" name="id" value="<?= $sanPham['id'] ?>">
-									<div class="row align-items-center">
+							<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="POST">
+								<?php if (isset($_SESSION['message'])) {
+									$alertClass = strpos($_SESSION['message'], 'thành công') !== false ? 'alert-success' : 'alert-danger';
+									?>
+									<div class="alert <?= $alertClass ?> alert-dismissable">
+										<i
+											class="fa fa-<?= $alertClass == 'alert-success' ? 'check-circle' : 'exclamation-circle' ?> mr-2"></i>
+										<?= $_SESSION['message'] ?>
+									</div>
+									<?php unset($_SESSION['message']); // Xóa thông báo khỏi session ?>
+								<?php } ?>
+								<input type="hidden" name="id" value="<?= $sanPham['id'] ?>">
+								<div class="quality">
+									<div class="row">
 										<div class="col-md-6 col-sm-6">
-											<div class="d-flex" style="text-align:center; align-items:center">
+											<div class="input-group">
 												<h4>Số lượng :</h4>
-												<span class="input-group-btn pl-1" style="width:50%">
-													<input type="number" name="so_luong" min="1" step="1" value="1"
-														max="<?= $sanPham['so_luong'] ?>" style="width:50%; text-align:center">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"
+														data-field="so_luong"> <i class="fa fa-minus"></i> </button>
+												</span>
+												<input type="text" name="so_luong" class="input-number" min="1" value="1" step="1"
+													max="<?= $sanPham['so_luong'] ?>">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-default btn-number" data-type="plus"
+														data-field="so_luong"><i class="fa fa-plus"></i> </button>
 												</span>
 											</div>
 										</div>
-										<div class="col-md-6 col-sm-6"> <button type="submit" class="btn add-to-cart2">Thêm vào giỏ
-												hàng</button></div>
-								</form>
-							</div>
+										<div class="col-md-6 col-sm-6"> <button class="btn add-to-cart2" type="submit">Thêm vào giỏ
+												hàng</button> </div>
+
+									</div>
+								</div>
+							</form>
 						</div>
 						<div class="clearfix"></div>
 						<div class="align-self-end">

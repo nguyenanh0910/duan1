@@ -56,9 +56,15 @@
 										<div class="cart-detail"><?= $cart['ten_san_pham'] ?></div>
 									</td>
 									<td>
+										<?php if($cart['gia_khuyen_mai']) :?>
 										<div class="price" data-product-id="<?= $cart['san_pham_id'] ?>">
 											<?= fomartPrice($cart['gia_khuyen_mai']) ?>
 										</div>
+										<?php else: ?>
+											<div class="price" data-product-id="<?= $cart['san_pham_id'] ?>">
+											<?= fomartPrice($cart['gia_san_pham']) ?>
+										</div>
+										<?php endif ?>
 									</td>
 									<td class="product-quantity" style="padding-left:53px">
 										<div class="input-group">

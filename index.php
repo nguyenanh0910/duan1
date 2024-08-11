@@ -10,8 +10,6 @@ require_once './controllers/SanPhamController.php';
 require_once './controllers/TaiKhoanController.php';
 require_once './controllers/GioHangController.php';
 require_once './controllers/DonHangController.php';
-require_once './controllers/LienHeController.php';
-require_once './controllers/GioiThieuController.php';
 
 // Require toàn bộ file Models
 require_once './models/SanPham.php';
@@ -72,8 +70,8 @@ match ($act) {
 	'hoan-don-hang' => (new DonHangController())->handleOrderAct('refund'),
 
 	// liên hệ
-	'lien-he' => (new LienHeController())->formLienHe(),
+	'lien-he' => (new TrangChuController())->formLienHe(),
 
 	// Giới thiệu
-	'gioi-thieu' => (new GioiThieuController())->formGioiThieu(),
+	'gioi-thieu' => (new TrangChuController())->formGioiThieu(),
 };

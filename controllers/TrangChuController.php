@@ -19,5 +19,17 @@ class TrangChuController
 		$danhMuc = $this->modelDanhMuc->getAllDanhMuc();
 		require_once './views/home.php';
 	}
+	public function formLienHe()
+	{
+		require_once './views/lienHe.php';
+		deleteSessionError();
+		
+	}
+	public function formGioiThieu()
+	{
+		require_once './views/gioithieu.php';
+		deleteSessionError();
+		
+	}
 	
 }
