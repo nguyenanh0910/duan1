@@ -28,6 +28,7 @@ class DonHangController
 		foreach ($cartItems as $item) {
 			$productId = $item['san_pham_id'];
 			$quantityInCart = $item['so_luong'];
+			$cartItemId = $item['id'];
 
 			// Lấy số lượng còn trong kho
 			$product = $this->modelSanPham->getDetailSanPham($productId);
@@ -37,6 +38,9 @@ class DonHangController
 				$outOfStockItems[] = $productId;
 				$updatedQuantities[$productId] = $quantityInStock; // Cập nhật số lượng còn
 			}
+			if ($quantityInStock == 0) {
+				$this->modelGioHang->deleteCart($cartItemId);
+		}
 		}
 
 		if (!empty($outOfStockItems)) {

@@ -58,8 +58,9 @@ class TaiKhoanController
 	public function formEditCaNhanKhachHang()
 	{
 		$email = $_SESSION['user_client'];
+		$tai_khoan_id = $_SESSION['client']['id'];
 		$thongTin = $this->modelTaiKhoan->getTaiKhoanFromEmail($email);
-		$listDonHang = $this->modelDonHang->getAllDonHang();
+		$listDonHang = $this->modelDonHang->getDonHangByUser($tai_khoan_id);
 		require_once './views/taikhoan/editCaNhan.php';
 		deleteSessionError();
 	}

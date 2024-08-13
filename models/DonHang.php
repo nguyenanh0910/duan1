@@ -117,6 +117,20 @@ class DonHang
 			return false;
 		}
 	}
+	public function getDonHangByUser($tai_khoan_id){
+		try {
+			$sql = "SELECT tb_donhang.*, tb_trangthaidonhang.ten_trang_thai 
+			FROM tb_donhang  
+			INNER JOIN tb_trangthaidonhang ON tb_donhang.trang_thai_dh_id = tb_trangthaidonhang.id
+			WHERE tai_khoan_id = :tai_khoan_id ORDER BY ngay_dat DESC";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute([':tai_khoan_id'=>$tai_khoan_id]);
+			return $stmt->fetchAll();
+		} catch (Exception $e) {
+			echo "Lỗi" . $e->getMessage();
+			return false;
+		}
+	}
 	public function getDetailDonHang($id)
 	{
 		try {
